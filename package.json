@@ -64,10 +64,12 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "bootstrap": "^3.3.7",
+    "gsap": "^1.19.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
     "react": "^15.3.2",
     "react-addons-pure-render-mixin": "^15.3.2",
+    "react-addons-transition-group": "^15.3.2",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
     "react-komposer": "^1.13.1",
