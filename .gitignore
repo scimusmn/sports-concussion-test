@@ -1,0 +1,13 @@
+.DS_Store
+settings-development.json
+settings-production.json
+npm-debug.log
+
+node_modules
+
+# TN - Work files
+work
+
+# TN - Large assets
+*.mov
+*.wav
