@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import { Accounts } from 'meteor/accounts-base';
 
+import { Localizations } from '../../api/localizations';
 import { ConcussionTests } from '../../api/concussion-tests';
 import { upsertConcussionTest } from '../../api/methods.js';
 import faker from 'faker';
@@ -23,6 +24,40 @@ users.forEach(({ email, password, profile, roles }) => {
     Roles.addUsersToRoles(userId, roles);
   }
 });
+
+var locals = Localizations.find();
+
+if (!locals || locals.count() == 0) {
+  // Needs to be seeded
+  seedLocalizations();
+
+}
+
+function seedLocalizations() {
+
+  console.log('Seeding Localizations...');
+
+  const localKeys = ['en', 'es_MX'];
+
+  for (var i = 0; i < localKeys.length; i++) {
+
+    const lKey = localKeys[i];
+
+    // Set faker language.
+    faker.locale = lKey;
+
+    const localDoc = {
+      languageKey: lKey,
+      introTitle: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(),
+      introDescription: faker.lorem.paragraph(),
+      concussionTestIds: [faker.company.bsNoun(), faker.company.bsNoun(), faker.company.bsNoun()],
+    };
+
+    Localizations.insert(localDoc);
+
+  }
+
+}
 
 var cTests = ConcussionTests.find();
 
@@ -49,7 +84,7 @@ function seedConcussionTests() {
       introInstruction: faker.lorem.paragraph(),
       buttonInstruction: faker.lorem.paragraph(),
       scoringInstruction: faker.lorem.paragraph(),
-      scoreCategories: ['Category One', faker.company.bsNoun(), faker.company.bsNoun()],
+      scoreCategories: [faker.company.bsNoun(), faker.company.bsNoun(), faker.company.bsNoun()],
     };
 
     ConcussionTests.insert(doc);
