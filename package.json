@@ -64,6 +64,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "bootstrap": "^3.3.7",
+    "faker": "^3.1.0",
     "gsap": "^1.19.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
