@@ -25,9 +25,10 @@ users.forEach(({ email, password, profile, roles }) => {
   }
 });
 
-var locals = Localizations.find();
+var localizations = Localizations.find();
 
-if (!locals || locals.count() == 0) {
+if (!localizations || localizations.count() == 0) {
+
   // Needs to be seeded
   seedLocalizations();
 
@@ -41,29 +42,21 @@ function seedLocalizations() {
 
   for (var i = 0; i < localKeys.length; i++) {
 
-    const lKey = localKeys[i];
+    const languageKey = localKeys[i];
 
     // Set faker language.
-    faker.locale = lKey;
+    faker.locale = languageKey;
 
-    const localDoc = {
-      languageKey: lKey,
+    const localizationDoc = {
+      languageKey: languageKey,
       introTitle: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(),
       introDescription: faker.lorem.paragraph(),
-      concussionTestIds: [faker.company.bsNoun(), faker.company.bsNoun(), faker.company.bsNoun()],
+      concussionTestIds: seedConcussionTests(),
     };
 
-    Localizations.insert(localDoc);
+    Localizations.insert(localizationDoc);
 
   }
-
-}
-
-var cTests = ConcussionTests.find();
-
-if (!cTests || cTests.count() == 0) {
-  // Needs to be seeded
-  seedConcussionTests();
 
 }
 
@@ -72,6 +65,8 @@ function seedConcussionTests() {
   console.log('Seeding ConcussionTests...');
 
   const seedTests = ['Stroop', 'Go/No-go', 'Working Memory'];
+
+  let docIds = [];
 
   for (var i = 0; i < seedTests.length; i++) {
 
@@ -87,8 +82,11 @@ function seedConcussionTests() {
       scoreCategories: [faker.company.bsNoun(), faker.company.bsNoun(), faker.company.bsNoun()],
     };
 
-    ConcussionTests.insert(doc);
+    const docId = ConcussionTests.insert(doc);
+    docIds.push(docId);
 
   }
+
+  return docIds;
 
 }

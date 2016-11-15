@@ -30,10 +30,12 @@ function globalKeydown(key) {
     case 79: // O - Language toggle ENGLISH
 
       console.log('globalKeydown: Language toggle ENGLISH');
+      setLanguage('en');
       break;
     case 80: // P - Language toggle SPANISH
 
       console.log('globalKeydown: Language toggle SPANISH');
+      setLanguage('es_MX');
       break;
     case 84: // T - Test button TRIANGLE
 
@@ -68,21 +70,11 @@ function globalKeydown(key) {
 
 }
 
-/*export function OnBeamBreak(msg) {
+function setLanguage(languageKey) {
 
-  Meteor.apply('beamBreak', [{
-
-    msg: msg,
-
-  },], {
-
-    onResultReceived: (error, response) => {
-      if (error) console.warn(error.reason);
-
-      // if (response) console.log('beamBreak success:', response);
-    },
-
-  });
+  Session.set('languageKey', languageKey);
 
 }
-*/
+
+// Default to english
+setLanguage('en');
