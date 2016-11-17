@@ -16,6 +16,7 @@ import RecoverPassword from '../../ui/pages/RecoverPassword.js';
 import ResetPassword from '../../ui/pages/ResetPassword.js';
 import Signup from '../../ui/pages/Signup.js';
 import SelectTest from '../../ui/containers/SelectTest.js';
+import Test from '../../ui/containers/Test.js';
 
 const authenticate = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -40,6 +41,7 @@ Meteor.startup(() => {
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />
         <Route name="signup" path="/signup" component={ Signup } />
         <Route name="select-test" path="/select-test" component={ SelectTest } />
+        <Route name="concussion-test" path="/test/:slug" component={ Test } />
         <Route path="*" component={ NotFound } />
       </Route>
     </Router>,

@@ -24,6 +24,10 @@ ConcussionTests.schema = new SimpleSchema({
     type: String,
     label: 'The shortened title of the test.',
   },
+  slug: {
+    type: String,
+    label: 'The slug and url of the test.',
+  },
   description: {
     type: String,
     label: 'The full description of the test.',

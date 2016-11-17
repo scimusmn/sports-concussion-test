@@ -7,6 +7,9 @@ import { ConcussionTests } from '../../api/concussion-tests';
 import { upsertConcussionTest } from '../../api/methods.js';
 import faker from 'faker';
 
+// import s = require('underscore.string');
+import s from 'underscore.string';
+
 const users = [{
   email: 'admin@admin.com',
   password: 'password',
@@ -75,6 +78,7 @@ function seedConcussionTests() {
     const doc = {
       titleFull: testTitle,
       titleShort: testTitle,
+      slug: s.slugify(testTitle),
       description: faker.lorem.paragraph(),
       introInstruction: faker.lorem.paragraph(),
       buttonInstruction: faker.lorem.paragraph(),

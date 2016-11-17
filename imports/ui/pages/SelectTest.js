@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default class SelectTest extends React.Component {
 
@@ -7,6 +8,9 @@ export default class SelectTest extends React.Component {
     super(props);
 
     console.log('SelectTest:constructor');
+
+    // Bind methods to 'this'
+    this.getTestLink = this.getTestLink.bind(this);
 
     this.state = {
 
@@ -18,14 +22,10 @@ export default class SelectTest extends React.Component {
     console.log('SelectTest:componentDidMount');
   }
 
-  render() {
+  getTestLink(slug) {
 
-    return (<div>
+    return '/test/' + slug;
 
-        <h2>{this.props.localization.introTitle}</h2>
-        <p>{this.props.localization.introDescription}</p>
-
-      </div>);
   }
 
   render() {
@@ -38,10 +38,13 @@ export default class SelectTest extends React.Component {
         </Col>
       </Row>
       <Row>
-        { this.props.cTests.map(function(cTest, index) {
+        { this.props.cTests.map((cTest, index) => {
           return <Col xs={4} key={ index }>
             <h3 >{cTest.titleFull}</h3>
             <p>{cTest.introInstruction}</p>
+            <LinkContainer to={this.getTestLink(cTest.slug)}>
+              <Button>Go</Button>
+            </LinkContainer>
           </Col>;
         })}
       </Row>
