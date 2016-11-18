@@ -45,6 +45,17 @@ export default class Test extends React.Component {
 
   }
 
+  renderDemonstration() {
+
+    const vidPath = '/videos/demo-' + this.props.cTest.slug + '.mp4';
+    const demoVid = <video width='972' height='706' autoPlay='autoplay' loop>
+                      <source src={vidPath} type='video/mp4' />
+                    </video>;
+
+    return demoVid;
+
+  }
+
   render() {
 
     return <div>
@@ -62,7 +73,14 @@ export default class Test extends React.Component {
         })}
       </Row>
       <Row>
-        {this.renderActivity()}
+        <Col xs={12}>
+          {this.renderActivity()}
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12}>
+          {this.renderDemonstration()}
+        </Col>
       </Row>
     </div>;
 
