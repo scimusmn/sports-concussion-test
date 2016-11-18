@@ -8,3 +8,32 @@
 @import "module/Signup";
 
 @import "state/Navbar";
+
+
+/* Custom styles */
+
+.test-canvas {
+  background-color: rgba(40, 40, 40,0.2);
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.stroop .activity-prop {
+  background-color: rgba(140, 40, 240,0.8);
+  width: 90px;
+  height: 90px;
+}
+
+.gono-go .activity-prop {
+  background-color: rgba(240, 40, 140,0.8);
+  width: 120px;
+  height: 60px;
+}
+
+.working-memory .activity-prop {
+  background-color: rgba(40, 240, 140,0.8);
+  width: 70px;
+  height: 150px;
+}

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import Stroop from '../components/Stroop';
+import GoNoGo from '../components/GoNoGo';
+import WorkingMemory from '../components/WorkingMemory';
 
 export default class Test extends React.Component {
 
@@ -8,8 +11,6 @@ export default class Test extends React.Component {
     super(props);
 
     console.log('Test:constructor');
-
-    console.dir(props);
 
     this.state = {
 
@@ -19,6 +20,29 @@ export default class Test extends React.Component {
 
   componentDidMount() {
     console.log('Test:componentDidMount');
+
+  }
+
+  renderActivity() {
+
+    let activity = '';
+
+    switch (this.props.cTest.slug) {
+      case 'stroop':
+        activity = <Stroop localization={this.props.localization} cTest={this.props.cTest}></Stroop>;
+        break;
+      case 'gono-go':
+        activity = <GoNoGo localization={this.props.localization} cTest={this.props.cTest}></GoNoGo>;
+        break;
+      case 'working-memory':
+        activity = <WorkingMemory localization={this.props.localization} cTest={this.props.cTest}></WorkingMemory>;
+        break;
+      default:
+        console.log('Warning: activity slug not recognized. Unable to render.');
+    }
+
+    return activity;
+
   }
 
   render() {
@@ -36,6 +60,9 @@ export default class Test extends React.Component {
             <p>{category}</p>
           </Col>;
         })}
+      </Row>
+      <Row>
+        {this.renderActivity()}
       </Row>
     </div>;
 
