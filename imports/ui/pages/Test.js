@@ -19,7 +19,24 @@ export default class Test extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Test:componentDidMount');
+
+    // DOM is rendered and
+    // ready for manipulation
+    // and animations.
+
+    const demoVid = this.refs.demoVid;
+
+    demoVid.onended = function() {
+      console.log('demoVid ended');
+    };
+
+  }
+
+  componentWillUnmount() {
+
+    // DOM is about to become
+    // inaccessible. Clean up
+    // all timers ans tweens.
 
   }
 
@@ -48,7 +65,7 @@ export default class Test extends React.Component {
   renderDemonstration() {
 
     const vidPath = '/videos/demo-' + this.props.cTest.slug + '.mp4';
-    const demoVid = <video width='972' height='706' autoPlay='autoplay' loop>
+    const demoVid = <video ref='demoVid' width='972' height='706' autoPlay='autoplay' >
                       <source src={vidPath} type='video/mp4' />
                     </video>;
 
