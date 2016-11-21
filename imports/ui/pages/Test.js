@@ -1,4 +1,5 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Row, Col, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Stroop from '../components/Stroop';
@@ -11,6 +12,7 @@ export default class Test extends React.Component {
     super(props);
 
     console.log('Test:constructor');
+    console.dir(props);
 
     this.state = {
 
@@ -37,6 +39,33 @@ export default class Test extends React.Component {
     // DOM is about to become
     // inaccessible. Clean up
     // all timers ans tweens.
+
+  }
+
+  submitScore(testKey) {
+
+    // const testKey = this.props.cTest.slug;
+
+    console.log('submitscore', testKey);
+    Meteor.apply('submitScore', [{
+      testKey: testKey,
+      percentCorrect: Math.round(Math.random() * 100),
+      normalTime: Math.round(Math.random() * 100),
+      interferenceTime: Math.round(Math.random() * 100),
+      bestTime: Math.round(Math.random() * 100),
+      averageTime: Math.round(Math.random() * 100),
+      missedPairs: Math.round(Math.random() * 100),
+      falsePairs: Math.round(Math.random() * 100),
+      correctAnswers: Math.round(Math.random() * 100),
+    },], {
+
+      onResultReceived: (error, response) => {
+
+        if (error) console.warn(error.reason);
+        if (response) console.log('submitScore success:', response);
+      },
+
+    });
 
   }
 
@@ -97,6 +126,14 @@ export default class Test extends React.Component {
       <Row>
         <Col xs={12}>
           {this.renderDemonstration()}
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={4} >
+        <Button onClick={ this.submitScore(this.props.cTest.slug) }>Submit Score</Button>
+        { this.props.scores.map(function(categoryScore, index) {
+          return <p key={ index }>{categoryScore}</p>;
+        })}
         </Col>
       </Row>
     </div>;

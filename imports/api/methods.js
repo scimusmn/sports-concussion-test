@@ -3,6 +3,8 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { check } from 'meteor/check';
 import Localizations from './localizations';
 import ConcussionTests from './concussion-tests';
+import { Scores } from './scores';
+
 /*
 export const upsertConcussionTest = new ValidatedMethod({
   name: 'cTests.upsert',
@@ -24,19 +26,14 @@ export const removeConcussionTest = new ValidatedMethod({
   },
 });
 */
+
 Meteor.methods({
 
-  setLanguage(data) {
+  submitScore(data) {
 
-    check(data, {
+    check(data, Scores.schema);
 
-      languageKey: String,
-
-    });
-
-    // const localId = Races.findOne({languageKey:data.languageKey})._id;
-    // Localizations.update(localId, {$set: {active:true}});
-    // Localizations.update({ languageKey: { $not: languageKey } }, {$set: {active:true}});
+    Scores.insert(data);
 
     return true;
 

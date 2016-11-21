@@ -3,7 +3,7 @@ import { check } from 'meteor/check';
 import Documents from '../documents/documents';
 import { Localizations } from '../localizations';
 import { ConcussionTests } from '../concussion-tests';
-
+import { Scores } from '../scores';
 
 Meteor.publish('documents.list', () => Documents.find());
 
@@ -17,3 +17,6 @@ Meteor.publish('locals', () => Localizations.find());
 
 // Publish all Concussion Tests
 Meteor.publish('cTests', () => ConcussionTests.find());
+
+// Publish all Scores
+Meteor.publish('scores', () => Scores.find());

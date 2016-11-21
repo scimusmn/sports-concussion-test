@@ -2,6 +2,7 @@ import { composeWithTracker } from 'react-komposer';
 import { Meteor } from 'meteor/meteor';
 import { Localizations } from '../../api/localizations.js';
 import { ConcussionTests } from '../../api/concussion-tests.js';
+import { Scores } from '../../api/scores.js';
 import TestPage from '../pages/Test.js';
 import Loading from '../components/Loading.js';
 
@@ -13,6 +14,7 @@ const composer = (params, onData) => {
 
   const localsSubscription = Meteor.subscribe('locals');
   const cTestsSubscription = Meteor.subscribe('cTests');
+  const scoresSubscription = Meteor.subscribe('scores');
   const curTestSlug = params.routeParams.slug;
 
   if (localsSubscription.ready() && cTestsSubscription.ready()) {
@@ -27,8 +29,10 @@ const composer = (params, onData) => {
     // AND matches current slug
     const cTest = ConcussionTests.findOne({_id: { $in: testIds }, slug: curTestSlug});
 
+    const scores = Scores.find({ testKey: curTestSlug});
+
     // Pass filtered data into component
-    onData(null, { localization, cTest });
+    onData(null, { localization, cTest, scores });
 
   }
 
