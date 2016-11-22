@@ -80,6 +80,11 @@ function seedConcussionTests() {
 
     const testTitle = seedTests[i];
 
+    let scoreCategories = [];
+    if (testTitle == 'Stroop') scoreCategories = ['percentCorrect', 'normalTime', 'interferenceTime', 'difference'];
+    if (testTitle == 'Go/No-go') scoreCategories = ['percentCorrect', 'bestTime', 'averageTime'];
+    if (testTitle == 'Working Memory') scoreCategories = ['percentCorrect', 'missedPairs', 'falsePairs', 'correctAnswers'];
+
     const doc = {
       titleFull: testTitle,
       titleShort: testTitle,
@@ -87,8 +92,9 @@ function seedConcussionTests() {
       description: faker.lorem.paragraph(),
       introInstruction: faker.lorem.paragraph(),
       buttonInstruction: faker.lorem.paragraph(),
+      scoringTitle: 'Scoring ' + faker.locale,
       scoringInstruction: faker.lorem.paragraph(),
-      scoreCategories: [faker.company.bsNoun(), faker.company.bsNoun(), faker.company.bsNoun()],
+      scoreCategories: scoreCategories,
     };
 
     const docId = ConcussionTests.insert(doc);

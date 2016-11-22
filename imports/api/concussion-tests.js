@@ -40,6 +40,10 @@ ConcussionTests.schema = new SimpleSchema({
     type: String,
     label: 'The bottom button instruction of the test.',
   },
+  scoringTitle: {
+    type: String,
+    label: 'The scoring title of this test.',
+  },
   scoringInstruction: {
     type: String,
     label: 'The scoring instructions of the test.',
@@ -51,5 +55,4 @@ ConcussionTests.schema = new SimpleSchema({
 });
 
 ConcussionTests.attachSchema(ConcussionTests.schema);
-
 

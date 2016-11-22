@@ -6,6 +6,7 @@ import Stroop from '../components/Stroop';
 import GoNoGo from '../components/GoNoGo';
 import WorkingMemory from '../components/WorkingMemory';
 import Constants from '../../modules/constants';
+import { camelToTitleCase } from '../../api/utils';
 
 export default class Test extends React.Component {
 
@@ -76,32 +77,38 @@ export default class Test extends React.Component {
               </Col>
             </Row>;
     } else if (appState == Constants.STATE_PLAY_SCORE) {
-     /* jsx = <Row>
+      jsx = <Row>
               <Col xs={4}>
-                <h3>Scoring</h3>
+                <h3>{this.props.cTest.scoringTitle}</h3>
                 <p>{this.props.cTest.scoringInstruction}</p>
               </Col>
               <Col xs={8}>
-                { this.props.cTest.scoreCategories.map(function(category, index) {
-                  return <Col xs={2} key={ index }>
-                    <p>{category}</p>
-                  </Col>;
-                })}
-              </Col>
-            </Row>;*/
-            jsx = <Row>
-              <Col xs={12}>
-                { this.props.scores.map(function(score, index) {
-                  return <Col xs={2} key={ index }>
-                    <p>{score.timestamp}</p>
-                  </Col>;
-                })}
+                {this.renderScoresTable()}
               </Col>
             </Row>;
     }
 
     return jsx;
 
+  }
+
+  renderScoresTable() {
+    let jsx = '';
+
+    jsx = <div>
+            { this.props.cTest.scoreCategories.map((category, index) => {
+              return <Col xs={2} key={ index }>
+                <h3>{camelToTitleCase(category)}</h3>
+                { this.props.scores.map((score, index) => {
+                  return <p key={ index } className={((index == 0) ? 'your-score' : '')}>
+                    {score[category]}
+                  </p>;
+                })}
+              </Col>;
+            })}
+          </div>;
+
+    return jsx;
   }
 
   renderActivity() {
