@@ -11,6 +11,7 @@ const composer = (params, onData) => {
   // This session variable is
   // reactive to toggle switch
   const curLanguageKey = Session.get('languageKey');
+  const appState = Session.get('appState');
 
   const localsSubscription = Meteor.subscribe('locals');
   const cTestsSubscription = Meteor.subscribe('cTests');
@@ -19,7 +20,6 @@ const composer = (params, onData) => {
 
   if (localsSubscription.ready() && cTestsSubscription.ready()) {
 
-    console.log('Test: subscriptions ready');
     const localization = Localizations.findOne({languageKey: curLanguageKey });
 
     // Grab ids of associated tests
@@ -32,7 +32,7 @@ const composer = (params, onData) => {
     const scores = Scores.find({ testKey: curTestSlug});
 
     // Pass filtered data into component
-    onData(null, { localization, cTest, scores });
+    onData(null, { localization, cTest, scores, appState });
 
   }
 

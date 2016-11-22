@@ -28,6 +28,26 @@ Localizations.schema = new SimpleSchema({
     type: String,
     label: 'The introduction decscription of this localization.',
   },
+  beginInstruction: {
+    type: String,
+    label: 'The instruction to begin of this localization.',
+  },
+  mainMenuTitle: {
+    type: String,
+    label: 'The main menu title of this localization.',
+  },
+  navMainMenu: {
+    type: String,
+    label: 'The navigation main menu text of this localization.',
+  },
+  navHowToPlay: {
+    type: String,
+    label: 'The navigation How To Play text of this localization.',
+  },
+  navPlay: {
+    type: String,
+    label: 'The navigation Play text of this localization.',
+  },
   concussionTestIds: {
     type: [String],
     label: 'The concussion-test ids linked to this localization.',

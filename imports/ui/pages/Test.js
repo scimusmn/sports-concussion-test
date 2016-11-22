@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Stroop from '../components/Stroop';
 import GoNoGo from '../components/GoNoGo';
 import WorkingMemory from '../components/WorkingMemory';
+import Constants from '../../modules/constants';
 
 export default class Test extends React.Component {
 
@@ -28,9 +29,11 @@ export default class Test extends React.Component {
 
     const demoVid = this.refs.demoVid;
 
-    demoVid.onended = function() {
-      console.log('demoVid ended');
-    };
+    if (demoVid) {
+      demoVid.onended = function() {
+        console.log('demoVid ended');
+      };
+    }
 
   }
 
@@ -42,9 +45,9 @@ export default class Test extends React.Component {
 
   }
 
-  submitScore(testKey) {
+  submitScore() {
 
-    // const testKey = this.props.cTest.slug;
+    const testKey = this.props.cTest.slug;
 
     console.log('submitscore', testKey);
     Meteor.apply('submitScore', [{
@@ -66,6 +69,56 @@ export default class Test extends React.Component {
       },
 
     });
+
+  }
+
+  renderHeadband() {
+
+    let jsx = <h2>{this.props.cTest.titleFull}</h2>;
+    return jsx;
+
+  }
+
+  renderLowerBody() {
+
+    const appState = this.props.appState;
+    let jsx = '';
+
+    console.log('render vbody appState ', appState);
+
+    if (appState == Constants.STATE_HOW_TO_PLAY) {
+      jsx = <Row>
+              <Col xs={4}>
+                <h3>{this.props.cTest.introTitle}</h3>
+                <p>{this.props.cTest.introInstruction}</p>
+              </Col>
+              <Col xs={8}>
+                {this.renderDemonstration()}
+              </Col>
+            </Row>;
+    } else if (appState == Constants.STATE_PLAY) {
+      jsx = <Row>
+              <Col xs={12}>
+                {this.renderActivity()}
+              </Col>
+            </Row>;
+    } else if (appState == Constants.STATE_PLAY_SCORE) {
+      jsx = <Row>
+              <Col xs={4}>
+                <h3>Scoring</h3>
+                <p>{this.props.cTest.scoringInstruction}</p>
+              </Col>
+              <Col xs={8}>
+                { this.props.cTest.scoreCategories.map(function(category, index) {
+                  return <Col xs={2} key={ index }>
+                    <p>{category}</p>
+                  </Col>;
+                })}
+              </Col>
+            </Row>;
+    }
+
+    return jsx;
 
   }
 
@@ -107,35 +160,10 @@ export default class Test extends React.Component {
     return <div>
       <Row>
         <Col xs={12}>
-          <h2>{this.props.cTest.titleFull}</h2>
-          <p>{this.props.cTest.introInstruction}</p>
+          {this.renderHeadband()}
         </Col>
       </Row>
-      <Row>
-        { this.props.cTest.scoreCategories.map(function(category, index) {
-          return <Col xs={4} key={ index }>
-            <p>{category}</p>
-          </Col>;
-        })}
-      </Row>
-      <Row>
-        <Col xs={12}>
-          {this.renderActivity()}
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12}>
-          {this.renderDemonstration()}
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={4} >
-        <Button onClick={ this.submitScore(this.props.cTest.slug) }>Submit Score</Button>
-        { this.props.scores.map(function(categoryScore, index) {
-          return <p key={ index }>{categoryScore}</p>;
-        })}
-        </Col>
-      </Row>
+      {this.renderLowerBody()}
     </div>;
 
   }

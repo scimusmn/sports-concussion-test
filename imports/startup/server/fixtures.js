@@ -54,6 +54,11 @@ function seedLocalizations() {
       languageKey: languageKey,
       introTitle: faker.commerce.productAdjective() + ' ' + faker.commerce.productName(),
       introDescription: faker.lorem.paragraph(),
+      beginInstruction: 'Press the ' + faker.commerce.productAdjective() + ' button to begin.',
+      mainMenuTitle: 'Pick A ' + faker.commerce.productAdjective() + ' Test',
+      navMainMenu: 'Main menu ' + faker.locale,
+      navHowToPlay: 'How to play ' + faker.locale,
+      navPlay: 'Play ' + faker.locale,
       concussionTestIds: seedConcussionTests(),
     };
 

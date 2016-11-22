@@ -1,27 +1,48 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router';
-import PublicNavigation from './PublicNavigation.js';
-import AuthenticatedNavigation from './AuthenticatedNavigation.js';
+import Constants from '../../modules/constants';
 
-const renderNavigation = hasUser => (hasUser ? <AuthenticatedNavigation /> : <PublicNavigation />);
+export default class AppNavigation extends React.Component {
 
-const AppNavigation = ({ hasUser }) => (
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">Application Name</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      { renderNavigation(hasUser) }
-    </Navbar.Collapse>
-  </Navbar>
-);
+  constructor(props) {
+    super(props);
 
-AppNavigation.propTypes = {
-  hasUser: React.PropTypes.object,
-};
+    console.log('AppNavigation:constructor');
 
-export default AppNavigation;
+    this.state = {
+
+    };
+
+  }
+
+  componentDidMount() {
+    console.log('AppNavigation:componentDidMount');
+
+  }
+
+  renderNav() {
+
+    const appState = Session.get('appState');
+    let jsx = '';
+
+    if (appState != Constants.STATE_INTRO && appState != Constants.STATE_MAIN_MENU) {
+      jsx = <h3>
+              <span className={((appState == Constants.STATE_MAIN_MENU) ? 'active-nav' : 'inactive-nav')}>( 1 ) {this.props.localization.navMainMenu} </span>&nbsp;&nbsp;
+              <span className={((appState == Constants.STATE_HOW_TO_PLAY) ? 'active-nav' : 'inactive-nav')}>( 2 ) {this.props.localization.navHowToPlay} </span>&nbsp;&nbsp;
+              <span className={((appState == Constants.STATE_PLAY || appState == Constants.STATE_PLAY_SCORE) ? 'active-nav' : 'inactive-nav')}>( 3 ) {this.props.localization.navPlay} </span>&nbsp;&nbsp;
+            </h3>;
+    }
+
+    return jsx;
+
+  }
+
+  render() {
+
+    return <Navbar>
+            {this.renderNav()}
+          </Navbar>;
+
+  }
+}
