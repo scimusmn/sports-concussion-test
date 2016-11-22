@@ -45,33 +45,6 @@ export default class Test extends React.Component {
 
   }
 
-  submitScore() {
-
-    const testKey = this.props.cTest.slug;
-
-    console.log('submitscore', testKey);
-    Meteor.apply('submitScore', [{
-      testKey: testKey,
-      percentCorrect: Math.round(Math.random() * 100),
-      normalTime: Math.round(Math.random() * 100),
-      interferenceTime: Math.round(Math.random() * 100),
-      bestTime: Math.round(Math.random() * 100),
-      averageTime: Math.round(Math.random() * 100),
-      missedPairs: Math.round(Math.random() * 100),
-      falsePairs: Math.round(Math.random() * 100),
-      correctAnswers: Math.round(Math.random() * 100),
-    },], {
-
-      onResultReceived: (error, response) => {
-
-        if (error) console.warn(error.reason);
-        if (response) console.log('submitScore success:', response);
-      },
-
-    });
-
-  }
-
   renderHeadband() {
 
     let jsx = <h2>{this.props.cTest.titleFull}</h2>;
@@ -103,7 +76,7 @@ export default class Test extends React.Component {
               </Col>
             </Row>;
     } else if (appState == Constants.STATE_PLAY_SCORE) {
-      jsx = <Row>
+     /* jsx = <Row>
               <Col xs={4}>
                 <h3>Scoring</h3>
                 <p>{this.props.cTest.scoringInstruction}</p>
@@ -112,6 +85,15 @@ export default class Test extends React.Component {
                 { this.props.cTest.scoreCategories.map(function(category, index) {
                   return <Col xs={2} key={ index }>
                     <p>{category}</p>
+                  </Col>;
+                })}
+              </Col>
+            </Row>;*/
+            jsx = <Row>
+              <Col xs={12}>
+                { this.props.scores.map(function(score, index) {
+                  return <Col xs={2} key={ index }>
+                    <p>{score.timestamp}</p>
                   </Col>;
                 })}
               </Col>

@@ -21,6 +21,11 @@ Scores.schema = new SimpleSchema({
     label: 'The test that generated this score.',
     optional: false,
   },
+  timestamp: {
+    type: Number,
+    label: 'The timestamp taken when this score was generated.',
+    optional: false,
+  },
   percentCorrect: {
     type: Number,
     label: 'Percent correct of this score.',

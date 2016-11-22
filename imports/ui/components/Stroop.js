@@ -1,6 +1,8 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TweenMax from 'gsap';
+import Constants from '../../modules/constants';
 
 export default class Stroop extends React.Component {
 
@@ -11,6 +13,7 @@ export default class Stroop extends React.Component {
 
     };
 
+    this.testCompleted = this.testCompleted.bind(this);
     this.fpoActivityAction = this.fpoActivityAction.bind(this);
 
   }
@@ -51,10 +54,41 @@ export default class Stroop extends React.Component {
 
   }
 
+  testCompleted() {
+
+    const testKey = this.props.cTest.slug;
+
+    Meteor.apply('submitScore', [{
+      testKey: testKey,
+      timestamp: new Date().getTime(),
+      percentCorrect: Math.round(Math.random() * 100),
+      normalTime: Math.round(Math.random() * 100),
+      interferenceTime: Math.round(Math.random() * 100),
+      bestTime: Math.round(Math.random() * 100),
+      averageTime: Math.round(Math.random() * 100),
+      missedPairs: Math.round(Math.random() * 100),
+      falsePairs: Math.round(Math.random() * 100),
+      correctAnswers: Math.round(Math.random() * 100),
+    },], {
+
+      onResultReceived: (error, response) => {
+
+        if (error) console.warn(error.reason);
+        if (response) console.log('submitScore success:', response);
+
+        // Progress to score screen.
+        Session.set('appState', Constants.STATE_PLAY_SCORE);
+
+      },
+
+    });
+
+  }
+
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      <div ref='activityProp' className='activity-prop'>{this.props.cTest.titleFull}<br/>Test</div>
+      <div ref='activityProp' className='activity-prop' onClick={this.testCompleted}>{this.props.cTest.titleFull}<br/>Test</div>
     </div>;
 
   }
