@@ -118,7 +118,7 @@ function controlPress(num) {
 
         // Navigate to main menu
         Session.set('appState', Constants.STATE_MAIN_MENU);
-        browserHistory.push('/select-test/');
+        browserHistory.push('/');
         break;
       case 2:
         Session.set('appState', Constants.STATE_HOW_TO_PLAY);
