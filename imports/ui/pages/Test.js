@@ -6,7 +6,7 @@ import Stroop from '../components/Stroop';
 import GoNoGo from '../components/GoNoGo';
 import WorkingMemory from '../components/WorkingMemory';
 import Constants from '../../modules/constants';
-import { camelToTitleCase } from '../../api/utils';
+import { camelToTitleCase } from '../../modules/utils';
 
 export default class Test extends React.Component {
 
