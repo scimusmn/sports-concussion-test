@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TweenMax from 'gsap';
+import StroopWord from './StroopWord';
 import Constants from '../../modules/constants';
 
 export default class Stroop extends React.Component {
@@ -14,7 +15,6 @@ export default class Stroop extends React.Component {
     };
 
     this.testCompleted = this.testCompleted.bind(this);
-    this.fpoActivityAction = this.fpoActivityAction.bind(this);
 
   }
 
@@ -24,7 +24,7 @@ export default class Stroop extends React.Component {
     // ready for manipulation
     // and animations.
 
-    this.fpoActivityAction();
+    this.beginStroopTest();
 
   }
 
@@ -34,23 +34,57 @@ export default class Stroop extends React.Component {
     // inaccessible. Clean up
     // all timers ans tweens.
 
-    const target = this.refs.activityProp;
-    TweenLite.killTweensOf(target);
+  }
+
+  beginStroopTest() {
+
+    this.nextStroopWord();
 
   }
 
-  fpoActivityAction() {
+  nextStroopWord() {
 
-    const target = this.refs.activityProp;
+    const stroopWord = this.fishRandomColor();
+    const colorKey = this.fishRandomColor();
+    const stroopColor = Constants.COLOR_COLORS[colorKey];
 
-    const rTime = Math.random() * 2 + 1;
-    const rX = Math.random() * 400;
-    const rY = Math.random() * 300;
-    const rRot = Math.random() * 360;
-    const rScale = Math.random() * 4 - 2;
-    const rOpac = Math.random();
+    Session.set('stroopWord', stroopWord);
+    Session.set('stroopColor', stroopColor);
 
-    TweenMax.to(target, rTime, {x: rX, y: rY, rotation: rRot, scale: rScale, opacity: rOpac, onComplete: this.fpoActivityAction});
+    console.log('-> nextStroopWord', stroopWord, stroopColor);
+
+    setTimeout(() => {
+      this.nextStroopWord();
+    }, 4000);
+
+  }
+
+  getStroopWord() {
+
+    let word = '';
+    if (Session.get('stroopWord') != '') {
+      word = Session.get('stroopWord');
+    }
+
+    return word;
+
+  }
+
+  getStroopColor() {
+
+    let color = '';
+    if (Session.get('stroopColor') != '') {
+      color = Session.get('stroopColor');
+    }
+
+    return color;
+
+  }
+
+  fishRandomColor() {
+
+    const color = Constants.COLOR_WORDS[Math.floor(Math.random() * Constants.COLOR_WORDS.length)];
+    return color;
 
   }
 
@@ -88,7 +122,7 @@ export default class Stroop extends React.Component {
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      <div ref='activityProp' className='activity-prop' onClick={this.testCompleted}>{this.props.cTest.titleFull}<br/>Test</div>
+      <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
     </div>;
 
   }
