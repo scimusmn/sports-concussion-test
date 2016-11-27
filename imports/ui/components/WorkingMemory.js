@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TweenMax from 'gsap';
 import Constants from '../../modules/constants';
+import { setTrianglePressCallback } from '../../startup/client/key-map';
 
 export default class WorkingMemory extends React.Component {
 
@@ -16,6 +17,13 @@ export default class WorkingMemory extends React.Component {
     this.fpoActivityAction = this.fpoActivityAction.bind(this);
     this.testCompleted = this.testCompleted.bind(this);
 
+    // Set keyboard callbacks
+    setTrianglePressCallback(this.onTrianglePress);
+
+  }
+
+  onTrianglePress() {
+    console.log('WorkingMemory::onTrianglePress()');
   }
 
   componentDidMount() {

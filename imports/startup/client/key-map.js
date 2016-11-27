@@ -140,6 +140,9 @@ function trianglePress() {
     case Constants.STATE_INTRO:
       Session.set('appState', Constants.STATE_MAIN_MENU);
       break;
+    case Constants.STATE_PLAY:
+      trianglePressCallback();
+      break;
   }
 
   // TODO - If current game is
@@ -151,10 +154,26 @@ function colorPress(color) {
   const appState = Session.get('appState');
 
   if (appState == Constants.STATE_PLAY) {
-    console.log('Trigger color press: ' + color);
+    colorPressCallback(color);
   }
 
 }
+
+var colorPressCallback = function(color) {};
+
+export var setColorPressCallback = function(func) {
+
+  colorPressCallback = func;
+
+};
+
+var trianglePressCallback = function() {};
+
+export var setTrianglePressCallback = function(func) {
+
+  trianglePressCallback = func;
+
+};
 
 // Default to english
 setLanguage('en');

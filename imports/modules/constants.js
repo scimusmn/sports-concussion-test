@@ -12,6 +12,10 @@ Constants.TEST_STROOP = 'stroop';
 Constants.TEST_GONOGO = 'gono-go';
 Constants.TEST_WORKING_MEMORY = 'working-memory';
 
+// Stroop
+Constants.STROOP_TOTAL_ATTEMPTS = 4;
+Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
+
 // Stroop colors
 Constants.COLOR_WORDS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 Constants.COLOR_COLORS = {red:'#FF0000',
