@@ -41,18 +41,6 @@ export default class Stroop extends React.Component {
 
   }
 
-  beginStroopTest() {
-
-    // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('startTime', 0);
-    Session.set('guessTime', 0);
-
-    this.resetStroopWord();
-
-  }
-
   onColorPress(color) {
 
     const correctAnswer = Session.get('stroopColorKey');
@@ -72,6 +60,18 @@ export default class Stroop extends React.Component {
     // Total attempts
     const attemptCount = Session.get('attemptCount');
     Session.set('attemptCount', attemptCount + 1);
+
+    this.resetStroopWord();
+
+  }
+
+  beginStroopTest() {
+
+    // Ensure all scores are reset
+    Session.set('attemptCount', 0);
+    Session.set('correctCount', 0);
+    Session.set('startTime', 0);
+    Session.set('guessTime', 0);
 
     this.resetStroopWord();
 

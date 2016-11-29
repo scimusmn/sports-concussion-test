@@ -14,8 +14,21 @@ export default class WorkingMemory extends React.Component {
 
     };
 
+    this.symbols = ['/images/wm_1.png',
+                      '/images/wm_2.png',
+                      '/images/wm_3.png',
+                      '/images/wm_4.png',
+                      '/images/wm_5.png',
+                      '/images/wm_6.png',
+                      '/images/wm_7.png',];
+
     this.fpoActivityAction = this.fpoActivityAction.bind(this);
     this.testCompleted = this.testCompleted.bind(this);
+    this.onTrianglePress = this.onTrianglePress.bind(this);
+
+    this.symbolOrder = [];
+    this.currentSymbol = '';
+    this.currentSymbolIndex = 0;
 
     // Set keyboard callbacks
     setTrianglePressCallback(this.onTrianglePress);
@@ -24,6 +37,28 @@ export default class WorkingMemory extends React.Component {
 
   onTrianglePress() {
     console.log('WorkingMemory::onTrianglePress()');
+    /*
+        const correctAnswer = Session.get('stroopColorKey');
+
+        if (!correctAnswer || correctAnswer == '') return;
+
+        if (color == correctAnswer) {
+          // Correct
+          console.log('Stroop: Correct');
+          const correctCount = Session.get('correctCount');
+          Session.set('correctCount', correctCount + 1);
+        } else {
+          // Incorrect
+          console.log('Stroop: Incorrect');
+        }
+
+        // Total attempts
+        const attemptCount = Session.get('attemptCount');
+        Session.set('attemptCount', attemptCount + 1);
+*/
+
+    // this.resetMemorySymbol();
+
   }
 
   componentDidMount() {
@@ -32,7 +67,9 @@ export default class WorkingMemory extends React.Component {
     // ready for manipulation
     // and animations.
 
-    this.fpoActivityAction();
+    // this.fpoActivityAction();
+
+    this.beginMemoryTest();
 
   }
 
@@ -42,8 +79,90 @@ export default class WorkingMemory extends React.Component {
     // inaccessible. Clean up
     // all timers ans tweens.
 
-    const target = this.refs.activityProp;
-    TweenLite.killTweensOf(target);
+    // const target = this.refs.activityProp;
+    // TweenLite.killTweensOf(target);
+
+  }
+
+  beginMemoryTest() {
+
+    // Generate symbol order
+    this.symbolOrder = [];
+    for (var i = 0; i < Constants.WM_SYMBOLS_PER_TEST; i++) {
+
+      const r = Math.floor(Math.random() * this.symbols.length);
+      const rSymbol = this.symbols[r];
+      console.log('this.symbols...', this.symbols.length, r, rSymbol);
+      this.symbolOrder.push(rSymbol);
+
+    }
+
+    console.log('symbolOrder', this.symbolOrder);
+
+    // Ensure all scores are reset
+    Session.set('attemptCount', 0);
+    Session.set('correctCount', 0);
+    Session.set('wmCurrentSymbol', '');
+
+    this.currentSymbolIndex = 0;
+
+    this.resetMemorySymbol();
+
+  }
+
+  resetMemorySymbol() {
+
+    Session.set('wmCurrentSymbolPath', '');
+
+    // TODO - show "Correct' or "Incorrect"
+    // feedback here with a beat to reset.
+
+    if (Session.get('attemptCount') >= Constants.WM_SYMBOLS_PER_TEST) {
+
+      // Test complete
+      console.log('WM test complete');
+      this.testCompleted();
+
+    } else {
+
+      setTimeout(() => {
+        this.nextMemorySymbol();
+      }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
+
+    }
+
+  }
+
+  nextMemorySymbol() {
+
+    // Total attempts
+    const attemptCount = Session.get('attemptCount');
+    Session.set('attemptCount', attemptCount + 1);
+
+    this.currentSymbolIndex++;
+    const nextSymbol = this.symbolOrder[this.currentSymbolIndex];
+
+    Session.set('wmCurrentSymbolPath', nextSymbol);
+
+    console.log('-> nextMemorySymbol', nextSymbol);
+
+    setTimeout(() => {
+      this.resetMemorySymbol();
+    }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
+
+  }
+
+  renderCurrentTestSymbol() {
+
+    let jsx = '';
+
+    const symbolPath = Session.get('wmCurrentSymbolPath');
+
+    if (symbolPath && symbolPath != '') {
+      jsx = <img src={symbolPath}/>;
+    }
+
+    return jsx;
 
   }
 
@@ -96,7 +215,7 @@ export default class WorkingMemory extends React.Component {
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      <div ref='activityProp' className='activity-prop' onClick={this.testCompleted}>{this.props.cTest.titleFull}<br/>Test</div>
+      {this.renderCurrentTestSymbol()}
     </div>;
 
   }

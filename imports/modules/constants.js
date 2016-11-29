@@ -13,7 +13,7 @@ Constants.TEST_GONOGO = 'gono-go';
 Constants.TEST_WORKING_MEMORY = 'working-memory';
 
 // Stroop
-Constants.STROOP_TOTAL_ATTEMPTS = 4;
+Constants.STROOP_TOTAL_ATTEMPTS = 10;
 Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
 
 // Stroop colors
@@ -24,6 +24,14 @@ Constants.COLOR_COLORS = {red:'#FF0000',
                           green:'#00FF00',
                           blue:'#0000FF',
                           purple:'#800080',};
+
+// Go No Go
+Constants.GNG_SYMBOLS_PER_TEST = 10;
+Constants.GNG_DELAY_BETWEEN_SYMBOLS = 3000;
+
+// Working Memory
+Constants.WM_SYMBOLS_PER_TEST = 10;
+Constants.WM_DELAY_BETWEEN_SYMBOLS = 1000;
 
 // Freeze all definitions so
 // they cannot be changed.
