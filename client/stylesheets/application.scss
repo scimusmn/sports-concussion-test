@@ -1,6 +1,7 @@
 @import "base/extends";
 @import "base/animations";
 @import "base/forms";
+@import "base/colors";
 
 @import "module/Loading";
 @import "module/Login";
@@ -12,8 +13,45 @@
 
 /* Custom styles */
 
+body {
+  background: url('images/background.png');
+  width: 1920px;
+  height: 1080px;
+  color: $sports-white;
+  color:  white;
+}
+
+/* Top Nav Bar */
+.top-nav-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 150px;
+}
+
+.circle-container {
+  width: 90px;
+  height: 90px;
+}
+
+.circle {
+  width: 100%;
+  border-radius:50%;
+  border: 30px solid;
+  border-color: $sports-dark-gray;
+  text-align:center;
+  font-size: 48px;
+  padding:50% 0;
+  line-height:0;
+  position:relative;
+  background: #38a9e4;
+  color: white;
+}
+
+
+
 .test-canvas {
-  background-color: rgba(40, 40, 40,0.2);
+  background-color: rgba(240, 240, 240,0.2);
   width: 400px;
   height: 300px;
   overflow: hidden;
