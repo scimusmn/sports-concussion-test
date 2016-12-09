@@ -26,19 +26,21 @@ export default class AppNavigation extends React.Component {
     let jsx = '';
 
     if (appState != Constants.STATE_INTRO && appState != Constants.STATE_MAIN_MENU) {
-      jsx =   <div className='top-nav-container'>
-                <div className='circle-container'>
-                  <div className='circle'>
-                    <p>3</p>
-                  </div>
-                </div>
-                <br/><br/>
-                <h3>
+      jsx = <div className='top-nav-container'>
 
-                <span className={((appState == Constants.STATE_MAIN_MENU) ? 'active-nav' : 'inactive-nav')}>( 1 ) {this.props.localization.navMainMenu} </span>&nbsp;&nbsp;
-                <span className={((appState == Constants.STATE_HOW_TO_PLAY) ? 'active-nav' : 'inactive-nav')}>( 2 ) {this.props.localization.navHowToPlay} </span>&nbsp;&nbsp;
-                <span className={((appState == Constants.STATE_PLAY || appState == Constants.STATE_PLAY_SCORE) ? 'active-nav' : 'inactive-nav')}>( 3 ) {this.props.localization.navPlay} </span>&nbsp;&nbsp;
-              </h3>
+              <div className={((appState == Constants.STATE_MAIN_MENU) ? 'nav-item first active' : 'nav-item first inactive')}>
+                <div className='circle'><span>1</span></div>
+                <span className='nav-title'> {this.props.localization.navMainMenu} </span>
+              </div>
+              <div className={((appState == Constants.STATE_HOW_TO_PLAY) ? 'nav-item second active' : 'nav-item second inactive')}>
+                <div className='circle'><span>2</span></div>
+                <span className='nav-title'> {this.props.localization.navHowToPlay} </span>
+              </div>
+              <div className={((appState == Constants.STATE_PLAY) ? 'nav-item third active' : 'nav-item third inactive')}>
+                <div className='circle'><span>3</span></div>
+                <span className='nav-title'> {this.props.localization.navPlay} </span>
+              </div>
+
             </div>;
     }
 

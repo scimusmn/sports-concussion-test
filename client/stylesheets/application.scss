@@ -24,31 +24,74 @@ body {
 /* Top Nav Bar */
 .top-nav-container {
   position: absolute;
-  top: 0px;
+  top: 40px;
   left: 0px;
   height: 150px;
 }
 
-.circle-container {
-  width: 90px;
-  height: 90px;
+.nav-item {
+  position: absolute;
+  float: left;
+  width: 600px;
+}
+
+.nav-item.first {
+  left: 295px;
+}
+
+.nav-item.second {
+  left: 847px;
+}
+
+.nav-item.third {
+  left: 1423px;
+}
+
+.nav-item.active .circle {
+  border-color: $sports-yellow;
+}
+
+.nav-item.inactive .circle {
+  border-color: $sports-dark-gray;
+}
+
+.nav-item.active .nav-title {
+  color: $sports-yellow;
+}
+
+.nav-item.inactive .nav-title {
+  color: $sports-gray;
+}
+
+.nav-item .nav-title {
+  padding-left: 20px;
+  margin-top: 35px;
+  font-size: 24px;
+  float: left;
 }
 
 .circle {
-  width: 100%;
-  border-radius:50%;
-  border: 30px solid;
-  border-color: $sports-dark-gray;
+
+  float: left;
   text-align:center;
   font-size: 48px;
-  padding:50% 0;
-  line-height:0;
-  position:relative;
-  background: #38a9e4;
-  color: white;
+  background: $sports-white;
+  border: 15px solid;
+  border-color: $sports-dark-gray;
+  padding-top: 2%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  color: $sports-black;
+  margin:0px;
+
 }
 
+.page-container {
 
+  position:absolute;
+  top: 250px;
+}
 
 .test-canvas {
   background-color: rgba(240, 240, 240,0.2);
@@ -73,18 +116,6 @@ body {
   background-color: rgba(40, 240, 140,0.8);
   width: 70px;
   height: 150px;
-}
-
-.active-nav {
-  background-color: rgba(55, 240, 10, 0.6);
-}
-
-.inactive-nav {
-  background-color: none;
-}
-
-.inactive-nav {
-  background-color: none;
 }
 
 .your-score {

@@ -74,7 +74,7 @@ export default class SelectTest extends React.Component {
 
   render() {
 
-    return <div>
+    return <div className='page-container'>
       <Row>
         <Col xs={12}>
           {this.renderHeadband()}

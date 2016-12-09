@@ -4,7 +4,7 @@ import AppNavigation from '../containers/AppNavigation.js';
 
 const App = ({ children }) => (
   <div>
-    <AppNavigation />
+    <AppNavigation/>
     <Grid>
       { children }
     </Grid>
