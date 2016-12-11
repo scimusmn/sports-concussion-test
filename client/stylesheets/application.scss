@@ -17,11 +17,10 @@ body {
   background: url('images/background.png');
   width: 1920px;
   height: 1080px;
-  color: $sports-white;
-  color:  white;
+  color: $sports-white !important;
 }
 
-/* Top Nav Bar */
+/* Top Navigation */
 .top-nav-container {
   position: absolute;
   top: 40px;
@@ -87,10 +86,31 @@ body {
 
 }
 
-.page-container {
-
+/* Main Content Area */
+.main-container {
   position:absolute;
-  top: 250px;
+  top: 178px;
+  left: 237px;
+  width: 1443px;
+  height: 906px;
+  background-color: $sports-dark-gray;
+}
+
+.main-container .headband {
+  position:absolute;
+  top: 60px;
+  left: -15px;
+  width: 1473px;
+  height: 134px;
+  background-color: $sports-orange;
+}
+
+.main-container .content {
+  position:absolute;
+  top: 197px;
+  left: 0px;
+  width: 100%;
+  background-color: none;
 }
 
 .test-canvas {

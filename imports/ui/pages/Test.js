@@ -146,13 +146,13 @@ export default class Test extends React.Component {
 
   render() {
 
-    return <div className='page-container'>
-      <Row>
-        <Col xs={12}>
-          {this.renderHeadband()}
-        </Col>
-      </Row>
-      {this.renderLowerBody()}
+    return <div className='main-container'>
+      <div className='headband'>
+        {this.renderHeadband()}
+      </div>
+      <div className='content'>
+        {this.renderLowerBody()}
+      </div>
     </div>;
 
   }

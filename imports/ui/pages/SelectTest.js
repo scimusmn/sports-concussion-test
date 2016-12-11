@@ -74,13 +74,13 @@ export default class SelectTest extends React.Component {
 
   render() {
 
-    return <div className='page-container'>
-      <Row>
-        <Col xs={12}>
-          {this.renderHeadband()}
-          {this.renderLowerBody()}
-        </Col>
-      </Row>
+    return <div className='main-container'>
+      <div className='headband'>
+        {this.renderHeadband()}
+      </div>
+      <div className='content'>
+        {this.renderLowerBody()}
+      </div>
     </div>;
 
   }
