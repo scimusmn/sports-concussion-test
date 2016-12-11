@@ -36,9 +36,9 @@ export default class SelectTest extends React.Component {
     let jsx = '';
 
     if (appState == Constants.STATE_INTRO) {
-      jsx = <h2>{this.props.localization.introTitle}</h2>;
+      jsx = <h2 className='centered'>{this.props.localization.introTitle}</h2>;
     } else if (appState == Constants.STATE_MAIN_MENU) {
-      jsx = <h2>{this.props.localization.mainMenuTitle}</h2>;
+      jsx = <h2 className='centered'>{this.props.localization.mainMenuTitle}</h2>;
     }
 
     return jsx;
@@ -51,10 +51,10 @@ export default class SelectTest extends React.Component {
     let jsx = '';
 
     if (appState == Constants.STATE_INTRO) {
-      jsx = <div>
-              <p>{this.props.localization.introDescription}</p>
+      jsx = <div className='divide-intro'>
+              <p className='intro'>{this.props.localization.introDescription}</p>
               <hr/>
-              <p><em>{this.props.localization.beginInstruction}</em></p>
+              <p className='instruct'><span className='triangle'></span><em>{this.props.localization.beginInstruction}</em></p>
             </div>;
     } else if (appState == Constants.STATE_MAIN_MENU) {
       jsx = <div>
@@ -78,7 +78,7 @@ export default class SelectTest extends React.Component {
       <div className='headband'>
         {this.renderHeadband()}
       </div>
-      <div className='content'>
+      <div className='lower-body'>
         {this.renderLowerBody()}
       </div>
     </div>;

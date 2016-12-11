@@ -48,7 +48,7 @@ export default class Test extends React.Component {
 
   renderHeadband() {
 
-    let jsx = <h2>{this.props.cTest.titleFull}</h2>;
+    let jsx = <h2 className='leftAlign'>{this.props.cTest.titleFull}</h2>;
     return jsx;
 
   }
@@ -150,7 +150,7 @@ export default class Test extends React.Component {
       <div className='headband'>
         {this.renderHeadband()}
       </div>
-      <div className='content'>
+      <div className='lower-body'>
         {this.renderLowerBody()}
       </div>
     </div>;
