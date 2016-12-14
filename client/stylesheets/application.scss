@@ -2,6 +2,7 @@
 @import "base/animations";
 @import "base/forms";
 @import "base/colors";
+@import "base/fonts";
 
 @import "module/Loading";
 @import "module/Login";
@@ -18,6 +19,7 @@ body {
   width: 1920px;
   height: 1080px;
   color: $sports-white !important;
+  font-family: 'Avenir Next Condensed';
 }
 
 /* Top Navigation */
