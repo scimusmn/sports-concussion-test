@@ -32,9 +32,13 @@ ConcussionTests.schema = new SimpleSchema({
     type: String,
     label: 'The full description of the test.',
   },
-  introInstruction: {
+  demoTitle: {
     type: String,
-    label: 'The introductory instructions of the test.',
+    label: 'The demo header of the test.',
+  },
+  demoInstruction: {
+    type: String,
+    label: 'The demo instructions of the test.',
   },
   buttonInstruction: {
     type: String,

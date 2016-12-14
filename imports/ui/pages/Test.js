@@ -61,31 +61,37 @@ export default class Test extends React.Component {
     console.log('render vbody appState ', appState);
 
     if (appState == Constants.STATE_HOW_TO_PLAY) {
-      jsx = <Row>
-              <Col xs={4}>
-                <h3>{this.props.cTest.introTitle}</h3>
-                <p>{this.props.cTest.introInstruction}</p>
-              </Col>
-              <Col xs={8}>
-                {this.renderDemonstration()}
-              </Col>
-            </Row>;
+      jsx = <div className='divide-vertical'>
+              <Row>
+                <Col xs={4} className='leftCol'>
+                  <h3>{this.props.cTest.demoTitle}</h3>
+                  <p>{this.props.cTest.demoInstruction}</p>
+                </Col>
+                <Col xs={8} className='rightCol'>
+                  {this.renderDemonstration()}
+                </Col>
+              </Row>
+            </div>;
     } else if (appState == Constants.STATE_PLAY) {
-      jsx = <Row>
-              <Col xs={12}>
-                {this.renderActivity()}
-              </Col>
-            </Row>;
+      jsx = <div className='divide-horizontal'>
+              <Row>
+                <Col xs={12}>
+                  {this.renderActivity()}
+                </Col>
+              </Row>
+            </div>;
     } else if (appState == Constants.STATE_PLAY_SCORE) {
-      jsx = <Row>
-              <Col xs={4}>
-                <h3>{this.props.cTest.scoringTitle}</h3>
-                <p>{this.props.cTest.scoringInstruction}</p>
-              </Col>
-              <Col xs={8}>
-                {this.renderScoresTable()}
-              </Col>
-            </Row>;
+      jsx = <div className='divide-vertical'>
+              <Row>
+                <Col xs={4} className='leftCol'>
+                  <h3>{this.props.cTest.scoringTitle}</h3>
+                  <p>{this.props.cTest.scoringInstruction}</p>
+                </Col>
+                <Col xs={8}>
+                  {this.renderScoresTable()}
+                </Col>
+              </Row>
+            </div>;
     }
 
     return jsx;
