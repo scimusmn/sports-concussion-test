@@ -150,6 +150,51 @@ export default class Test extends React.Component {
 
   }
 
+  renderButtonGuide() {
+    let jsx = '';
+
+    if (this.props.appState == Constants.STATE_PLAY) {
+
+      switch (this.props.cTest.slug) {
+        case 'stroop':
+          jsx = <div className='button-guide'>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorRed}</p>
+                  </div>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorOrange}</p>
+                  </div>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorYellow}</p>
+                  </div>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorGreen}</p>
+                  </div>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorBlue}</p>
+                  </div>
+                  <div className='rect-btn'>
+                    <p>{this.props.localization.colorPurple}</p>
+                  </div>
+                </div>;
+          break;
+        case 'gono-go':
+        case 'working-memory':
+          jsx = <div className='button-guide'>
+                  <p>
+                    <span className='triangle'></span><span className='tag'>{this.props.localization.beginInstruction}</span>
+                  </p>
+                </div>;
+          break;
+        default:
+          console.log('Warning: activity slug not recognized. Unable to render.');
+      }
+
+    }
+
+    return jsx;
+  }
+
   render() {
 
     return <div className='main-container'>
@@ -158,6 +203,7 @@ export default class Test extends React.Component {
       </div>
       <div className='lower-body'>
         {this.renderLowerBody()}
+        {this.renderButtonGuide()}
       </div>
     </div>;
 

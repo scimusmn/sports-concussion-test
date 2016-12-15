@@ -53,7 +53,7 @@ export default class SelectTest extends React.Component {
     if (appState == Constants.STATE_INTRO) {
       jsx = <div className='divide-horizontal intro'>
               <p className='descrip'>{this.props.localization.introDescription}</p>
-              <div className='instruct'><p><span className='triangle'></span><span className='tag'>{this.props.localization.beginInstruction}</span></p></div>
+              <div className='button-guide'><p><span className='triangle'></span><span className='tag'>{this.props.localization.beginInstruction}</span></p></div>
             </div>;
     } else if (appState == Constants.STATE_MAIN_MENU) {
       jsx = <div className='divide-thirds main-menu'>

@@ -187,40 +187,11 @@ export default class Stroop extends React.Component {
 
   }
 
-  renderButtonGuide() {
-
-    let jsx = <div className='button-guide'>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorRed}</p>
-        </div>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorOrange}</p>
-        </div>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorYellow}</p>
-        </div>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorGreen}</p>
-        </div>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorBlue}</p>
-        </div>
-        <div className='rect-btn'>
-          <p>{this.props.localization.colorPurple}</p>
-        </div>
-      </div>;
-
-
-    return jsx;
-  }
-
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
-      {this.renderButtonGuide()}
-
-    </div>;
+              <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
+          </div>;
 
   }
 }
