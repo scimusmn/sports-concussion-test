@@ -48,12 +48,12 @@ body {
   left: 1423px;
 }
 
-.nav-item.active .circle {
+.active .circle {
   border-color: $sports-yellow;
 }
 
-.nav-item.inactive .circle {
-  border-color: $sports-dark-gray;
+.inactive .circle {
+  border-color: $sports-gray;
 }
 
 .nav-item.active .nav-title {
@@ -95,7 +95,7 @@ body {
   left: 237px;
   width: 1443px;
   height: 908px;
-  background-color: $sports-dark-gray;
+  /*background-color: $sports-dark-gray;*/
 }
 
 .main-container .headband {
@@ -109,9 +109,10 @@ body {
 
 .main-container .lower-body {
   position:absolute;
-  top: 197px;
+  top: 194px;
   left: 0px;
   width: 100%;
+  height: 710px;
   background-color: none;
 }
 
@@ -129,19 +130,27 @@ body {
 }
 
 /* Lower body styles */
-.lower-body .divide-horizontal {
-  background-color: transparent;
-  background-image: linear-gradient(0deg, rgba(255,255,0,0.5) 0px, rgba(255,255,0,0.5) 486px, transparent 487px, transparent 508px, rgba(255,255,0,0.5) 509px, rgba(255,255,0,0.5));
+.lower-body {
   width: 100%;
   height: 100%;
 }
 
-.lower-body .divide-vertical {
+.lower-body .divide-horizontal {
+  height: 100%;
+  background-color: transparent;
+  background-image: linear-gradient(180deg, $sports-dark-gray 0px, $sports-dark-gray 487px, transparent 487px, transparent 510px, $sports-dark-gray 510px, $sports-dark-gray);
+}
 
+.lower-body .divide-vertical {
+  height: 100%;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, $sports-dark-gray 0px, $sports-dark-gray 454px, transparent 454px, transparent 473px, $sports-dark-gray 473px, $sports-dark-gray);
 }
 
 .lower-body .divide-thirds {
-
+  height: 100%;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, $sports-dark-gray 0px, $sports-dark-gray 467px, transparent 467px, transparent 486px, $sports-dark-gray 486px, $sports-dark-gray 955px, transparent 955px, transparent 976px, $sports-dark-gray 976px, $sports-dark-gray);
 }
 
 .lower-body .leftCol {
@@ -167,22 +176,23 @@ body {
 
 /* Intro (horizontally divided) */
 .lower-body .intro {
-  width: 100%;
   height: 100%;
   text-align: center;
   font-size: 30px;
 }
 
-.lower-body .intro .intro {
+.lower-body .intro .descrip {
   width: 730px;
   margin: 0 auto;
-  margin-top: 90px;
+  padding-top: 90px;
   text-align: left;
 }
 
 .lower-body .intro .instruct {
-  margin-top: 100px;
+  top: 530px;
+  left: 400px;
   height: 200px;
+  position: absolute;
 }
 
 .lower-body .intro .tag {
@@ -198,10 +208,25 @@ body {
   border-color: transparent transparent #ffffff transparent;
 }
 
-.test-canvas {
-  background-color: rgba(40, 140, 240,0.3);
+.lower-body .main-menu {
   width: 100%;
-  height: 908px;
+}
+
+.lower-body .main-menu .bottom {
+  margin: 0 auto;
+  bottom: 150px;
+  width: 100%;
+  text-align: center;
+}
+
+.lower-body .main-menu .bottom .circle {
+  margin: 0 auto;
+}
+
+.test-canvas {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  height: 487px;
   overflow: hidden;
 }
 

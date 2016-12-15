@@ -52,16 +52,19 @@ export default class SelectTest extends React.Component {
 
     if (appState == Constants.STATE_INTRO) {
       jsx = <div className='divide-horizontal intro'>
-              <p className='intro'>{this.props.localization.introDescription}</p>
+              <p className='descrip'>{this.props.localization.introDescription}</p>
               <div className='instruct'><p><span className='triangle'></span><span className='tag'>{this.props.localization.beginInstruction}</span></p></div>
             </div>;
     } else if (appState == Constants.STATE_MAIN_MENU) {
-      jsx = <div className='divide-thirds'>
+      jsx = <div className='divide-thirds main-menu'>
               { this.props.cTests.map((cTest, index) => {
                 return <Col xs={4} key={ index }>
                   <h3 >{cTest.titleFull}</h3>
                   <p>{cTest.description}</p>
                   <p><em>Press {(index + 1)}</em></p>
+                  <div className='bottom inactive'>
+                    <div className='circle'><span>{(index + 1)}</span></div>
+                  </div>
                 </Col>;
               })}
             </div>;
