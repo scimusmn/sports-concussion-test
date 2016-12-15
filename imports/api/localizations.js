@@ -48,6 +48,36 @@ Localizations.schema = new SimpleSchema({
     type: String,
     label: 'The navigation Play text of this localization.',
   },
+  colorRed: {
+    type: String,
+    defaultValue: 'Red',
+    label: 'The word Red for this localization.',
+  },
+  colorOrange: {
+    type: String,
+    defaultValue: 'Orange',
+    label: 'The word Orange for this localization.',
+  },
+  colorYellow: {
+    type: String,
+    defaultValue: 'Yellow',
+    label: 'The word Yellow for this localization.',
+  },
+  colorGreen: {
+    type: String,
+    defaultValue: 'Green',
+    label: 'The word Green for this localization.',
+  },
+  colorBlue: {
+    type: String,
+    defaultValue: 'Blue',
+    label: 'The word Blue for this localization.',
+  },
+  colorPurple: {
+    type: String,
+    defaultValue: 'Purple',
+    label: 'The word Purple for this localization.',
+  },
   concussionTestIds: {
     type: [String],
     label: 'The concussion-test ids linked to this localization.',
