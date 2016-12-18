@@ -58,14 +58,13 @@ export default class SelectTest extends React.Component {
     } else if (appState == Constants.STATE_MAIN_MENU) {
       jsx = <div className='divide-thirds main-menu'>
               { this.props.cTests.map((cTest, index) => {
-                return <Col xs={4} key={ index }>
+                return <div className={'third i-' + index} key={ index }>
                   <h3 >{cTest.titleFull}</h3>
                   <p>{cTest.description}</p>
-                  <p><em>Press {(index + 1)}</em></p>
                   <div className='bottom inactive'>
                     <div className='circle'><span>{(index + 1)}</span></div>
                   </div>
-                </Col>;
+                </div>;
               })}
             </div>;
     }
