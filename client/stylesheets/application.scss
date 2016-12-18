@@ -61,14 +61,16 @@ body {
 }
 
 .nav-item.inactive .nav-title {
-  color: $sports-mid-gray;
+  color: $sports-white;
 }
 
 .nav-item .nav-title {
-  padding-left: 20px;
+  padding-left: 30px;
   margin-top: 35px;
-  font-size: 24px;
+  font-size: 32px;
   float: left;
+  text-transform: lowercase;
+  font-weight: 500;
 }
 
 .circle {
@@ -105,6 +107,7 @@ body {
   width: 1473px;
   height: 134px;
   background-color: $sports-orange;
+  font-weight: bold;
 }
 
 .main-container .lower-body {
@@ -189,26 +192,6 @@ body {
   text-align: left;
 }
 
-.lower-body .intro .button-guide {
-  top: 530px;
-  left: 400px;
-  height: 200px;
-  position: absolute;
-}
-
-.lower-body .intro .tag {
-  color: $sports-yellow;
-  margin-left: 40px;
-}
-
-.lower-body .triangle {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 46px 79.7px 46px;
-  border-color: transparent transparent #ffffff transparent;
-}
-
 .lower-body .main-menu {
   width: 100%;
 }
@@ -251,7 +234,26 @@ body {
 .lower-body .button-guide {
   position: absolute;
   bottom: 56px;
-  left: 120px;
+  left: 470px;
+}
+
+.lower-body .button-guide .triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 46px 79.7px 46px;
+  border-color: transparent transparent #ffffff transparent;
+  bottom: 0px;
+}
+
+.lower-body .button-guide .tag {
+  position: absolute;
+  left: 150px;
+  width: 720px;
+  bottom: 30px;
+  text-align: left;
+  color: $sports-yellow;
 }
 
 .lower-body .button-guide .rect-btn {
@@ -271,7 +273,6 @@ body {
   font-size: 24px;
   font-weight: 900;
   margin-top: 15%;
-
 }
 
 .test-canvas {

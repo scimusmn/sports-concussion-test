@@ -181,9 +181,10 @@ export default class Test extends React.Component {
         case 'gono-go':
         case 'working-memory':
           jsx = <div className='button-guide'>
-                  <p>
-                    <span className='triangle'></span><span className='tag'>{this.props.localization.beginInstruction}</span>
-                  </p>
+                  <h3>
+                    <span className='triangle'></span>
+                    <span className='tag'>{this.props.localization.beginInstruction}</span>
+                  </h3>
                 </div>;
           break;
         default:
