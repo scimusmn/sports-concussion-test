@@ -157,7 +157,7 @@ export default class Test extends React.Component {
 
       switch (this.props.cTest.slug) {
         case 'stroop':
-          jsx = <div className='button-guide'>
+          jsx = <div className='button-guide rects'>
                   <div className='rect-btn'>
                     <p>{this.props.localization.colorRed}</p>
                   </div>

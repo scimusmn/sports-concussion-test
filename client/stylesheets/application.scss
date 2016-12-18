@@ -78,6 +78,7 @@ body {
   float: left;
   text-align:center;
   font-size: 48px;
+  font-weight: 900;
   background: $sports-white;
   border: 15px solid;
   border-color: $sports-dark-gray;
@@ -235,6 +236,10 @@ body {
   position: absolute;
   bottom: 56px;
   left: 470px;
+}
+
+.lower-body .button-guide.rects {
+  left: 120px;
 }
 
 .lower-body .button-guide .triangle {
