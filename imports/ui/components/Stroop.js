@@ -5,6 +5,7 @@ import TweenMax from 'gsap';
 import StroopWord from './StroopWord';
 import Constants from '../../modules/constants';
 import { setColorPressCallback } from '../../startup/client/key-map';
+import s from 'underscore.string';
 
 export default class Stroop extends React.Component {
 
@@ -121,6 +122,9 @@ export default class Stroop extends React.Component {
     let word = '';
     if (Session.get('stroopWord') != '') {
       word = Session.get('stroopWord');
+
+      // Get localized version
+      word = this.props.localization['color' + s.capitalize(word, true)];
     }
 
     return word;
