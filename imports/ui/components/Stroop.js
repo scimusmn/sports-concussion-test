@@ -48,6 +48,16 @@ export default class Stroop extends React.Component {
 
     if (!correctAnswer || correctAnswer == '') return;
 
+    // Visually indicate which
+    // color was pressed.
+    const btn = this.refs[color];
+    if (btn) {
+      btn.className = 'rect-btn active';
+      setTimeout(() => {
+        btn.className = 'rect-btn';
+      }, 1000);
+    }
+
     if (color == correctAnswer) {
       // Correct
       console.log('Stroop: Correct');
@@ -191,10 +201,42 @@ export default class Stroop extends React.Component {
 
   }
 
+  renderButtonGuide() {
+
+    let jsx = '';
+
+    jsx = <div className='button-guide rects'>
+            <div ref='red' className='rect-btn'>
+              <p>{this.props.localization.colorRed}</p>
+            </div>
+            <div ref='orange' className='rect-btn'>
+              <p>{this.props.localization.colorOrange}</p>
+            </div>
+            <div ref='yellow' className='rect-btn'>
+              <p>{this.props.localization.colorYellow}</p>
+            </div>
+            <div ref='green' className='rect-btn'>
+              <p>{this.props.localization.colorGreen}</p>
+            </div>
+            <div ref='blue' className='rect-btn'>
+              <p>{this.props.localization.colorBlue}</p>
+            </div>
+            <div ref='purple' className='rect-btn'>
+              <p>{this.props.localization.colorPurple}</p>
+            </div>
+          </div>;
+
+    return jsx;
+  }
+
   render() {
 
-    return <div className={'test-canvas ' + this.props.cTest.slug}>
-              <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
+    return <div>
+            <div className={'test-canvas ' + this.props.cTest.slug}>
+                <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
+
+            </div>
+            {this.renderButtonGuide()}
           </div>;
 
   }

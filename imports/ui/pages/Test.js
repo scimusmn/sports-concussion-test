@@ -152,7 +152,6 @@ export default class Test extends React.Component {
   renderDemonstration() {
 
     const vidPath = '/videos/demo-' + this.props.cTest.slug + '-' + this.props.localization.languageKey + '.mp4';
-    console.log('renderDemonstration:', vidPath);
     const demoVid = <video ref='demoVid' width='972' height='706' autoPlay='autoplay' >
                       <source src={vidPath} type='video/mp4' />
                     </video>;
@@ -168,7 +167,8 @@ export default class Test extends React.Component {
 
       switch (this.props.cTest.slug) {
         case 'stroop':
-          jsx = <div className='button-guide rects'>
+          // stroop button guide moved inside test -tn
+         /* jsx = <div className='button-guide rects'>
                   <div className='rect-btn'>
                     <p>{this.props.localization.colorRed}</p>
                   </div>
@@ -187,7 +187,7 @@ export default class Test extends React.Component {
                   <div className='rect-btn'>
                     <p>{this.props.localization.colorPurple}</p>
                   </div>
-                </div>;
+                </div>;*/
           break;
         case 'gono-go':
         case 'working-memory':

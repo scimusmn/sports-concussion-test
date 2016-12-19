@@ -158,8 +158,6 @@ function trianglePress() {
       break;
   }
 
-  // TODO - If current game is
-
 }
 
 function colorPress(color) {

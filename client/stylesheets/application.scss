@@ -240,6 +240,7 @@ body {
 
 .lower-body .button-guide.rects {
   left: 120px;
+  bottom: -170px;
 }
 
 .lower-body .button-guide .triangle {
@@ -269,6 +270,10 @@ body {
   border: 17px solid;
   border-color: $sports-mid-gray;
   float: left;
+}
+
+.lower-body .button-guide .rect-btn.active {
+  border-color: $sports-yellow !important;
 }
 
 .lower-body .button-guide .rect-btn p {
