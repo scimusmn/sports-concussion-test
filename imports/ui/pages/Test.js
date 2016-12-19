@@ -38,6 +38,16 @@ export default class Test extends React.Component {
 
   }
 
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+    const demoVid = this.refs.demoVid;
+
+    if (demoVid) {
+      demoVid.currentTime = 0.0;
+      demoVid.load();
+    }
+  }
+
   componentWillUnmount() {
 
     // DOM is about to become
@@ -141,7 +151,8 @@ export default class Test extends React.Component {
 
   renderDemonstration() {
 
-    const vidPath = '/videos/demo-' + this.props.cTest.slug + '.mp4';
+    const vidPath = '/videos/demo-' + this.props.cTest.slug + '-' + this.props.localization.languageKey + '.mp4';
+    console.log('renderDemonstration:', vidPath);
     const demoVid = <video ref='demoVid' width='972' height='706' autoPlay='autoplay' >
                       <source src={vidPath} type='video/mp4' />
                     </video>;

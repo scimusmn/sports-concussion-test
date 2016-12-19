@@ -6,6 +6,19 @@ import { browserHistory } from 'react-router';
  * Listen for keystrokes
  * across entire application.
  *
+ * 1 - Control button 1
+ * 2 - Control button 2
+ * 3 - Control button 3
+ * O - Language toggle ENGLISH
+ * P - Language toggle SPANISH
+ * T - Test button TRIANGLE
+ * Z - Test button RED
+ * X - Test button ORANGE
+ * C - Test button YELLOW
+ * V - Test button GREEN
+ * B - Test button BLUE
+ * N - Test button PURPLE
+ *
  */
 
 document.addEventListener('keydown', function(event) {

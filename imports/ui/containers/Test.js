@@ -29,8 +29,6 @@ const composer = (params, onData) => {
     // AND matches current slug
     const cTest = ConcussionTests.findOne({_id: { $in: testIds }, slug: curTestSlug});
 
-    // const scores = Scores.find({ testKey: curTestSlug});
-
     const scores = Scores.find({ testKey: curTestSlug}, {sort: {timestamp: -1}, limit: 12}); // Sort by timestamp, limit to 12
 
     // Pass filtered data into component
