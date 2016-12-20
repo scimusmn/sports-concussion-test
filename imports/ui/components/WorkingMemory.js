@@ -16,15 +16,13 @@ export default class WorkingMemory extends React.Component {
       guessLockout: true,
     };
 
-    this.symbols = ['/images/wm_1.png',
+    this.symbols = [  '/images/wm_1.png',
                       '/images/wm_2.png',
                       '/images/wm_3.png',
                       '/images/wm_4.png',
                       '/images/wm_5.png',
-                      '/images/wm_6.png',
-                      '/images/wm_7.png',];
+                      '/images/wm_6.png',];
 
-    this.fpoActivityAction = this.fpoActivityAction.bind(this);
     this.testCompleted = this.testCompleted.bind(this);
     this.onTrianglePress = this.onTrianglePress.bind(this);
 
@@ -70,8 +68,6 @@ export default class WorkingMemory extends React.Component {
     // ready for manipulation
     // and animations.
 
-    // this.fpoActivityAction();
-
     this.beginMemoryTest();
 
   }
@@ -81,9 +77,6 @@ export default class WorkingMemory extends React.Component {
     // DOM is about to become
     // inaccessible. Clean up
     // all timers ans tweens.
-
-    // const target = this.refs.activityProp;
-    // TweenLite.killTweensOf(target);
 
   }
 
