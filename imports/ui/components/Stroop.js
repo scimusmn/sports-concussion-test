@@ -13,7 +13,8 @@ export default class Stroop extends React.Component {
     super(props);
 
     this.state = {
-
+      showCorrectFeedback: false,
+      showIncorrectFeedback: false,
     };
 
     this.testCompleted = this.testCompleted.bind(this);
@@ -58,21 +59,26 @@ export default class Stroop extends React.Component {
       }, 1000);
     }
 
+    // Is answer correct?
     if (color == correctAnswer) {
       // Correct
       console.log('Stroop: Correct');
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
+      this.setState({ showCorrectFeedback: true });
     } else {
       // Incorrect
       console.log('Stroop: Incorrect');
+      this.setState({ showIncorrectFeedback: true });
     }
 
     // Total attempts
     const attemptCount = Session.get('attemptCount');
     Session.set('attemptCount', attemptCount + 1);
 
-    this.resetStroopWord();
+    setTimeout(() => {
+      this.resetStroopWord();
+    }, Constants.STROOP_DELAY_BETWEEN_WORDS);
 
   }
 
@@ -94,8 +100,8 @@ export default class Stroop extends React.Component {
     Session.set('stroopColorKey', '');
     Session.set('stroopColor', '');
 
-    // TODO - show "Correct' or "Incorrect"
-    // feedback here with a beat to reset.
+    this.setState({ showIncorrectFeedback: false });
+    this.setState({ showCorrectFeedback: false });
 
     if (Session.get('attemptCount') >= Constants.STROOP_TOTAL_ATTEMPTS) {
 
@@ -234,7 +240,8 @@ export default class Stroop extends React.Component {
     return <div>
             <div className={'test-canvas ' + this.props.cTest.slug}>
                 <StroopWord word={this.getStroopWord()} color={this.getStroopColor()}></StroopWord>
-
+                { this.state.showCorrectFeedback ? <img className='feedback' src='/images/feedback_O.png'/> : null }
+                { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
             </div>
             {this.renderButtonGuide()}
           </div>;

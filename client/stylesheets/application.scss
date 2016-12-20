@@ -292,10 +292,10 @@ body {
   overflow: hidden;
 }
 
-.stroop .activity-prop {
-  background-color: rgba(140, 40, 240,0.8);
-  width: 90px;
-  height: 90px;
+.stroop .feedback {
+  position: absolute;
+  right: 75px;
+  top: 75px;
 }
 
 .stroop h1 {
