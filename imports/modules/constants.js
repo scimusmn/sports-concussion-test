@@ -28,10 +28,12 @@ Constants.COLOR_COLORS = {red:'#FF0000',
 // Go No Go
 Constants.GNG_SYMBOLS_PER_TEST = 10;
 Constants.GNG_DELAY_BETWEEN_SYMBOLS = 3000;
+Constants.GNG_GUESS_LOCKOUT = 1500;
 
 // Working Memory
-Constants.WM_SYMBOLS_PER_TEST = 10;
-Constants.WM_DELAY_BETWEEN_SYMBOLS = 1000;
+Constants.WM_SYMBOLS_PER_TEST = 25;
+Constants.WM_DELAY_BETWEEN_SYMBOLS = 1500;
+Constants.WM_GUESS_LOCKOUT = 1000;
 
 // Freeze all definitions so
 // they cannot be changed.

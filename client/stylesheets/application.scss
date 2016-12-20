@@ -292,10 +292,16 @@ body {
   overflow: hidden;
 }
 
-.stroop .feedback {
+.test-canvas .feedback {
   position: absolute;
   right: 75px;
   top: 75px;
+}
+
+.test-canvas .test-symbol {
+  position: absolute;
+  left: 500px;
+  top: 100px;
 }
 
 .stroop h1 {

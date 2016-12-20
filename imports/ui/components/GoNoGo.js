@@ -11,7 +11,9 @@ export default class GoNoGo extends React.Component {
     super(props);
 
     this.state = {
-
+      showCorrectFeedback: false,
+      showIncorrectFeedback: false,
+      guessLockout: false,
     };
 
     this.symbols = ['/images/gonogo_tri_1.png',
@@ -20,8 +22,13 @@ export default class GoNoGo extends React.Component {
                       '/images/gonogo_tri_4.png',
                       '/images/gonogo_tri_5.png',];
 
+    this.correctSymbols = ['/images/gonogo_tri_1.png',
+                            '/images/gonogo_tri_2.png',
+                            '/images/gonogo_tri_3.png',];
+
+    this.idleSymbol = '/images/gonogo_idle.png';
+
     this.testCompleted = this.testCompleted.bind(this);
-    this.fpoActivityAction = this.fpoActivityAction.bind(this);
     this.onTrianglePress = this.onTrianglePress.bind(this);
 
     this.symbolOrder = [];
@@ -35,6 +42,39 @@ export default class GoNoGo extends React.Component {
 
   onTrianglePress() {
     console.log('GoNoGo::onTrianglePress()');
+
+    const currentSymbol = Session.get('currentSymbol');
+
+    if (!currentSymbol || currentSymbol == '' || currentSymbol == this.idleSymbol || this.state.guessLockout) return;
+
+    // Would this triangle be correct?
+    let isCorrect = false;
+    for (var i = 0; i < this.correctSymbols.length; i++) {
+      if (currentSymbol == this.correctSymbols[i]) {
+        isCorrect = true;
+        break;
+      }
+    }
+
+    if (isCorrect) {
+      // Correct
+      console.log('CORRECT');
+      const correctCount = Session.get('correctCount');
+      Session.set('correctCount', correctCount + 1);
+      this.setState({ showCorrectFeedback: true });
+    } else {
+      // Incorrect
+      console.log('!INCORRECT');
+      this.setState({ showIncorrectFeedback: true });
+    }
+
+    // Total attempts
+    const attemptCount = Session.get('attemptCount');
+    Session.set('attemptCount', attemptCount + 1);
+
+    setTimeout(() => {
+      this.resetGuess();
+    }, Constants.GNG_GUESS_LOCKOUT);
   }
 
   componentDidMount() {
@@ -42,8 +82,6 @@ export default class GoNoGo extends React.Component {
     // DOM is rendered and
     // ready for manipulation
     // and animations.
-
-    // this.fpoActivityAction();
 
     this.beginMemoryTest();
 
@@ -55,16 +93,13 @@ export default class GoNoGo extends React.Component {
     // inaccessible. Clean up
     // all timers ans tweens.
 
-    // const target = this.refs.activityProp;
-    // TweenLite.killTweensOf(target);
-
   }
 
   beginMemoryTest() {
 
     // Generate symbol order
     this.symbolOrder = [];
-    for (var i = 0; i < Constants.WM_SYMBOLS_PER_TEST; i++) {
+    for (var i = 0; i < Constants.GNG_SYMBOLS_PER_TEST; i++) {
 
       const r = Math.floor(Math.random() * this.symbols.length);
       const rSymbol = this.symbols[r];
@@ -78,7 +113,8 @@ export default class GoNoGo extends React.Component {
     // Ensure all scores are reset
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
-    Session.set('wmCurrentSymbol', '');
+    Session.set('currentSymbol', '');
+    Session.set('correctAnswer', '');
 
     this.currentSymbolIndex = 0;
 
@@ -88,15 +124,15 @@ export default class GoNoGo extends React.Component {
 
   resetMemorySymbol() {
 
-    Session.set('wmCurrentSymbolPath', '/images/gonogo_idle.png');
+    Session.set('currentSymbol', this.idleSymbol);
 
     // TODO - show "Correct' or "Incorrect"
     // feedback here with a beat to reset.
 
-    if (Session.get('attemptCount') >= Constants.WM_SYMBOLS_PER_TEST) {
+    if (this.currentSymbolIndex >= Constants.GNG_SYMBOLS_PER_TEST) {
 
       // Test complete
-      console.log('WM test complete');
+      console.log('GNG test complete');
       this.testCompleted();
 
     } else {
@@ -109,6 +145,12 @@ export default class GoNoGo extends React.Component {
 
   }
 
+  resetGuess() {
+    this.setState({ showIncorrectFeedback: false });
+    this.setState({ showCorrectFeedback: false });
+    this.setState({ guessLockout: false});
+  }
+
   nextMemorySymbol() {
 
     // Total attempts
@@ -118,7 +160,7 @@ export default class GoNoGo extends React.Component {
     this.currentSymbolIndex++;
     const nextSymbol = this.symbolOrder[this.currentSymbolIndex];
 
-    Session.set('wmCurrentSymbolPath', nextSymbol);
+    Session.set('currentSymbol', nextSymbol);
 
     console.log('-> nextMemorySymbol', nextSymbol);
 
@@ -132,28 +174,13 @@ export default class GoNoGo extends React.Component {
 
     let jsx = '';
 
-    const symbolPath = Session.get('wmCurrentSymbolPath');
+    const symbolPath = Session.get('currentSymbol');
 
     if (symbolPath && symbolPath != '') {
-      jsx = <img src={symbolPath}/>;
+      jsx = <img className='test-symbol' src={symbolPath}/>;
     }
 
     return jsx;
-
-  }
-
-  fpoActivityAction() {
-
-    const target = this.refs.activityProp;
-
-    const rTime = Math.random() * 2 + 1;
-    const rX = Math.random() * 400;
-    const rY = Math.random() * 300;
-    const rRot = Math.random() * 360;
-    const rScale = Math.random() * 4 - 2;
-    const rOpac = Math.random();
-
-    TweenMax.to(target, rTime, {x: rX, y: rY, rotation: rRot, scale: rScale, opacity: rOpac, onComplete: this.fpoActivityAction});
 
   }
 
@@ -191,7 +218,9 @@ export default class GoNoGo extends React.Component {
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      {this.renderCurrentTestSymbol()}
+      { this.renderCurrentTestSymbol() }
+      { this.state.showCorrectFeedback ? <img className='feedback' src='/images/feedback_O.png'/> : null }
+      { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
     </div>;
 
   }

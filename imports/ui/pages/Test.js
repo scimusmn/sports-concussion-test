@@ -167,27 +167,9 @@ export default class Test extends React.Component {
 
       switch (this.props.cTest.slug) {
         case 'stroop':
-          // stroop button guide moved inside test -tn
-         /* jsx = <div className='button-guide rects'>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorRed}</p>
-                  </div>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorOrange}</p>
-                  </div>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorYellow}</p>
-                  </div>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorGreen}</p>
-                  </div>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorBlue}</p>
-                  </div>
-                  <div className='rect-btn'>
-                    <p>{this.props.localization.colorPurple}</p>
-                  </div>
-                </div>;*/
+          /*
+            stroop button guide moved inside test -tn
+          */
           break;
         case 'gono-go':
         case 'working-memory':

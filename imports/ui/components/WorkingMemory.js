@@ -11,7 +11,9 @@ export default class WorkingMemory extends React.Component {
     super(props);
 
     this.state = {
-
+      showCorrectFeedback: false,
+      showIncorrectFeedback: false,
+      guessLockout: true,
     };
 
     this.symbols = ['/images/wm_1.png',
@@ -36,28 +38,29 @@ export default class WorkingMemory extends React.Component {
   }
 
   onTrianglePress() {
-    console.log('WorkingMemory::onTrianglePress()');
-    /*
-        const correctAnswer = Session.get('stroopColorKey');
 
-        if (!correctAnswer || correctAnswer == '') return;
+    const correctAnswer = Session.get('correctAnswer');
+    const currentSymbol = Session.get('currentSymbol');
 
-        if (color == correctAnswer) {
-          // Correct
-          console.log('Stroop: Correct');
-          const correctCount = Session.get('correctCount');
-          Session.set('correctCount', correctCount + 1);
-        } else {
-          // Incorrect
-          console.log('Stroop: Incorrect');
-        }
+    if (!correctAnswer || correctAnswer == '' || this.state.guessLockout) return;
 
-        // Total attempts
-        const attemptCount = Session.get('attemptCount');
-        Session.set('attemptCount', attemptCount + 1);
-*/
+    if (currentSymbol == correctAnswer) {
+      // Correct
+      const correctCount = Session.get('correctCount');
+      Session.set('correctCount', correctCount + 1);
+      this.setState({ showCorrectFeedback: true });
+    } else {
+      // Incorrect
+      this.setState({ showIncorrectFeedback: true });
+    }
 
-    // this.resetMemorySymbol();
+    // Total attempts
+    const attemptCount = Session.get('attemptCount');
+    Session.set('attemptCount', attemptCount + 1);
+
+    setTimeout(() => {
+      this.resetGuess();
+    }, Constants.WM_GUESS_LOCKOUT);
 
   }
 
@@ -102,22 +105,28 @@ export default class WorkingMemory extends React.Component {
     // Ensure all scores are reset
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
-    Session.set('wmCurrentSymbol', '');
+    Session.set('currentSymbol', '');
+    Session.set('correctAnswer', '');
 
     this.currentSymbolIndex = 0;
+
+    this.setState({ guessLockout: false });
 
     this.resetMemorySymbol();
 
   }
 
+  resetGuess() {
+    this.setState({ showIncorrectFeedback: false });
+    this.setState({ showCorrectFeedback: false });
+    this.setState({ guessLockout: false});
+  }
+
   resetMemorySymbol() {
 
-    Session.set('wmCurrentSymbolPath', '');
+    Session.set('currentSymbol', '');
 
-    // TODO - show "Correct' or "Incorrect"
-    // feedback here with a beat to reset.
-
-    if (Session.get('attemptCount') >= Constants.WM_SYMBOLS_PER_TEST) {
+    if (this.currentSymbolIndex >= Constants.WM_SYMBOLS_PER_TEST) {
 
       // Test complete
       console.log('WM test complete');
@@ -142,9 +151,17 @@ export default class WorkingMemory extends React.Component {
     this.currentSymbolIndex++;
     const nextSymbol = this.symbolOrder[this.currentSymbolIndex];
 
-    Session.set('wmCurrentSymbolPath', nextSymbol);
+    Session.set('currentSymbol', nextSymbol);
 
     console.log('-> nextMemorySymbol', nextSymbol);
+
+    // What is the current correct answer?
+    if (this.currentSymbolIndex >= 2) {
+      const twoPrevious = this.symbolOrder[this.currentSymbolIndex - 2];
+      Session.set('correctAnswer', twoPrevious);
+    } else {
+      Session.set('correctAnswer', '');
+    }
 
     setTimeout(() => {
       this.resetMemorySymbol();
@@ -156,28 +173,13 @@ export default class WorkingMemory extends React.Component {
 
     let jsx = '';
 
-    const symbolPath = Session.get('wmCurrentSymbolPath');
+    const symbolPath = Session.get('currentSymbol');
 
     if (symbolPath && symbolPath != '') {
-      jsx = <img src={symbolPath}/>;
+      jsx = <img className='test-symbol' src={symbolPath}/>;
     }
 
     return jsx;
-
-  }
-
-  fpoActivityAction() {
-
-    const target = this.refs.activityProp;
-
-    const rTime = Math.random() * 2 + 1;
-    const rX = Math.random() * 400;
-    const rY = Math.random() * 300;
-    const rRot = Math.random() * 360;
-    const rScale = Math.random() * 4 - 2;
-    const rOpac = Math.random();
-
-    TweenMax.to(target, rTime, {x: rX, y: rY, rotation: rRot, scale: rScale, opacity: rOpac, onComplete: this.fpoActivityAction});
 
   }
 
@@ -215,7 +217,9 @@ export default class WorkingMemory extends React.Component {
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
-      {this.renderCurrentTestSymbol()}
+      { this.renderCurrentTestSymbol() }
+      { this.state.showCorrectFeedback ? <img className='feedback' src='/images/feedback_O.png'/> : null }
+      { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
     </div>;
 
   }
