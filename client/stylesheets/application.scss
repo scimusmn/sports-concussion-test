@@ -56,6 +56,10 @@ body {
   border-color: $sports-mid-gray;
 }
 
+.top-nav-container .inactive .circle {
+  border-color: $sports-light-gray;
+}
+
 .nav-item.active .nav-title {
   color: $sports-yellow;
 }
@@ -195,9 +199,7 @@ body {
 
 .lower-body .main-menu {
   width: 100%;
-}
-
-.lower-body .main-menu {
+  height: 100%;
   left: 525px;
 }
 
@@ -219,17 +221,15 @@ body {
 }
 
 .lower-body .main-menu .bottom {
-  margin: 0 auto;
-  bottom: -250px;
-  left: 80px;
+  bottom: -500px;
   width: 100%;
   height: 100%;
   position: absolute;
-  text-align: center;
 }
 
 .lower-body .main-menu .bottom .circle {
-  left: 100px;
+  left: 75px;
+  position: absolute;
 }
 
 .lower-body .button-guide {
@@ -300,8 +300,9 @@ body {
 
 .test-canvas .test-symbol {
   position: absolute;
-  left: 500px;
-  top: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .stroop h1 {
