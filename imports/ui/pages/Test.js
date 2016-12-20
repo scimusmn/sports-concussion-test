@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Stroop from '../components/Stroop';
 import GoNoGo from '../components/GoNoGo';
 import WorkingMemory from '../components/WorkingMemory';
+import ScoreTable from '../components/ScoreTable';
 import Constants from '../../modules/constants';
 import { camelToTitleCase } from '../../modules/utils';
 
@@ -98,7 +99,7 @@ export default class Test extends React.Component {
                   <p>{this.props.cTest.scoringInstruction}</p>
                 </Col>
                 <Col xs={8}>
-                  {this.renderScoresTable()}
+                  <ScoreTable localization={this.props.localization} cTest={this.props.cTest} scores={this.props.scores}></ScoreTable>
                 </Col>
               </Row>
             </div>;
@@ -106,25 +107,6 @@ export default class Test extends React.Component {
 
     return jsx;
 
-  }
-
-  renderScoresTable() {
-    let jsx = '';
-
-    jsx = <div>
-            { this.props.cTest.scoreCategories.map((category, index) => {
-              return <Col xs={2} key={ index }>
-                <h3>{camelToTitleCase(category)}</h3>
-                { this.props.scores.map((score, index) => {
-                  return <p key={ index } className={((index == 0) ? 'your-score' : '')}>
-                    {score[category]}
-                  </p>;
-                })}
-              </Col>;
-            })}
-          </div>;
-
-    return jsx;
   }
 
   renderActivity() {
@@ -187,6 +169,7 @@ export default class Test extends React.Component {
     }
 
     return jsx;
+
   }
 
   render() {
