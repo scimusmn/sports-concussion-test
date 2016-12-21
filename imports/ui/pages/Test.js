@@ -99,6 +99,8 @@ export default class Test extends React.Component {
                   <p>{this.props.cTest.scoringInstruction}</p>
                 </Col>
                 <Col xs={8}>
+                  <h3 className='you'>{this.props.localization.yourScore}</h3>
+                  <p className='prev-players'>{this.props.localization.prevPlayers}</p>
                   <ScoreTable localization={this.props.localization} cTest={this.props.cTest} scores={this.props.scores}></ScoreTable>
                 </Col>
               </Row>

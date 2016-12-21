@@ -38,6 +38,7 @@ export default class ScoreTable extends React.Component {
             { this.props.scores.map((score, indexA) => {
 
               return <tr key={ indexA } className={((indexA == 0) ? 'your-score' : '')}>
+
                       { this.props.cTest.scoreCategories.map((category, indexB) => {
                           return <td key={ indexB }>
                             {score[category]}
@@ -47,11 +48,11 @@ export default class ScoreTable extends React.Component {
 
             })}
 
-
         </tbody>
       </table>;
 
     return jsx;
+
   }
 
   renderScoreRow(index) {
