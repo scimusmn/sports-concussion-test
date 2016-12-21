@@ -78,6 +78,16 @@ Localizations.schema = new SimpleSchema({
     defaultValue: 'Purple',
     label: 'The word Purple for this localization.',
   },
+  yourScore: {
+    type: String,
+    defaultValue: 'You',
+    label: 'The word demarking your score for this localization.',
+  },
+  prevPlayers: {
+    type: String,
+    defaultValue: 'previous players',
+    label: 'The words demarking previous player scores for this localization.',
+  },
   concussionTestIds: {
     type: [String],
     label: 'The concussion-test ids linked to this localization.',

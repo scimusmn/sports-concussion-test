@@ -284,12 +284,48 @@ body {
   font-weight: 900;
   margin-top: 15%;
 }
-
-table { border-collapse: collapse; }
+/* Score Tables */
+table.table {
+  border-collapse: collapse;
+  width: 720px;
+  border-color: rbga(255,255,255,0.0);
+  left: 100px;
+  top: 60px;
+  position: absolute;
+ }
 tr { border: none; }
-td {
-  border-right: solid 1px #f00;
-  border-left: solid 1px #f00;
+td, th {
+  text-align: center;
+  border: none;
+}
+table, td, th {
+  border: none !important;
+}
+th {
+  font-size: 32px;
+}
+
+tr td:nth-child(2),
+tr td:nth-child(4),
+tr td:nth-child(6), {
+  background-color: rgba(255,255,255,0.075);
+}
+
+tr th:nth-child(2),
+tr th:nth-child(4),
+tr th:nth-child(6), {
+  background-color: rgba(255,255,255,0.075);
+  /*border-left: solid 1px rgba(255,255,255,0.5);*/
+}
+
+table .your-score {
+  font-weight: bolder;
+  font-size: 28px;
+  border-top: solid 1px $sports-yellow !important;
+  border-bottom: solid 1px $sports-yellow !important;
+  border-left: solid 1px $sports-yellow !important;
+  border-right: solid 1px $sports-yellow !important;
+  border-color: $sports-yellow;
 }
 
 .test-canvas {
@@ -335,7 +371,3 @@ td {
   height: 150px;
 }
 
-.your-score {
-  font-weight: bolder;
-  background-color: rgba(55, 240, 10, 0.6);
-}
