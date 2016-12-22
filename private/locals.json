@@ -1,0 +1,49 @@
+[{
+	"_id": "hRG2BpwDeyyHbzdHG",
+	"languageKey": "en",
+	"introTitle": "Check your head",
+	"introDescription": "These simple tests assess brain functions like reasoning, reaction time, and memory. Doctors use similar exercises to check patients’ recovery from concussions. The exams can also magnify any remaining concussion symptoms.",
+	"beginInstruction": "Press the Awesome button to begin.",
+	"mainMenuTitle": "Choose a test",
+	"navMainMenu": "Main menu",
+	"navHowToPlay": "How to play",
+	"navPlay": "Start",
+	"concussionTestIds": [
+		"vh8rEBNN6B5HuRxdG",
+		"8bmGfw7j8W3zxQ7mQ",
+		"gnAGamzbFeNjr4XCk"
+	],
+	"colorRed": "Red",
+	"colorOrange": "Orange",
+	"colorYellow": "Yellow",
+	"colorGreen": "Green",
+	"colorBlue": "Blue",
+	"colorPurple": "Purple",
+	"yourScore": "You",
+	"prevPlayers": "previous players"
+},
+{
+	"_id": "YP7cx9wYHkkHcsGHy",
+	"languageKey": "es_MX",
+	"introTitle": "REVISA TU CABEZA",
+	"introDescription": "Estos tests sencillos sirven para evaluar funciones del cerebro tales como el razonamiento, el tiempo de reacción y la memoria. Los doctores utilizan ejercicios parecidos para monitorear la recuperación de los pacientes que han sufrido conmociones cerebrales. Los exámenes también pueden sacar a luz síntomas de una conmoción cerebral que no hayan desaparecido por completo.",
+	"beginInstruction": "Press the Licencia button to begin.",
+	"mainMenuTitle": "Escoge un test",
+	"navMainMenu": "Menú principal",
+	"navHowToPlay": "Cómo jugar",
+	"navPlay": "Inicio",
+	"concussionTestIds": [
+		"4BZTyyr9oADPFEQzX",
+		"o4ZQit9nyxN9RrgQG",
+		"6jysGMvfjebR5Pq7D"
+	],
+	"colorRed": "Red",
+	"colorOrange": "Orange",
+	"colorYellow": "Yellow",
+	"colorGreen": "Green",
+	"colorBlue": "Blue",
+	"colorPurple": "Purple",
+	"yourScore": "Tu",
+	"prevPlayers": "previous amigos"
+}]
+

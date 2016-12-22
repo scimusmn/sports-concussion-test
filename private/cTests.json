@@ -1,0 +1,107 @@
+[{
+	"_id": "vh8rEBNN6B5HuRxdG",
+	"titleFull": "Stroop test",
+	"titleShort": "Stroop",
+	"slug": "stroop",
+	"description": "This test measures focus, a brain function critical to making decisions, carrying out plans, and solving problems. Concussions can make it harder to focus.",
+	"demoTitle": "Instructions",
+	"demoInstruction": "As each word appears on the screen, press the button that matches the color, not the meaning. Speed and accuracy both count toward your score.",
+	"buttonInstruction": "Voluptatum vel consequuntur dolor. Ab quos magni quasi est reprehenderit delectus id. Et veniam nihil sed illum iste odio eaque voluptatem quis.",
+	"scoringTitle": "Scoring",
+	"scoringInstruction": "See the difference between your normal response time, when the word’s color matched its meaning, and your interference time, when color and meaning were mismatched? That’s a measure of your ability to ignore distractions and focus on meaningful information. \n \nTry the test again and see if you get faster.",
+	"scoreCategories": [
+		"percentCorrect",
+		"normalTime",
+		"interferenceTime",
+		"difference"
+	]
+},
+{
+	"_id": "8bmGfw7j8W3zxQ7mQ",
+	"titleFull": "Go/No-Go",
+	"titleShort": "Go/No-Go",
+	"slug": "gono-go",
+	"description": "This pattern recognition game measures reaction time, which can be slowed by a concussion.",
+	"demoTitle": "Instructions",
+	"demoInstruction": "Keep looking at the red dot. Press ∆ as fast as you can when the solid green ∆ appears. Ignore the patterned ∆s.",
+	"buttonInstruction": "Doloribus odio explicabo aspernatur aperiam. Eos qui sint. Reprehenderit distinctio molestiae nisi recusandae voluptate odit. Sed voluptas iusto est et quis occaecati cupiditate cupiditate sint. Vel aliquam ex laborum vel velit numquam ut eum.",
+	"scoringTitle": "Scoring",
+	"scoringInstruction": "Repellat quia non ipsum hic. Quidem atque tempora veritatis aspernatur. Neque quidem at earum dolores labore molestiae iste. Autem et est est fugiat. Perspiciatis placeat sit ut voluptate reprehenderit et dolorem necessitatibus necessitatibus.",
+	"scoreCategories": [
+		"percentCorrect",
+		"bestTime",
+		"averageTime"
+	]
+},
+{
+	"_id": "gnAGamzbFeNjr4XCk",
+	"titleFull": "Memory test",
+	"titleShort": "Memory test",
+	"slug": "working-memory",
+	"description": "This memory game gauges your ability to recall information. Memory problems are common symptoms of concussion.",
+	"demoTitle": "Instructions",
+	"demoInstruction": "Press ∆ when the picture on the screen matches the one shown two images ago.",
+	"buttonInstruction": "Eius quo corrupti sit dicta est numquam nostrum. Perferendis corporis in nulla ratione soluta veritatis. Voluptatem iure fuga id aut. Aut pariatur cumque architecto sed rerum consequatur sit.",
+	"scoringTitle": "Scoring",
+	"scoringInstruction": "In this test, accuracy is more important than speed. You can make two kinds of errors—missing a matching pair, or incorrectly pairing two different images. \n \nPlay again and see if your memory improves.",
+	"scoreCategories": [
+		"percentCorrect",
+		"missedPairs",
+		"falsePairs",
+		"correctAnswers"
+	]
+},
+{
+	"_id": "4BZTyyr9oADPFEQzX",
+	"titleFull": "El test de Stroop",
+	"titleShort": "Stroop",
+	"slug": "stroop",
+	"description": "Este test mide la capacidad de enfocarse, una función del cerebro crítica para tomar decisiones, llevar a cabo planes y resolver problemas. Las conmociones cerebrales pueden hacer que enfocarse sea más difícil.",
+	"demoTitle": "Instrucciones",
+	"demoInstruction": "A medida que aparece cada palabra en la pantalla, presiona el botón que coincide con el color, no con el significado. Ambas, la velocidad y la exactitud, cuentan para el puntaje.",
+	"buttonInstruction": "Descerebración Engarro Cencellada Incorruptibilidad Incredulidad Engarrotar Bateaguas Descerrajado Batazo Engastar. Abaco Fideicomiso Engaritar Cendrada Fideero Incorregible Abaldonamiento. Abajeño Gemíparo Abadengo Gemonias Incredibilidad Descerrar Descimbramiento.",
+	"scoringTitle": "Puntaje",
+	"scoringInstruction": "¿Notas la diferencia entre tu tiempo normal de respuesta, cuando el color de la palabra coincide con su significado, y tu tiempo de interferencia, cuando el color y el significado no coinciden? Esa es la medida de tu habilidad para ignorar las distracciones y enfocarte en información que es significativa.\n \nVuelve a tomar el test para ver si lo haces más rápido.",
+	"scoreCategories": [
+		"percentCorrect",
+		"normalTime",
+		"interferenceTime",
+		"difference"
+	]
+},
+{
+	"_id": "o4ZQit9nyxN9RrgQG",
+	"titleFull": "Ir/No-ir",
+	"titleShort": "Ir/No-ir",
+	"slug": "gono-go",
+	"description": "Este juego de reconocimiento de patrones mide el tiempo de reacción, el cual puede verse reducido por una conmoción cerebral.",
+	"demoTitle": "Instrucciones",
+	"demoInstruction": "Sigue mirando el punto rojo. Presiona el ∆ tan rápido como puedas cuando aparezca el ∆ verde sólido. Ignora los ∆ con estampados.",
+	"buttonInstruction": "Genealogista Incrasar Engarfiar Cenceño Generación Incordio Abadía. Batanar Deschuponar Descensión Abacero Engarzar Fideicomitente Géminis Incorporalmente Cenero. Incorregiblemente Abajamiento Gemíparo Abalar Bastoncillo Ficha Engarzador.",
+	"scoringTitle": "Puntaje",
+	"scoringInstruction": "Este puntaje mide la exactitud y la velocidad de tu reacción. Vuelve a intentarlo para ver si puedes mejorarlo.",
+	"scoreCategories": [
+		"percentCorrect",
+		"bestTime",
+		"averageTime"
+	]
+},
+{
+	"_id": "6jysGMvfjebR5Pq7D",
+	"titleFull": "Test de memoria",
+	"titleShort": "Test de memoria",
+	"slug": "working-memory",
+	"description": "Este juego de memoria mide nuestra habilidad para recordar información. Los problemas de memoria son un síntoma común de las conmociones cerebrales.",
+	"demoTitle": "Instrucciones",
+	"demoInstruction": "Presiona el ∆ cuando la imagen en la pantalla coincida con la que se mostró hace dos imágenes.",
+	"buttonInstruction": "Incrasar Fideicomitente Deschavetado Bastoncillo Genciana Cencerrillas Descercar Cendal Incristalizable. Incorrupto Gémino Incrementar Geminar Incriminación. Bastoncillo Engastar Fichero Ficha Cencerrada Engargolar Incrustación Gemoterapia. Descentrado Incredulidad Cenegar Engastador Abadí Abajar Batanga Descensión.",
+	"scoringTitle": "Puntaje",
+	"scoringInstruction": "En este test, la exactitud es más importante que la velocidad. Es posible hacer dos tipos de errores: no identificar un par que coincida, o hacer coincidir incorrectamente dos imágenes diferentes. \n \nVuelve a jugar para ver si tu memoria mejora.",
+	"scoreCategories": [
+		"percentCorrect",
+		"missedPairs",
+		"falsePairs",
+		"correctAnswers"
+	]
+}]
+

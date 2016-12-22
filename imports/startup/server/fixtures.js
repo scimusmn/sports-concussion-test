@@ -9,30 +9,36 @@ import faker from 'faker';
 
 import s from 'underscore.string';
 
-const users = [{
-  email: 'admin@admin.com',
-  password: 'password',
-  profile: {
-    name: { first: 'Carl', last: 'Winslow' },
-  },
-  roles: ['admin'],
-},];
-
-users.forEach(({ email, password, profile, roles }) => {
-  const userExists = Meteor.users.findOne({ 'emails.address': email });
-
-  if (!userExists) {
-    const userId = Accounts.createUser({ email, password, profile });
-    Roles.addUsersToRoles(userId, roles);
-  }
-});
-
 var localizations = Localizations.find();
 
 if (!localizations || localizations.count() == 0) {
 
-  // Needs to be seeded
-  seedLocalizations();
+  // Seed static data from
+  // external json files
+  loadLocalizations();
+  loadConcussionTests();
+
+  // If you have no json
+  // files, seed with lorem ipsum.
+  // seedLocalizations();
+
+}
+
+function loadLocalizations() {
+
+  var data = JSON.parse(Assets.getText('locals.json'));
+  data.forEach(function(item, index, array) {
+    Localizations.insert(item);
+  });
+
+}
+
+function loadConcussionTests() {
+
+  var data = JSON.parse(Assets.getText('cTests.json'));
+  data.forEach(function(item, index, array) {
+    ConcussionTests.insert(item);
+  });
 
 }
 
@@ -105,3 +111,4 @@ function seedConcussionTests() {
   return docIds;
 
 }
+

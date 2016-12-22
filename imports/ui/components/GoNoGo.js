@@ -189,6 +189,7 @@ export default class GoNoGo extends React.Component {
     const testKey = this.props.cTest.slug;
 
     Meteor.apply('submitScore', [{
+
       testKey: testKey,
       timestamp: new Date().getTime(),
       percentCorrect: Math.round(Math.random() * 100),
@@ -199,6 +200,7 @@ export default class GoNoGo extends React.Component {
       missedPairs: Math.round(Math.random() * 100),
       falsePairs: Math.round(Math.random() * 100),
       correctAnswers: Math.round(Math.random() * 100),
+
     },], {
 
       onResultReceived: (error, response) => {

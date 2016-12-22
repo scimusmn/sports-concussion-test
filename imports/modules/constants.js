@@ -13,7 +13,7 @@ Constants.TEST_GONOGO = 'gono-go';
 Constants.TEST_WORKING_MEMORY = 'working-memory';
 
 // Stroop
-Constants.STROOP_TOTAL_ATTEMPTS = 3;
+Constants.STROOP_TOTAL_ATTEMPTS = 15;
 Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
 
 // Stroop colors
