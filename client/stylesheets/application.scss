@@ -345,9 +345,12 @@ table .your-score {
   border-bottom: solid 1px $sports-yellow !important;
   border-left: solid 1px $sports-yellow !important;
   border-right: solid 1px $sports-yellow !important;
-  border-color: $sports-yellow;*/
+  border-color: $sports-yellow; */
 }
 
+.pre {
+  white-space: pre-wrap !important;
+}
 
 .divide-vertical .you {
   position: absolute;

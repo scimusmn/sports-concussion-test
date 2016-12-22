@@ -94,9 +94,11 @@ export default class Test extends React.Component {
     } else if (appState == Constants.STATE_PLAY_SCORE) {
       jsx = <div className='divide-vertical'>
               <Row>
-                <Col xs={4} className='leftCol'>
+                <Col xs={4} className='leftCol pre'>
                   <h3>{this.props.cTest.scoringTitle}</h3>
-                  <p>{this.props.cTest.scoringInstruction}</p>
+                  <p>{this.props.cTest.scoringInstruction.split('\n').map(i => {
+                    return <div>{i}</div>;
+                  })}</p>
                 </Col>
                 <Col xs={8}>
                   <h3 className='you'>{this.props.localization.yourScore}</h3>
