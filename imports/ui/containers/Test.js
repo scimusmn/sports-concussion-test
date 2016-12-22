@@ -29,7 +29,7 @@ const composer = (params, onData) => {
     // AND matches current slug
     const cTest = ConcussionTests.findOne({_id: { $in: testIds }, slug: curTestSlug});
 
-    const scores = Scores.find({ testKey: curTestSlug}, {sort: {timestamp: -1}, limit: 12}); // Sort by timestamp, limit to 12
+    const scores = Scores.find({ testKey: curTestSlug}, {sort: {timestamp: -1}, limit: 10}); // Sort by timestamp, limit to 10
 
     // Pass filtered data into component
     onData(null, { localization, cTest, scores, appState });
