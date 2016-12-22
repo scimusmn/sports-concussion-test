@@ -18,12 +18,12 @@ Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
 
 // Stroop colors
 Constants.COLOR_WORDS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-Constants.COLOR_COLORS = {red:'#FF0000',
-                          orange:'#FFA500',
-                          yellow:'#FFFF00',
-                          green:'#00FF00',
-                          blue:'#0000FF',
-                          purple:'#800080',};
+Constants.COLOR_COLORS = {red:'#d52229',
+                          orange:'#f26322',
+                          yellow:'#ebed4f',
+                          green:'#2ba54a',
+                          blue:'#0094c3',
+                          purple:'#493087',};
 
 // Go No Go
 Constants.GNG_SYMBOLS_PER_TEST = 10;

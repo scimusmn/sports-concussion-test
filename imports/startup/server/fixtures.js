@@ -4,7 +4,6 @@ import { Accounts } from 'meteor/accounts-base';
 
 import { Localizations } from '../../api/localizations';
 import { ConcussionTests } from '../../api/concussion-tests';
-import { upsertConcussionTest } from '../../api/methods.js';
 import faker from 'faker';
 
 import s from 'underscore.string';
