@@ -1,4 +1,5 @@
 import Constants from '../../modules/constants';
+import { reset } from '../../modules/screensaver';
 import { browserHistory } from 'react-router';
 
 /**
@@ -28,6 +29,8 @@ document.addEventListener('keydown', function(event) {
 });
 
 function globalKeydown(key) {
+
+  reset();
 
   switch (key) {
     case 49: // 1 - Control button 1
@@ -152,6 +155,8 @@ function trianglePress() {
   switch (appState) {
     case Constants.STATE_INTRO:
       Session.set('appState', Constants.STATE_MAIN_MENU);
+      console.log('appState GO TO MAIN', Session.get('appState'));
+
       break;
     case Constants.STATE_PLAY:
       trianglePressCallback();

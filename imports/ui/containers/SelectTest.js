@@ -24,6 +24,11 @@ const composer = (params, onData) => {
 
     const cTests = ConcussionTests.find({_id: { $in: testIds }}).fetch();
 
+    // We want to make the subscription
+    // reliant on appState so if it changes
+    // after a screensaver, it will re-render.
+    const appState = Session.get('appState');
+
     // Pass filtered data into component
     onData(null, { localization, cTests });
 

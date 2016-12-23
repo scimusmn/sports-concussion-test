@@ -97,7 +97,7 @@ export default class Test extends React.Component {
                 <Col xs={4} className='leftCol pre'>
                   <h3>{this.props.cTest.scoringTitle}</h3>
                   <p>{this.props.cTest.scoringInstruction.split('\n').map(i => {
-                    return <div>{i}</div>;
+                    return <div key={i}>{i}</div>;
                   })}</p>
                 </Col>
                 <Col xs={8}>

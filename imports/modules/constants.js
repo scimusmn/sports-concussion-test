@@ -1,5 +1,10 @@
 export default class Constants {};
 
+// Seconds of inactivity
+// required to trigger
+// screensaver and reset.
+Constants.TIMEOUT_SECS = 60;
+
 // App state enumeration
 Constants.STATE_INTRO = 0;
 Constants.STATE_MAIN_MENU = 1;
