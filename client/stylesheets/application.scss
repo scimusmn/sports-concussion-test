@@ -266,6 +266,14 @@ body {
   bottom: 0px;
 }
 
+.lower-body .mini-tri {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 13px 22.5px 13px;
+  border-color: transparent transparent #ffffff transparent;
+}
+
 .lower-body .button-guide .tag {
   position: absolute;
   left: 150px;

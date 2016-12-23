@@ -47,6 +47,7 @@ export default class Test extends React.Component {
       demoVid.currentTime = 0.0;
       demoVid.load();
     }
+
   }
 
   componentWillUnmount() {
@@ -64,6 +65,20 @@ export default class Test extends React.Component {
 
   }
 
+  renderInstructions() {
+
+    return <p>{this.renderInstructText()}</p>;
+
+  }
+
+  renderInstructText() {
+
+    return this.props.cTest.demoInstruction.split('∆').map((text,i) => {
+      return <span key={i}>{((i == 0) ? '' : <span className='mini-tri'> </span>)}{text}</span>;
+    });
+
+  }
+
   renderLowerBody() {
 
     const appState = this.props.appState;
@@ -76,7 +91,7 @@ export default class Test extends React.Component {
               <Row>
                 <Col xs={4} className='leftCol'>
                   <h3>{this.props.cTest.demoTitle}</h3>
-                  <p>{this.props.cTest.demoInstruction}</p>
+                  {this.renderInstructions()}
                 </Col>
                 <Col xs={8} className='rightCol'>
                   {this.renderDemonstration()}
