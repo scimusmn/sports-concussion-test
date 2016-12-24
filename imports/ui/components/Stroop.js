@@ -23,6 +23,8 @@ export default class Stroop extends React.Component {
     // Set keyboard callbacks
     setColorPressCallback(this.onColorPress);
 
+    this.testActive = false;
+
   }
 
   componentDidMount() {
@@ -55,6 +57,7 @@ export default class Stroop extends React.Component {
     if (btn) {
       btn.className = 'rect-btn active';
       setTimeout(() => {
+        if (this.testActive == false) return;
         btn.className = 'rect-btn';
       }, 1000);
     }
@@ -77,6 +80,7 @@ export default class Stroop extends React.Component {
     Session.set('attemptCount', attemptCount + 1);
 
     setTimeout(() => {
+      if (this.testActive == false) return;
       this.resetStroopWord();
     }, Constants.STROOP_DELAY_BETWEEN_WORDS);
 
@@ -91,6 +95,8 @@ export default class Stroop extends React.Component {
     Session.set('guessTime', 0);
 
     this.resetStroopWord();
+
+    this.testActive = true;
 
   }
 
@@ -112,6 +118,7 @@ export default class Stroop extends React.Component {
     } else {
 
       setTimeout(() => {
+        if (this.testActive == false) return;
         this.nextStroopWord();
       }, Constants.STROOP_DELAY_BETWEEN_WORDS);
 

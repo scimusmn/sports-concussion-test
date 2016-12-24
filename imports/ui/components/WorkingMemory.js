@@ -29,6 +29,7 @@ export default class WorkingMemory extends React.Component {
     this.symbolOrder = [];
     this.currentSymbol = '';
     this.currentSymbolIndex = 0;
+    this.testActive = false;
 
     // Set keyboard callbacks
     setTrianglePressCallback(this.onTrianglePress);
@@ -57,6 +58,7 @@ export default class WorkingMemory extends React.Component {
     Session.set('attemptCount', attemptCount + 1);
 
     setTimeout(() => {
+      if (this.testActive == false) return;
       this.resetGuess();
     }, Constants.WM_GUESS_LOCKOUT);
 
@@ -77,6 +79,8 @@ export default class WorkingMemory extends React.Component {
     // DOM is about to become
     // inaccessible. Clean up
     // all timers ans tweens.
+
+    this.testActive = false;
 
   }
 
@@ -107,6 +111,8 @@ export default class WorkingMemory extends React.Component {
 
     this.resetMemorySymbol();
 
+    this.testActive = true;
+
   }
 
   resetGuess() {
@@ -128,6 +134,7 @@ export default class WorkingMemory extends React.Component {
     } else {
 
       setTimeout(() => {
+        if (this.testActive == false) return;
         this.nextMemorySymbol();
       }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
 
@@ -157,6 +164,7 @@ export default class WorkingMemory extends React.Component {
     }
 
     setTimeout(() => {
+      if (this.testActive == false) return;
       this.resetMemorySymbol();
     }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
 

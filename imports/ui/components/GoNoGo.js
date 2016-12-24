@@ -30,10 +30,13 @@ export default class GoNoGo extends React.Component {
 
     this.testCompleted = this.testCompleted.bind(this);
     this.onTrianglePress = this.onTrianglePress.bind(this);
+    this.resetMemorySymbol = this.resetMemorySymbol.bind(this);
+    this.nextMemorySymbol = this.nextMemorySymbol.bind(this);
 
     this.symbolOrder = [];
     this.currentSymbol = '';
     this.currentSymbolIndex = 0;
+    this.testActive = false;
 
     // Set keyboard callbacks
     setTrianglePressCallback(this.onTrianglePress);
@@ -41,6 +44,7 @@ export default class GoNoGo extends React.Component {
   }
 
   onTrianglePress() {
+
     console.log('GoNoGo::onTrianglePress()');
 
     const currentSymbol = Session.get('currentSymbol');
@@ -58,13 +62,11 @@ export default class GoNoGo extends React.Component {
 
     if (isCorrect) {
       // Correct
-      console.log('CORRECT');
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
       this.setState({ showCorrectFeedback: true });
     } else {
       // Incorrect
-      console.log('!INCORRECT');
       this.setState({ showIncorrectFeedback: true });
     }
 
@@ -73,8 +75,10 @@ export default class GoNoGo extends React.Component {
     Session.set('attemptCount', attemptCount + 1);
 
     setTimeout(() => {
+      if (this.testActive == false) return;
       this.resetGuess();
     }, Constants.GNG_GUESS_LOCKOUT);
+
   }
 
   componentDidMount() {
@@ -82,7 +86,6 @@ export default class GoNoGo extends React.Component {
     // DOM is rendered and
     // ready for manipulation
     // and animations.
-
     this.beginMemoryTest();
 
   }
@@ -92,10 +95,13 @@ export default class GoNoGo extends React.Component {
     // DOM is about to become
     // inaccessible. Clean up
     // all timers ans tweens.
+    this.testActive = false;
 
   }
 
   beginMemoryTest() {
+
+    clearTimeout(this.timer);
 
     // Generate symbol order
     this.symbolOrder = [];
@@ -103,7 +109,6 @@ export default class GoNoGo extends React.Component {
 
       const r = Math.floor(Math.random() * this.symbols.length);
       const rSymbol = this.symbols[r];
-      console.log('this.symbols...', this.symbols.length, r, rSymbol);
       this.symbolOrder.push(rSymbol);
 
     }
@@ -119,6 +124,8 @@ export default class GoNoGo extends React.Component {
     this.currentSymbolIndex = 0;
 
     this.resetMemorySymbol();
+
+    this.testActive = true;
 
   }
 
@@ -138,6 +145,7 @@ export default class GoNoGo extends React.Component {
     } else {
 
       setTimeout(() => {
+        if (this.testActive == false) return;
         this.nextMemorySymbol();
       }, Constants.GNG_DELAY_BETWEEN_SYMBOLS);
 
@@ -162,9 +170,8 @@ export default class GoNoGo extends React.Component {
 
     Session.set('currentSymbol', nextSymbol);
 
-    console.log('-> nextMemorySymbol', nextSymbol);
-
     setTimeout(() => {
+      if (this.testActive == false) return;
       this.resetMemorySymbol();
     }, Constants.GNG_DELAY_BETWEEN_SYMBOLS);
 
@@ -220,6 +227,7 @@ export default class GoNoGo extends React.Component {
   render() {
 
     return <div className={'test-canvas ' + this.props.cTest.slug}>
+      <img className='center-top' src='/images/gonogo_instruct.png'/>
       { this.renderCurrentTestSymbol() }
       { this.state.showCorrectFeedback ? <img className='feedback' src='/images/feedback_O.png'/> : null }
       { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }

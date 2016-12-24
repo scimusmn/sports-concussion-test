@@ -407,6 +407,13 @@ table .your-score {
   transform: translate(-50%, -50%);
 }
 
+.test-canvas .center-top {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
 .stroop h1 {
   font-family: 'Avenir Next';
   font-size: 142px;

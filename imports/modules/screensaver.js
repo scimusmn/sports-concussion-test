@@ -34,6 +34,12 @@ function showScreensaver() {
     Session.set('appState', Constants.STATE_INTRO);
     browserHistory.push('/');
 
+    // Might as well reload browser
+    // here to clear any stragglers
+    // App will realod into default
+    // screensaver state.
+    location.reload();
+
   }
 }
 
