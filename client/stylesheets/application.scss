@@ -419,10 +419,11 @@ table .your-score {
   font-size: 142px;
   letter-spacing: 0.1em;
   font-weight: 900;
-  margin-top: 126px;
-  text-align: center;
-  width: 100%;
   text-transform: uppercase;
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translate(-50%, 0%);
 }
 
 .gono-go .activity-prop {
