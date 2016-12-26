@@ -81,6 +81,7 @@ export default class WorkingMemory extends React.Component {
     // all timers ans tweens.
 
     this.testActive = false;
+    Session.set('maxAttempts', 0);
 
   }
 
@@ -104,6 +105,8 @@ export default class WorkingMemory extends React.Component {
     Session.set('correctCount', 0);
     Session.set('currentSymbol', '');
     Session.set('correctAnswer', '');
+
+    Session.set('maxAttempts', Constants.WM_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
 

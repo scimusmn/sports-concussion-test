@@ -27,17 +27,17 @@ Scores.schema = new SimpleSchema({
     optional: false,
   },
   percentCorrect: {
-    type: Number,
+    type: String,
     label: 'Percent correct of this score.',
     optional: true,
   },
   normalTime: {
-    type: Number,
+    type: String,
     label: 'Normal time of this score.',
     optional: true,
   },
   interferenceTime: {
-    type: Number,
+    type: String,
     label: 'Interference time of this score.',
     optional: true,
   },

@@ -24,6 +24,8 @@ export default class Stroop extends React.Component {
     setColorPressCallback(this.onColorPress);
 
     this.testActive = false;
+    this.normalTimes = [];
+    this.interferenceTimes = [];
 
   }
 
@@ -43,6 +45,9 @@ export default class Stroop extends React.Component {
     // inaccessible. Clean up
     // all timers ans tweens.
 
+    this.testActive = false;
+    Session.set('maxAttempts', 0);
+
   }
 
   onColorPress(color) {
@@ -53,6 +58,7 @@ export default class Stroop extends React.Component {
 
     // Visually indicate which
     // color was pressed.
+
     const btn = this.refs[color];
     if (btn) {
       btn.className = 'rect-btn active';
@@ -69,15 +75,26 @@ export default class Stroop extends React.Component {
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
       this.setState({ showCorrectFeedback: true });
+
+      // How long did it take to guess?
+      const now = Date.now();
+      let guessTime = now - Session.get('startTime');
+
+      // Save time it took to guess
+      console.log('Correct guess, is normal?', Session.get('isNormalRound'));
+      if (Session.get('isNormalRound') == true) {
+        console.log('normalTime', guessTime);
+        this.normalTimes.push(guessTime);
+      } else {
+        this.interferenceTimes.push(guessTime);
+        console.log('interferenceTime', guessTime);
+      }
+
     } else {
       // Incorrect
       console.log('Stroop: Incorrect');
       this.setState({ showIncorrectFeedback: true });
     }
-
-    // Total attempts
-    const attemptCount = Session.get('attemptCount');
-    Session.set('attemptCount', attemptCount + 1);
 
     setTimeout(() => {
       if (this.testActive == false) return;
@@ -92,11 +109,14 @@ export default class Stroop extends React.Component {
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
     Session.set('startTime', 0);
-    Session.set('guessTime', 0);
 
-    this.resetStroopWord();
+    Session.set('maxAttempts', Constants.STROOP_TOTAL_ATTEMPTS);
 
     this.testActive = true;
+    this.normalTimes = [];
+    this.interferenceTimes = [];
+
+    this.resetStroopWord();
 
   }
 
@@ -136,6 +156,21 @@ export default class Stroop extends React.Component {
     Session.set('stroopColorKey', colorKey);
     Session.set('stroopColor', stroopColor);
 
+    // Is this a 'normal' round,
+    // or and interference round?
+    if (colorKey == stroopWord) {
+      Session.set('isNormalRound', true);
+    } else {
+      Session.set('isNormalRound', false);
+    }
+
+    // Increment attempt count
+    const attemptCount = Session.get('attemptCount');
+    Session.set('attemptCount', attemptCount + 1);
+
+    const now = Date.now();
+    Session.set('startTime', now);
+
     console.log('-> nextStroopWord', stroopWord, stroopColor);
 
   }
@@ -172,6 +207,30 @@ export default class Stroop extends React.Component {
 
   }
 
+  getAverageTime(timesArray) {
+
+    if (timesArray.length == 0) {
+      return 0;
+    }
+
+    let time = 0.0;
+
+    // Sum recorded 'normal' guess times
+    for (var i = 0; i < timesArray.length; i++) {
+      time += timesArray[i];
+    }
+
+    // Average 'normal' times
+    time = (time / timesArray.length);
+
+    // Convert to seconds
+    const secs = time / 1000.0;
+
+    // Trim to two decimal points
+    return secs.toFixed(2);
+
+  }
+
   testCompleted() {
 
     const testKey = this.props.cTest.slug;
@@ -179,25 +238,31 @@ export default class Stroop extends React.Component {
     const correctAnswers = Session.get('correctCount');
     const percentCorrect = Math.floor((correctAnswers / Constants.STROOP_TOTAL_ATTEMPTS) * 100);
 
-    console.log('Results', correctAnswers, '/', Constants.STROOP_TOTAL_ATTEMPTS);
+    // Get average 'normal' time.
+    const normalTime = this.getAverageTime(this.normalTimes);
+
+    // Get average 'interference' time.
+    const interferenceTime = this.getAverageTime(this.interferenceTimes);
+
+    console.log('normalTime', normalTime);
+    console.log('interferenceTime', interferenceTime);
 
     // Stroop score categories
-    // "percentCorrect",
-    // "missedPairs",
-    // "falsePairs",
-    // "correctAnswers"
+    // [ Percent correct | Normal time | Interference time | Difference ]
 
     Meteor.apply('submitScore', [{
+
       testKey: testKey,
       timestamp: new Date().getTime(),
-      percentCorrect: percentCorrect,
-      normalTime: Math.round(Math.random() * 100),
-      interferenceTime: Math.round(Math.random() * 100),
-      bestTime: Math.round(Math.random() * 100),
-      averageTime: Math.round(Math.random() * 100),
-      missedPairs: Math.round(Math.random() * 100),
-      falsePairs: Math.round(Math.random() * 100),
+      percentCorrect: percentCorrect + '%',
+      normalTime: normalTime + 's',
+      interferenceTime: interferenceTime + 's',
+      // bestTime: -1,
+      // averageTime: -1,
+      // missedPairs: -1,
+      // falsePairs: -1,
       correctAnswers: correctAnswers,
+
     },], {
 
       onResultReceived: (error, response) => {

@@ -60,7 +60,22 @@ export default class Test extends React.Component {
 
   renderHeadband() {
 
-    let jsx = <h2 className='leftAlign'>{this.props.cTest.titleFull}</h2>;
+    let jsx = <div>
+                <h2 className='leftAlign'>{this.props.cTest.titleFull}</h2>
+                {this.renderProgress()}
+              </div>;
+    return jsx;
+
+  }
+
+  renderProgress() {
+
+    let jsx = '';
+
+    if (Session.get('maxAttempts') > 0) {
+      jsx = <h3 className='right'>{Session.get('attemptCount') + ' / ' + Session.get('maxAttempts')}</h3>;
+    }
+
     return jsx;
 
   }
