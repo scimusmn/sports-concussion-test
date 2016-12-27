@@ -16,7 +16,7 @@ export default class WorkingMemory extends React.Component {
       guessLockout: true,
     };
 
-    this.symbols = [  '/images/wm_1.png',
+    this.symbols = ['/images/wm_1.png',
                       '/images/wm_2.png',
                       '/images/wm_3.png',
                       '/images/wm_4.png',
@@ -38,12 +38,12 @@ export default class WorkingMemory extends React.Component {
 
   onTrianglePress() {
 
+    if (this.state.guessLockout) return;
+
     const correctAnswer = Session.get('correctAnswer');
     const currentSymbol = Session.get('currentSymbol');
 
-    if (!correctAnswer || correctAnswer == '' || this.state.guessLockout) return;
-
-    if (currentSymbol == correctAnswer) {
+    if (correctAnswer == true) {
       // Correct
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
@@ -51,16 +51,20 @@ export default class WorkingMemory extends React.Component {
     } else {
       // Incorrect
       this.setState({ showIncorrectFeedback: true });
+
+      const falsePairs = Session.get('wmFalsePairs');
+      Session.set('wmFalsePairs', falsePairs + 1);
+
     }
 
-    // Total attempts
-    const attemptCount = Session.get('attemptCount');
-    Session.set('attemptCount', attemptCount + 1);
+    // Increment possible correct pairs
+    const matchAttempts = Session.get('wmActiveAnswers');
+    Session.set('wmActiveAnswers', matchAttempts + 1);
 
-    setTimeout(() => {
+/*    setTimeout(() => {
       if (this.testActive == false) return;
       this.resetGuess();
-    }, Constants.WM_GUESS_LOCKOUT);
+    }, Constants.WM_GUESS_LOCKOUT);*/
 
   }
 
@@ -87,34 +91,43 @@ export default class WorkingMemory extends React.Component {
 
   beginMemoryTest() {
 
-    // Generate symbol order
-    this.symbolOrder = [];
-    for (var i = 0; i < Constants.WM_SYMBOLS_PER_TEST; i++) {
-
-      const r = Math.floor(Math.random() * this.symbols.length);
-      const rSymbol = this.symbols[r];
-      console.log('this.symbols...', this.symbols.length, r, rSymbol);
-      this.symbolOrder.push(rSymbol);
-
-    }
-
-    console.log('symbolOrder', this.symbolOrder);
-
     // Ensure all scores are reset
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
     Session.set('currentSymbol', '');
-    Session.set('correctAnswer', '');
-
+    Session.set('correctAnswer', false);
+    Session.set('wmPossibleMatches', 0);
+    Session.set('wmActiveAnswers', 0);
+    Session.set('wmMissedPairs', 0);
+    Session.set('wmFalsePairs', 0);
     Session.set('maxAttempts', Constants.WM_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
 
     this.setState({ guessLockout: false });
 
-    this.resetMemorySymbol();
+    // Generate symbol order
+    this.symbolOrder = [];
+    for (var i = 0; i < Constants.WM_SYMBOLS_PER_TEST; i++) {
 
+      // Choose random symbol
+      const r = Math.floor(Math.random() * this.symbols.length);
+      let rSymbol = this.symbols[r];
+
+      // If within force random odds.
+      // force a match this round.
+      if (i >= 2 && Math.random() < Constants.WM_FORCE_MATCH) {
+        const twoPrevious = this.symbolOrder[i - 2];
+        rSymbol = twoPrevious;
+      }
+
+      this.symbolOrder.push(rSymbol);
+
+    }
+
+    // Onward...
     this.testActive = true;
+    this.resetMemorySymbol();
 
   }
 
@@ -128,16 +141,39 @@ export default class WorkingMemory extends React.Component {
 
     Session.set('currentSymbol', '');
 
+    if (this.currentSymbolIndex != 0 && this.state.showCorrectFeedback == false && this.state.showIncorrectFeedback == false) {
+
+      // If user DID NOT press button
+      // and it was NOT a match, count
+      // as a correct answer
+      if (Session.get('correctAnswer') == false) {
+        const correctCount = Session.get('correctCount');
+        Session.set('correctCount', correctCount + 1);
+
+      }
+
+      // If user DID NOT press button
+      // and it WAS a match, count
+      // as a missed pair.
+      if (Session.get('correctAnswer') == true) {
+
+        const missedPairs = Session.get('wmMissedPairs');
+        Session.set('wmMissedPairs', missedPairs + 1);
+
+      }
+
+    }
+
     if (this.currentSymbolIndex >= Constants.WM_SYMBOLS_PER_TEST) {
 
       // Test complete
-      console.log('WM test complete');
       this.testCompleted();
 
     } else {
 
       setTimeout(() => {
         if (this.testActive == false) return;
+        this.resetGuess();
         this.nextMemorySymbol();
       }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
 
@@ -156,14 +192,24 @@ export default class WorkingMemory extends React.Component {
 
     Session.set('currentSymbol', nextSymbol);
 
-    console.log('-> nextMemorySymbol', nextSymbol);
-
-    // What is the current correct answer?
+    // Is the current symbol a correct match?
     if (this.currentSymbolIndex >= 2) {
+
       const twoPrevious = this.symbolOrder[this.currentSymbolIndex - 2];
-      Session.set('correctAnswer', twoPrevious);
+
+      if (nextSymbol == twoPrevious) {
+        Session.set('correctAnswer', true);
+
+        // Increment possible correct pairs
+        const possibleMatches = Session.get('wmPossibleMatches');
+        Session.set('wmPossibleMatches', possibleMatches + 1);
+
+      } else {
+        Session.set('correctAnswer', false);
+      }
+
     } else {
-      Session.set('correctAnswer', '');
+      Session.set('correctAnswer', false);
     }
 
     setTimeout(() => {
@@ -191,17 +237,20 @@ export default class WorkingMemory extends React.Component {
 
     const testKey = this.props.cTest.slug;
 
+    const correctAnswers = Session.get('correctCount');
+    const percentCorrect = Math.floor((correctAnswers / Constants.WM_SYMBOLS_PER_TEST) * 100);
+    const missedPairs = Session.get('wmMissedPairs');
+    const falsePairs = Session.get('wmFalsePairs');
+
     Meteor.apply('submitScore', [{
+
       testKey: testKey,
       timestamp: new Date().getTime(),
-      percentCorrect: Math.round(Math.random() * 100),
-      normalTime: Math.round(Math.random() * 100),
-      interferenceTime: Math.round(Math.random() * 100),
-      bestTime: Math.round(Math.random() * 100),
-      averageTime: Math.round(Math.random() * 100),
-      missedPairs: Math.round(Math.random() * 100),
-      falsePairs: Math.round(Math.random() * 100),
-      correctAnswers: Math.round(Math.random() * 100),
+      percentCorrect: percentCorrect + '%',
+      missedPairs: missedPairs + '',
+      falsePairs: falsePairs + '',
+      correctAnswers: correctAnswers + '',
+
     },], {
 
       onResultReceived: (error, response) => {

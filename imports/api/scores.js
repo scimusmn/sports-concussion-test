@@ -41,33 +41,33 @@ Scores.schema = new SimpleSchema({
     label: 'Interference time of this score.',
     optional: true,
   },
-  differenceTime: {
-    type: Number,
+  difference: {
+    type: String,
     label: 'Difference between normal and interference times.',
     optional: true,
   },
   bestTime: {
-    type: Number,
+    type: String,
     label: 'Best time of this score.',
     optional: true,
   },
   averageTime: {
-    type: Number,
+    type: String,
     label: 'Average time of this score.',
     optional: true,
   },
   missedPairs: {
-    type: Number,
+    type: String,
     label: 'Number of pairs missed.',
     optional: true,
   },
   falsePairs: {
-    type: Number,
+    type: String,
     label: 'Number of false pairs.',
     optional: true,
   },
   correctAnswers: {
-    type: Number,
+    type: String,
     label: 'Number of correct answers.',
     optional: true,
   },

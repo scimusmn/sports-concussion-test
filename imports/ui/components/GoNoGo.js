@@ -36,6 +36,7 @@ export default class GoNoGo extends React.Component {
     this.symbolOrder = [];
     this.currentSymbol = '';
     this.currentSymbolIndex = 0;
+    this.correctAnswerTimes = [];
     this.testActive = false;
 
     // Set keyboard callbacks
@@ -52,32 +53,24 @@ export default class GoNoGo extends React.Component {
     if (!currentSymbol || currentSymbol == '' || currentSymbol == this.idleSymbol || this.state.guessLockout) return;
 
     // Would this triangle be correct?
-    let isCorrect = false;
-    for (var i = 0; i < this.correctSymbols.length; i++) {
-      if (currentSymbol == this.correctSymbols[i]) {
-        isCorrect = true;
-        break;
-      }
-    }
+    const isCorrect = Session.get('correctAnswer');
 
-    if (isCorrect) {
+    if (isCorrect == true) {
+
       // Correct
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
       this.setState({ showCorrectFeedback: true });
+
+      // How long did it take to answer?
+      const now = Date.now();
+      let answerTime = now - Session.get('startTime');
+      this.correctAnswerTimes.push(answerTime);
+
     } else {
       // Incorrect
       this.setState({ showIncorrectFeedback: true });
     }
-
-    // Total attempts
-    const attemptCount = Session.get('attemptCount');
-    Session.set('attemptCount', attemptCount + 1);
-
-    setTimeout(() => {
-      if (this.testActive == false) return;
-      this.resetGuess();
-    }, Constants.GNG_GUESS_LOCKOUT);
 
   }
 
@@ -115,17 +108,17 @@ export default class GoNoGo extends React.Component {
 
     }
 
-    console.log('symbolOrder', this.symbolOrder);
-
     // Ensure all scores are reset
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
     Session.set('currentSymbol', '');
-    Session.set('correctAnswer', '');
+    Session.set('correctAnswer', false);
+    Session.set('startTime', 0);
 
     Session.set('maxAttempts', Constants.GNG_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
+    this.correctAnswerTimes = [];
 
     this.resetMemorySymbol();
 
@@ -135,21 +128,31 @@ export default class GoNoGo extends React.Component {
 
   resetMemorySymbol() {
 
-    Session.set('currentSymbol', this.idleSymbol);
+    console.log('resetMemorySymbol', Session.get('correctAnswer'), this.state.showCorrectFeedback, this.state.showIncorrectFeedback);
+    if (this.currentSymbolIndex != 0 &&
+      !Session.get('correctAnswer') &&
+      !this.state.showCorrectFeedback &&
+      !this.state.showIncorrectFeedback) {
+      // If user abstains during
+      // a patterned triangle, count
+      // as correct answer.
+      const correctCount = Session.get('correctCount');
+      Session.set('correctCount', correctCount + 1);
 
-    // TODO - show "Correct' or "Incorrect"
-    // feedback here with a beat to reset.
+    }
 
     if (this.currentSymbolIndex >= Constants.GNG_SYMBOLS_PER_TEST) {
 
       // Test complete
-      console.log('GNG test complete');
       this.testCompleted();
 
     } else {
 
+      Session.set('currentSymbol', this.idleSymbol);
+
       setTimeout(() => {
         if (this.testActive == false) return;
+        this.resetGuess();
         this.nextMemorySymbol();
       }, Constants.GNG_DELAY_BETWEEN_SYMBOLS);
 
@@ -174,6 +177,21 @@ export default class GoNoGo extends React.Component {
 
     Session.set('currentSymbol', nextSymbol);
 
+    // Would this triangle be correct?
+    let isCorrect = false;
+    for (var i = 0; i < this.correctSymbols.length; i++) {
+      if (nextSymbol == this.correctSymbols[i]) {
+        isCorrect = true;
+        break;
+      }
+    }
+
+    Session.set('correctAnswer', isCorrect);
+
+    // Timestamp to later find
+    // how long it took to answer.
+    Session.set('startTime', Date.now());
+
     setTimeout(() => {
       if (this.testActive == false) return;
       this.resetMemorySymbol();
@@ -195,22 +213,70 @@ export default class GoNoGo extends React.Component {
 
   }
 
+  getFastestTime(timesArray) {
+
+    if (timesArray.length == 0) {
+      return 0;
+    }
+
+    let time = 999.0;
+
+    // Find shortest time
+    for (var i = 0; i < timesArray.length; i++) {
+      if (timesArray[i] < time) {
+        time = timesArray[i];
+      }
+    }
+
+    // Convert to seconds
+    const secs = time / 1000.0;
+
+    // Trim to two decimal points
+    return secs.toFixed(2);
+
+  }
+
+  getAverageTime(timesArray) {
+
+    if (timesArray.length == 0) {
+      return 0;
+    }
+
+    let time = 0.0;
+
+    // Sum recorded correct guess times
+    for (var i = 0; i < timesArray.length; i++) {
+      time += timesArray[i];
+    }
+
+    // Average recorded correct times
+    time = (time / timesArray.length);
+
+    // Convert to seconds
+    const secs = time / 1000.0;
+
+    // Trim to two decimal points
+    return secs.toFixed(2);
+
+  }
+
   testCompleted() {
 
     const testKey = this.props.cTest.slug;
+
+    const correctAnswers = Session.get('correctCount');
+    const percentCorrect = Math.floor((correctAnswers / Constants.GNG_SYMBOLS_PER_TEST) * 100);
+
+    const bestTime = this.getFastestTime(this.correctAnswerTimes);
+    const averageTime = this.getAverageTime(this.correctAnswerTimes);
 
     Meteor.apply('submitScore', [{
 
       testKey: testKey,
       timestamp: new Date().getTime(),
-      percentCorrect: Math.round(Math.random() * 100),
-      normalTime: Math.round(Math.random() * 100),
-      interferenceTime: Math.round(Math.random() * 100),
-      bestTime: Math.round(Math.random() * 100),
-      averageTime: Math.round(Math.random() * 100),
-      missedPairs: Math.round(Math.random() * 100),
-      falsePairs: Math.round(Math.random() * 100),
-      correctAnswers: Math.round(Math.random() * 100),
+      percentCorrect: percentCorrect + '%',
+      bestTime: bestTime + 's',
+      averageTime: averageTime + 's',
 
     },], {
 

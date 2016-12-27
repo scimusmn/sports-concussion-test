@@ -149,7 +149,14 @@ export default class Stroop extends React.Component {
   nextStroopWord() {
 
     const stroopWord = this.fishRandomColor();
-    const colorKey = this.fishRandomColor();
+    let colorKey = stroopWord; // Default is that color matches word.
+
+    // If random is outside force chance, allow
+    // color/word mismatch.
+    if (Math.random() > Constants.STROOP_FORCE_NORMAL) {
+      colorKey = this.fishRandomColor();
+    }
+
     const stroopColor = Constants.COLOR_COLORS[colorKey];
 
     Session.set('stroopWord', stroopWord);
@@ -170,8 +177,6 @@ export default class Stroop extends React.Component {
 
     const now = Date.now();
     Session.set('startTime', now);
-
-    console.log('-> nextStroopWord', stroopWord, stroopColor);
 
   }
 
@@ -244,8 +249,8 @@ export default class Stroop extends React.Component {
     // Get average 'interference' time.
     const interferenceTime = this.getAverageTime(this.interferenceTimes);
 
-    console.log('normalTime', normalTime);
-    console.log('interferenceTime', interferenceTime);
+    // Difference between interference time and normal time
+    const difference = (interferenceTime - normalTime).toFixed(2);
 
     // Stroop score categories
     // [ Percent correct | Normal time | Interference time | Difference ]
@@ -257,10 +262,7 @@ export default class Stroop extends React.Component {
       percentCorrect: percentCorrect + '%',
       normalTime: normalTime + 's',
       interferenceTime: interferenceTime + 's',
-      // bestTime: -1,
-      // averageTime: -1,
-      // missedPairs: -1,
-      // falsePairs: -1,
+      difference: difference + 's',
       correctAnswers: correctAnswers,
 
     },], {
