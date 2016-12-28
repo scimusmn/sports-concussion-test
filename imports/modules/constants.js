@@ -33,7 +33,7 @@ Constants.COLOR_COLORS = {red:'#d52229',
 
 // Go No Go
 Constants.GNG_SYMBOLS_PER_TEST = 12; // 12
-Constants.GNG_DELAY_BETWEEN_SYMBOLS = 1500;
+Constants.GNG_DELAY_FOR_PATTERNED = 4500;
 Constants.GNG_GUESS_LOCKOUT = 1500;
 
 // Working Memory

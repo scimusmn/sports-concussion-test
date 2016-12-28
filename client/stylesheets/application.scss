@@ -209,7 +209,7 @@ body {
 .lower-body .intro .descrip {
   width: 730px;
   margin: 0 auto;
-  padding-top: 90px;
+  padding-top: 105px;
   text-align: left;
 }
 
@@ -285,6 +285,13 @@ body {
   border-style: solid;
   border-width: 0 13px 22.5px 13px;
   border-color: transparent transparent #ffffff transparent;
+}
+
+.lower-body .round-wait {
+  font-size: 64px;
+  padding-top: 200px;
+  color: $sports-dark-gray;
+  text-align: center;
 }
 
 .lower-body .button-guide .tag {
@@ -406,12 +413,21 @@ table .your-score {
   width: 100%;
   height: 487px;
   overflow: hidden;
+  color: $sports-dark-gray;
 }
 
 .test-canvas .feedback {
   position: absolute;
   right: 190px;
   top: 155px;
+}
+
+.test-canvas .feedback-sub {
+  position: absolute;
+  right: 260px;
+  top: 325px;
+  font-size: 32px;
+  color: $sports-mid-gray;
 }
 
 .test-canvas .test-symbol {

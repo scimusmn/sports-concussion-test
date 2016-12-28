@@ -14,6 +14,8 @@ export default class GoNoGo extends React.Component {
       showCorrectFeedback: false,
       showIncorrectFeedback: false,
       guessLockout: false,
+      waitingForRoundStart: false,
+      reactionTime: 0.0,
     };
 
     this.symbols = ['/images/gonogo_tri_1.png',
@@ -39,6 +41,8 @@ export default class GoNoGo extends React.Component {
     this.correctAnswerTimes = [];
     this.testActive = false;
 
+    this.setState({ waitingForRoundStart: true });
+
     // Set keyboard callbacks
     setTrianglePressCallback(this.onTrianglePress);
 
@@ -47,6 +51,23 @@ export default class GoNoGo extends React.Component {
   onTrianglePress() {
 
     console.log('GoNoGo::onTrianglePress()');
+
+    // Waiting for round to start
+    if (this.state.waitingForRoundStart == true) {
+
+      Session.set('currentSymbol', this.idleSymbol);
+      this.setState({ waitingForRoundStart: false });
+
+      const randomDelay = Math.ceil(Math.random() * 3000 + 500);
+
+      setTimeout(() => {
+        if (this.testActive == false) return;
+        this.nextMemorySymbol();
+      }, randomDelay);
+
+      return;
+
+    }
 
     const currentSymbol = Session.get('currentSymbol');
 
@@ -66,6 +87,7 @@ export default class GoNoGo extends React.Component {
       const now = Date.now();
       let answerTime = now - Session.get('startTime');
       this.correctAnswerTimes.push(answerTime);
+      this.setState({ reactionTime: answerTime });
 
     } else {
       // Incorrect
@@ -148,13 +170,9 @@ export default class GoNoGo extends React.Component {
 
     } else {
 
-      Session.set('currentSymbol', this.idleSymbol);
-
-      setTimeout(() => {
-        if (this.testActive == false) return;
-        this.resetGuess();
-        this.nextMemorySymbol();
-      }, Constants.GNG_DELAY_BETWEEN_SYMBOLS);
+      // Wait for user action to start next round
+      this.setState({ waitingForRoundStart: true });
+      this.resetGuess();
 
     }
 
@@ -195,7 +213,7 @@ export default class GoNoGo extends React.Component {
     setTimeout(() => {
       if (this.testActive == false) return;
       this.resetMemorySymbol();
-    }, Constants.GNG_DELAY_BETWEEN_SYMBOLS);
+    }, Constants.GNG_DELAY_FOR_PATTERNED);
 
   }
 
@@ -205,7 +223,9 @@ export default class GoNoGo extends React.Component {
 
     const symbolPath = Session.get('currentSymbol');
 
-    if (symbolPath && symbolPath != '') {
+    if (this.state.waitingForRoundStart == true) {
+      jsx = <h3 className='round-wait'>Press Triangle...</h3>;
+    } else if (symbolPath && symbolPath != '') {
       jsx = <img className='test-symbol' src={symbolPath}/>;
     }
 
@@ -299,7 +319,7 @@ export default class GoNoGo extends React.Component {
     return <div className={'test-canvas ' + this.props.cTest.slug}>
       <img className='center-top' src='/images/gonogo_instruct.png'/>
       { this.renderCurrentTestSymbol() }
-      { this.state.showCorrectFeedback ? <img className='feedback' src='/images/feedback_O.png'/> : null }
+      { this.state.showCorrectFeedback ? <div><img className='feedback' src='/images/feedback_O.png'/><p className='feedback-sub'>{this.state.reactionTime}</p></div> : null }
       { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
     </div>;
 
