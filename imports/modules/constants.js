@@ -3,7 +3,7 @@ export default class Constants {};
 // Seconds of inactivity
 // required to trigger
 // screensaver and reset.
-Constants.TIMEOUT_SECS = 60;
+Constants.TIMEOUT_SECS = 120;
 
 // App state enumeration
 Constants.STATE_INTRO = 0;
@@ -18,7 +18,7 @@ Constants.TEST_GONOGO = 'gono-go';
 Constants.TEST_WORKING_MEMORY = 'working-memory';
 
 // Stroop
-Constants.STROOP_TOTAL_ATTEMPTS = 20; // 20
+Constants.STROOP_TOTAL_ATTEMPTS = 5; // 20
 Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
 Constants.STROOP_FORCE_NORMAL = 0.3; // Chance of forcing a 'normal' round
 

@@ -28,7 +28,7 @@ export default class ScoreTable extends React.Component {
           <tr>
             { this.props.cTest.scoreCategories.map((category, index) => {
               return <th key={ index }>
-                {camelToTitleCase(category)}
+                {this.renderColumnHeader(category)}
               </th>;
             })}
           </tr>
@@ -55,8 +55,29 @@ export default class ScoreTable extends React.Component {
 
   }
 
-  renderScoreRow(index) {
+  renderColumnHeader(category) {
+    let jsx = '';
 
+    // Convert to title case
+    const categoryString = camelToTitleCase(category);
+
+    // Check if this will be multiline label
+    let multiline = false;
+    if (categoryString.split(' ').length >= 1) {
+      multiline = true;
+    }
+
+    // Check if a subheader is required.
+    let unitLabel = '';
+    if (categoryString.indexOf('Time') != -1) {
+      unitLabel = '(seconds)';
+    }
+
+    jsx = <div>
+            {categoryString}
+            <p className='unit-label'>&nbsp;{unitLabel}&nbsp;</p>
+          </div>;
+    return jsx;
   }
 
   render() {

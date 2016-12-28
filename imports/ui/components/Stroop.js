@@ -244,13 +244,25 @@ export default class Stroop extends React.Component {
     const percentCorrect = Math.floor((correctAnswers / Constants.STROOP_TOTAL_ATTEMPTS) * 100);
 
     // Get average 'normal' time.
-    const normalTime = this.getAverageTime(this.normalTimes);
+    let normalTime = this.getAverageTime(this.normalTimes);
 
     // Get average 'interference' time.
-    const interferenceTime = this.getAverageTime(this.interferenceTimes);
+    let interferenceTime = this.getAverageTime(this.interferenceTimes);
 
     // Difference between interference time and normal time
-    const difference = (interferenceTime - normalTime).toFixed(2);
+    let difference = (interferenceTime - normalTime).toFixed(2);
+
+    // Catch normal non-values
+    if (normalTime == 0) {
+      normalTime = '--';
+      difference = '--';
+    }
+
+    // Catch interfence non-values
+    if (interferenceTime == 0) {
+      interferenceTime = '--';
+      difference = '--';
+    }
 
     // Stroop score categories
     // [ Percent correct | Normal time | Interference time | Difference ]
@@ -260,10 +272,10 @@ export default class Stroop extends React.Component {
       testKey: testKey,
       timestamp: new Date().getTime(),
       percentCorrect: percentCorrect + '%',
-      normalTime: normalTime + 's',
-      interferenceTime: interferenceTime + 's',
-      difference: difference + 's',
-      correctAnswers: correctAnswers,
+      normalTime: normalTime.toString(),
+      interferenceTime: interferenceTime.toString(),
+      difference: difference.toString(),
+      correctAnswers: correctAnswers.toString(),
 
     },], {
 
