@@ -61,11 +61,6 @@ export default class WorkingMemory extends React.Component {
     const matchAttempts = Session.get('wmActiveAnswers');
     Session.set('wmActiveAnswers', matchAttempts + 1);
 
-/*    setTimeout(() => {
-      if (this.testActive == false) return;
-      this.resetGuess();
-    }, Constants.WM_GUESS_LOCKOUT);*/
-
   }
 
   componentDidMount() {
@@ -237,8 +232,8 @@ export default class WorkingMemory extends React.Component {
 
     const testKey = this.props.cTest.slug;
 
-    const correctAnswers = Session.get('correctCount');
-    const percentCorrect = Math.floor((correctAnswers / Constants.WM_SYMBOLS_PER_TEST) * 100);
+    const correctPairs = Session.get('correctCount');
+    const percentCorrect = Math.floor((correctPairs / Constants.WM_SYMBOLS_PER_TEST) * 100);
     const missedPairs = Session.get('wmMissedPairs');
     const falsePairs = Session.get('wmFalsePairs');
 
@@ -249,7 +244,7 @@ export default class WorkingMemory extends React.Component {
       percentCorrect: percentCorrect + '%',
       missedPairs: missedPairs + '',
       falsePairs: falsePairs + '',
-      correctAnswers: correctAnswers + '',
+      correctPairs: correctPairs + '',
 
     },], {
 

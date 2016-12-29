@@ -48,6 +48,16 @@ Localizations.schema = new SimpleSchema({
     type: String,
     label: 'The navigation Play text of this localization.',
   },
+  pressTriangle: {
+    type: String,
+    defaultValue: '[pressTriangle]',
+    label: 'The press triangle to go of this localization.',
+  },
+  reactionTime: {
+    type: String,
+    defaultValue: '[reactionTime]',
+    label: 'The reaction time text of this localization.',
+  },
   colorRed: {
     type: String,
     defaultValue: 'Red',
@@ -87,6 +97,47 @@ Localizations.schema = new SimpleSchema({
     type: String,
     defaultValue: 'previous players',
     label: 'The words demarking previous player scores for this localization.',
+  },
+  scorePercentCorrect: {
+    type: String,
+    label: 'The label of this scorePercentCorrect score column.',
+  },
+  scoreNormalTime: {
+    type: String,
+    label: 'The label of this scoreNormalTime score column.',
+  },
+  scoreInterferenceTime: {
+    type: String,
+    label: 'The label of this scoreInterferenceTime score column.',
+  },
+  scoreDifference: {
+    type: String,
+    label: 'The label of this scoreDifference score column.',
+  },
+  scoreBestTime: {
+    type: String,
+    label: 'The label of this scoreBestTime score column.',
+  },
+  scoreAverageTime: {
+    type: String,
+    label: 'The label of this scoreAverageTime score column.',
+  },
+  scoreMissedPairs: {
+    type: String,
+    label: 'The label of this scoreMissedPairs score column.',
+  },
+  scoreFalsePairs: {
+    type: String,
+    label: 'The label of this scoreFalsePairs score column.',
+  },
+  scoreCorrectPairs: {
+    type: String,
+    label: 'The label of this scoreCorrectPairs score column.',
+  },
+  reactionTime: {
+    type: String,
+    defaultValue: 'reaction time',
+    label: 'The label under your reaction time feedback.',
   },
   concussionTestIds: {
     type: [String],

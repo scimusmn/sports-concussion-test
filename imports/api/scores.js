@@ -66,7 +66,7 @@ Scores.schema = new SimpleSchema({
     label: 'Number of false pairs.',
     optional: true,
   },
-  correctAnswers: {
+  correctPairs: {
     type: String,
     label: 'Number of correct answers.',
     optional: true,

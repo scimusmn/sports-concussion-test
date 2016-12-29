@@ -58,9 +58,11 @@ export default class ScoreTable extends React.Component {
   renderColumnHeader(category) {
     let jsx = '';
 
-    // Convert to title case
-    const categoryString = camelToTitleCase(category);
-
+    // Get localized title
+    // e.g. percentCorrect -> scorePercentCorrect
+    console.log('renderColumnHeader:::', category);
+    const categoryString = this.props.localization['score' + s.capitalize(category, true)];
+    console.log('categoryString,', categoryString);
     // Check if this will be multiline label
     let multiline = false;
     if (categoryString.split(' ').length >= 1) {
@@ -69,8 +71,10 @@ export default class ScoreTable extends React.Component {
 
     // Check if a subheader is required.
     let unitLabel = '';
-    if (categoryString.indexOf('Time') != -1) {
+    if (categoryString.indexOf('time') != -1) {
       unitLabel = '(seconds)';
+    } else if (categoryString.indexOf('Tiempo') != -1) {
+      unitLabel = '(segundos)';
     }
 
     jsx = <div>

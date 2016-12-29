@@ -48,7 +48,7 @@
 		"percentCorrect",
 		"missedPairs",
 		"falsePairs",
-		"correctAnswers"
+		"correctPairs"
 	]
 },
 {
@@ -101,7 +101,7 @@
 		"percentCorrect",
 		"missedPairs",
 		"falsePairs",
-		"correctAnswers"
+		"correctPairs"
 	]
 }]
 

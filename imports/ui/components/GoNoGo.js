@@ -228,7 +228,8 @@ export default class GoNoGo extends React.Component {
     const symbolPath = Session.get('currentSymbol');
 
     if (this.state.waitingForRoundStart == true) {
-      jsx = <h3 className='round-wait'>Press triangle when ready.</h3>;
+      console.log('this.props.localization.pressTriangle', this.props.localization.pressTriangle);
+      jsx = <h3 className='round-wait'>{this.props.localization.pressTriangle}</h3>;
     } else if (symbolPath && symbolPath != '') {
       jsx = <img className='test-symbol' src={symbolPath}/>;
     }
@@ -323,7 +324,7 @@ export default class GoNoGo extends React.Component {
     return <div className={'test-canvas ' + this.props.cTest.slug}>
       <img className='center-top' src='/images/gonogo_instruct.png'/>
       { this.renderCurrentTestSymbol() }
-      { this.state.showCorrectFeedback ? <div><img className='feedback' src='/images/feedback_O.png'/><p className='feedback-sub'>{this.state.reactionTime} secs<br/>reaction time</p></div> : null }
+      { this.state.showCorrectFeedback ? <div><img className='feedback' src='/images/feedback_O.png'/><p className='feedback-sub'>{this.state.reactionTime}s<br/>{this.props.localization.reactionTime}</p></div> : null }
       { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
     </div>;
 
