@@ -71,7 +71,8 @@ export default class GoNoGo extends React.Component {
 
     const currentSymbol = Session.get('currentSymbol');
 
-    if (!currentSymbol || currentSymbol == '' || currentSymbol == this.idleSymbol || this.state.guessLockout) return;
+    // Exit if in wrong state.
+    if (!currentSymbol || currentSymbol == '' || currentSymbol == this.idleSymbol || this.state.guessLockout || this.state.showCorrectFeedback == true) return;
 
     // Would this triangle be correct?
     const isCorrect = Session.get('correctAnswer');
@@ -87,7 +88,11 @@ export default class GoNoGo extends React.Component {
       const now = Date.now();
       let answerTime = now - Session.get('startTime');
       this.correctAnswerTimes.push(answerTime);
-      this.setState({ reactionTime: answerTime });
+
+      // Convert to seconds
+      const reactionTime = (answerTime / 1000.0).toFixed(2);;
+
+      this.setState({ reactionTime: reactionTime });
 
     } else {
       // Incorrect
@@ -150,7 +155,6 @@ export default class GoNoGo extends React.Component {
 
   resetMemorySymbol() {
 
-    console.log('resetMemorySymbol', Session.get('correctAnswer'), this.state.showCorrectFeedback, this.state.showIncorrectFeedback);
     if (this.currentSymbolIndex != 0 &&
       !Session.get('correctAnswer') &&
       !this.state.showCorrectFeedback &&
@@ -224,7 +228,7 @@ export default class GoNoGo extends React.Component {
     const symbolPath = Session.get('currentSymbol');
 
     if (this.state.waitingForRoundStart == true) {
-      jsx = <h3 className='round-wait'>Press Triangle...</h3>;
+      jsx = <h3 className='round-wait'>Press triangle when ready.</h3>;
     } else if (symbolPath && symbolPath != '') {
       jsx = <img className='test-symbol' src={symbolPath}/>;
     }
@@ -295,8 +299,8 @@ export default class GoNoGo extends React.Component {
       testKey: testKey,
       timestamp: new Date().getTime(),
       percentCorrect: percentCorrect + '%',
-      bestTime: bestTime + 's',
-      averageTime: averageTime + 's',
+      bestTime: bestTime + '',
+      averageTime: averageTime + '',
 
     },], {
 
@@ -319,7 +323,7 @@ export default class GoNoGo extends React.Component {
     return <div className={'test-canvas ' + this.props.cTest.slug}>
       <img className='center-top' src='/images/gonogo_instruct.png'/>
       { this.renderCurrentTestSymbol() }
-      { this.state.showCorrectFeedback ? <div><img className='feedback' src='/images/feedback_O.png'/><p className='feedback-sub'>{this.state.reactionTime}</p></div> : null }
+      { this.state.showCorrectFeedback ? <div><img className='feedback' src='/images/feedback_O.png'/><p className='feedback-sub'>{this.state.reactionTime} secs<br/>reaction time</p></div> : null }
       { this.state.showIncorrectFeedback ? <img className='feedback' src='/images/feedback_X.png'/> : null }
     </div>;
 

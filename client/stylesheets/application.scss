@@ -424,15 +424,16 @@ table .your-score {
 
 .test-canvas .feedback-sub {
   position: absolute;
-  right: 260px;
-  top: 325px;
-  font-size: 32px;
+  right: 200px;
+  top: 330px;
+  font-size: 28px;
+  text-align: center;
   color: $sports-mid-gray;
 }
 
 .test-canvas .test-symbol {
   position: absolute;
-  top: 50%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
