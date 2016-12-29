@@ -59,10 +59,9 @@ export default class ScoreTable extends React.Component {
     let jsx = '';
 
     // Get localized title
-    // e.g. percentCorrect -> scorePercentCorrect
-    console.log('renderColumnHeader:::', category);
+    // e.g. 'percentCorrect' -> scorePercentCorrect
     const categoryString = this.props.localization['score' + s.capitalize(category, true)];
-    console.log('categoryString,', categoryString);
+
     // Check if this will be multiline label
     let multiline = false;
     if (categoryString.split(' ').length >= 1) {

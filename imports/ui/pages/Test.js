@@ -89,7 +89,10 @@ export default class Test extends React.Component {
   renderInstructText() {
 
     return this.props.cTest.demoInstruction.split('∆').map((text,i) => {
-      return <span key={i}>{((i == 0) ? '' : <span className='mini-tri'> </span>)}{text}</span>;
+      // return <span key={i}>{((i == 0) ? '' : <span className='mini-tri'> </span>)}{text}</span>;
+
+      return <span key={i}>{((i == 0) ? '' : <span className='inline-tri'><img src='/images/button-triangle.png' height='20' width='20' /></span>)}{text}</span>;
+
     });
 
   }
