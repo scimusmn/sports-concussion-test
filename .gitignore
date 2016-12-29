@@ -13,3 +13,5 @@ work
 *.mov
 *.mp4
 *.wav
+
+public/videos
