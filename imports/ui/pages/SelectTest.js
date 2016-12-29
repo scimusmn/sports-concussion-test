@@ -61,8 +61,12 @@ export default class SelectTest extends React.Component {
             </div>;
     } else if (appState == Constants.STATE_MAIN_MENU) {
       jsx = <div className='divide-thirds main-menu'>
+              <div className='fascia'>
+                <p className='subhead'>{this.props.localization.introDescription}</p>
+              </div>
               { this.props.cTests.map((cTest, index) => {
                 return <div className={'third i-' + index} key={ index }>
+                  <img src={'/images/menu_' + (1 + index) + '.png'}/>
                   <h3 >{cTest.titleFull}</h3>
                   <p>{cTest.description}</p>
                   <div className='bottom inactive'>

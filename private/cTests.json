@@ -1,7 +1,7 @@
 [{
 	"_id": "vh8rEBNN6B5HuRxdG",
-	"titleFull": "Stroop test",
-	"titleShort": "Stroop",
+	"titleFull": "Color Match",
+	"titleShort": "Color Match",
 	"slug": "stroop",
 	"description": "This test measures focus, a brain function critical to making decisions, carrying out plans, and solving problems. Concussions can make it harder to focus.",
 	"demoTitle": "Instructions",
@@ -18,8 +18,8 @@
 },
 {
 	"_id": "8bmGfw7j8W3zxQ7mQ",
-	"titleFull": "Go/No-Go",
-	"titleShort": "Go/No-Go",
+	"titleFull": "Reaction Time",
+	"titleShort": "Reaction Time",
 	"slug": "gono-go",
 	"description": "This pattern recognition game measures reaction time, which can be slowed by a concussion.",
 	"demoTitle": "Instructions",
@@ -35,8 +35,8 @@
 },
 {
 	"_id": "gnAGamzbFeNjr4XCk",
-	"titleFull": "Memory test",
-	"titleShort": "Memory test",
+	"titleFull": "Memory Test",
+	"titleShort": "Memory Test",
 	"slug": "working-memory",
 	"description": "This memory game gauges your ability to recall information. Memory problems are common symptoms of concussion.",
 	"demoTitle": "Instructions",
@@ -53,8 +53,8 @@
 },
 {
 	"_id": "4BZTyyr9oADPFEQzX",
-	"titleFull": "El test de Stroop",
-	"titleShort": "Stroop",
+	"titleFull": "Busca el color correspondiente",
+	"titleShort": "Busca el color correspondiente",
 	"slug": "stroop",
 	"description": "Este test mide la capacidad de enfocarse, una función del cerebro crítica para tomar decisiones, llevar a cabo planes y resolver problemas. Las conmociones cerebrales pueden hacer que enfocarse sea más difícil.",
 	"demoTitle": "Instrucciones",
@@ -71,8 +71,8 @@
 },
 {
 	"_id": "o4ZQit9nyxN9RrgQG",
-	"titleFull": "Ir/No-ir",
-	"titleShort": "Ir/No-ir",
+	"titleFull": "Tiempo de reacción",
+	"titleShort": "Tiempo de reacción",
 	"slug": "gono-go",
 	"description": "Este juego de reconocimiento de patrones mide el tiempo de reacción, el cual puede verse reducido por una conmoción cerebral.",
 	"demoTitle": "Instrucciones",

@@ -31,7 +31,7 @@ function showScreensaver() {
     ssShowing = true;
 
     // Navigate to main menu
-    Session.set('appState', Constants.STATE_INTRO);
+    Session.set('appState', Constants.STATE_MAIN_MENU);
     browserHistory.push('/');
 
     // Might as well reload browser

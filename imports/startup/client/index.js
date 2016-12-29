@@ -6,4 +6,4 @@ import Constants from '../../modules/constants';
 
 Bert.defaults.style = 'growl-top-right';
 
-Session.set('appState', Constants.STATE_INTRO);
+Session.set('appState', Constants.STATE_MAIN_MENU);

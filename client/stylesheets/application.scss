@@ -177,6 +177,15 @@ body {
   background-image: linear-gradient(90deg, $sports-dark-gray 0px, $sports-dark-gray 467px, transparent 467px, transparent 486px, $sports-dark-gray 486px, $sports-dark-gray 955px, transparent 955px, transparent 976px, $sports-dark-gray 976px, $sports-dark-gray);
 }
 
+.lower-body .divide-thirds .fascia {
+  height: 65px;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  background-color: $sports-dark-gray;
+  box-shadow: 0px 21px 0px 0.3px rgba(15,15,15,0.2);
+}
+
 .lower-body .leftCol {
   text-align: left;
   padding-left: 68px;
@@ -219,8 +228,14 @@ body {
   left: 525px;
 }
 
+.lower-body .main-menu .subhead {
+  text-align: center;
+  padding-top: 14px;
+  font-size: 26px;
+}
+
 .lower-body .main-menu h3 {
-  padding-top: 100px;
+  padding-top: 320px;
   font-size: 38px;
   font-weight: bold;
 }
@@ -234,20 +249,34 @@ body {
   position: absolute;
 }
 
+.lower-body .main-menu .third img {
+  top: 110px;
+  position: absolute;
+}
+
 .lower-body .main-menu .third.i-0 {
   left: 86px;
+}
+.lower-body .main-menu .third.i-0 img {
+  left: 20px;
 }
 
 .lower-body .main-menu .third.i-1 {
   left: 576px;
 }
+.lower-body .main-menu .third.i-1 img {
+  left: 20px;
+}
 
 .lower-body .main-menu .third.i-2  {
   left: 1070px;
 }
+.lower-body .main-menu .third.i-2 img {
+  left: -30px;
+}
 
 .lower-body .main-menu .bottom {
-  bottom: -500px;
+  bottom: -550px;
   width: 100%;
   height: 100%;
   position: absolute;
