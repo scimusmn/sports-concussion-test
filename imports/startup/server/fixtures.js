@@ -4,6 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 import { Localizations } from '../../api/localizations';
 import { ConcussionTests } from '../../api/concussion-tests';
+import { Scores } from '../../api/scores';
 import faker from 'faker';
 
 import s from 'underscore.string';
@@ -20,6 +21,37 @@ if (!localizations || localizations.count() == 0) {
   // If you have no json
   // files, seed with lorem ipsum.
   // seedLocalizations();
+
+}
+
+var scores = Scores.find();
+
+if (!scores || scores.count() == 0) {
+
+  // Create 10 placeholder scores
+  for (var i = 0; i < 30; i++) {
+
+    let testKey = 'stroop';
+    if (i >= 10) testKey = 'gono-go';
+    if (i >= 20) testKey = 'working-memory';
+
+    const scoreDoc = {
+      testKey: testKey,
+      timestamp: Math.ceil(Math.random() * 10000),
+      percentCorrect: '--',
+      normalTime: '--',
+      interferenceTime: '--',
+      difference: '--',
+      bestTime: '--',
+      averageTime: '--',
+      missedPairs: '--',
+      falsePairs: '--',
+      correctPairs: '--',
+    };
+
+    Scores.insert(scoreDoc);
+
+  }
 
 }
 
