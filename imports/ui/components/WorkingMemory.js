@@ -38,7 +38,7 @@ export default class WorkingMemory extends React.Component {
 
   onTrianglePress() {
 
-    if (this.state.guessLockout) return;
+    if (this.state.guessLockout == true) return;
 
     const correctAnswer = Session.get('correctAnswer');
     const currentSymbol = Session.get('currentSymbol');
@@ -56,6 +56,8 @@ export default class WorkingMemory extends React.Component {
       Session.set('wmFalsePairs', falsePairs + 1);
 
     }
+
+    this.setState({ guessLockout: true });
 
     // Increment possible correct pairs
     const matchAttempts = Session.get('wmActiveAnswers');
@@ -158,6 +160,10 @@ export default class WorkingMemory extends React.Component {
       }
 
     }
+
+    // Hide feedback symbol
+    this.state.showIncorrectFeedback = false;
+    this.state.showCorrectFeedback = false;
 
     if (this.currentSymbolIndex >= Constants.WM_SYMBOLS_PER_TEST) {
 

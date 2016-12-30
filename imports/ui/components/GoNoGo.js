@@ -167,6 +167,8 @@ export default class GoNoGo extends React.Component {
 
     }
 
+    console.log('---===+++ resetMemorySymbol', this.currentSymbolIndex, Constants.GNG_SYMBOLS_PER_TEST);
+
     if (this.currentSymbolIndex >= Constants.GNG_SYMBOLS_PER_TEST) {
 
       // Test complete
@@ -174,7 +176,10 @@ export default class GoNoGo extends React.Component {
 
     } else {
 
-      // Wait for user action to start next round
+      // Total attempts
+      const attemptCount = Session.get('attemptCount');
+      Session.set('attemptCount', attemptCount + 1);
+
       this.setState({ waitingForRoundStart: true });
       this.resetGuess();
 
@@ -190,12 +195,10 @@ export default class GoNoGo extends React.Component {
 
   nextMemorySymbol() {
 
-    // Total attempts
-    const attemptCount = Session.get('attemptCount');
-    Session.set('attemptCount', attemptCount + 1);
-
-    this.currentSymbolIndex++;
     const nextSymbol = this.symbolOrder[this.currentSymbolIndex];
+
+    // Wait for user action to start next round
+    this.currentSymbolIndex++;
 
     Session.set('currentSymbol', nextSymbol);
 
@@ -228,7 +231,6 @@ export default class GoNoGo extends React.Component {
     const symbolPath = Session.get('currentSymbol');
 
     if (this.state.waitingForRoundStart == true) {
-      console.log('this.props.localization.pressTriangle', this.props.localization.pressTriangle);
       jsx = <h3 className='round-wait'>{this.props.localization.pressTriangle}</h3>;
     } else if (symbolPath && symbolPath != '') {
       jsx = <img className='test-symbol' src={symbolPath}/>;

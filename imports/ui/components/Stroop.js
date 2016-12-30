@@ -54,7 +54,8 @@ export default class Stroop extends React.Component {
 
     const correctAnswer = Session.get('stroopColorKey');
 
-    if (!correctAnswer || correctAnswer == '') return;
+    // Prevent double guessing.
+    if (!correctAnswer || correctAnswer == '' || this.state.showCorrectFeedback || this.state.showIncorrectFeedback) return;
 
     // Visually indicate which
     // color was pressed.

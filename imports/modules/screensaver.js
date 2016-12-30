@@ -6,7 +6,6 @@ let ssShowing = false;
 
 export const reset = () => {
 
-  console.log('reset ss');
   restartTimeout();
 
 };
