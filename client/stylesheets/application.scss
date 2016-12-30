@@ -70,7 +70,7 @@ body {
 
 .nav-item .nav-title {
   padding-left: 30px;
-  margin-top: 35px;
+  margin-top: 26px;
   font-size: 32px;
   float: left;
   text-transform: lowercase;
@@ -81,14 +81,14 @@ body {
 
   float: left;
   text-align:center;
-  font-size: 46px;
+  font-size: 40px;
   font-weight: 900;
   background: $sports-white;
   border: 14px solid;
   border-color: $sports-dark-gray;
-  padding-top: 13px;
-  width: 116px;
-  height: 116px;
+  padding-top: 9px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   color: $sports-black;
   margin:0px;
@@ -234,13 +234,15 @@ body {
 }
 
 .lower-body .main-menu h3 {
-  padding-top: 250px;
+  padding-top: 330px;
+  padding-bottom: 10px;
   font-size: 38px;
   font-weight: bold;
 }
 
 .lower-body .main-menu p {
-  font-size: 24px;
+  font-size: 20px;
+  letter-spacing: 1px;
 }
 
 .lower-body .main-menu .third {
@@ -249,33 +251,33 @@ body {
 }
 
 .lower-body .main-menu .third img {
-  top: 110px;
+  top: 130px;
   position: absolute;
 }
 
 .lower-body .main-menu .third.i-0 {
-  left: 86px;
+  left: 96px;
 }
 .lower-body .main-menu .third.i-0 img {
-  left: 40px;
+  left: 0px;
 }
 
 .lower-body .main-menu .third.i-1 {
   left: 576px;
 }
 .lower-body .main-menu .third.i-1 img {
-  left: 85px;
+  left: 53px;
 }
 
 .lower-body .main-menu .third.i-2  {
   left: 1070px;
 }
 .lower-body .main-menu .third.i-2 img {
-  left: 0px;
+  left: -52px;
 }
 
 .lower-body .main-menu .bottom {
-  bottom: -550px;
+  bottom: -580px;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -333,11 +335,13 @@ body {
 
 .lower-body .button-guide .tag {
   position: absolute;
-  left: 150px;
+  left: 124px;
   width: 720px;
-  bottom: 30px;
+  bottom: 26px;
   text-align: left;
-  color: $sports-yellow;
+  color: $sports-white;
+  font-size: 24px;
+  letter-spacing: 1px;
 }
 
 .lower-body .button-guide .rect-btn {

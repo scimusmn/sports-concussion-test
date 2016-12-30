@@ -53,10 +53,10 @@
 },
 {
 	"_id": "4BZTyyr9oADPFEQzX",
-	"titleFull": "Test de color",
-	"titleShort": "Busca el color correspondiente",
+	"titleFull": "Selecciona el color",
+	"titleShort": "Selecciona el color",
 	"slug": "stroop",
-	"description": "Este test mide la capacidad de enfocarse, una función del cerebro crítica para tomar decisiones, llevar a cabo planes y resolver problemas. Las conmociones cerebrales pueden hacer que enfocarse sea más difícil.",
+	"description": "Los doctores utilizan exámenes parecidos para monitorear la recuperación de los pacientes que han sufrido conmociones cerebrales.",
 	"demoTitle": "Instrucciones",
 	"demoInstruction": "A medida que aparece cada palabra en la pantalla, presiona el botón que coincide con el color, no con el significado. Ambas, la velocidad y la exactitud, cuentan para el puntaje.",
 	"buttonInstruction": "Descerebración Engarro Cencellada Incorruptibilidad Incredulidad Engarrotar Bateaguas Descerrajado Batazo Engastar. Abaco Fideicomiso Engaritar Cendrada Fideero Incorregible Abaldonamiento. Abajeño Gemíparo Abadengo Gemonias Incredibilidad Descerrar Descimbramiento.",
