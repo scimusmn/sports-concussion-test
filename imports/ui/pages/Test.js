@@ -47,9 +47,10 @@ export default class Test extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate');
-    const demoVid = this.refs.demoVid;
 
+    // Restart video on
+    // language change
+    const demoVid = this.refs.demoVid;
     if (demoVid) {
       demoVid.currentTime = 0.0;
       demoVid.load();
