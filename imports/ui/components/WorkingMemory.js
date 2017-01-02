@@ -167,16 +167,24 @@ export default class WorkingMemory extends React.Component {
 
     if (this.currentSymbolIndex >= Constants.WM_SYMBOLS_PER_TEST) {
 
+      console.log(':?:?::?::', this.currentSymbolIndex);
+
       // Test complete
       this.testCompleted();
 
     } else {
 
+      let delay = Constants.WM_DELAY_BETWEEN_SYMBOLS;
+
+      // Longer delay on first round
+      // to allow user to get ready.
+      if (this.currentSymbolIndex == 0) delay = 1500;
+
       setTimeout(() => {
         if (this.testActive == false) return;
         this.resetGuess();
         this.nextMemorySymbol();
-      }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
+      }, delay);
 
     }
 

@@ -37,9 +37,9 @@ Constants.GNG_DELAY_FOR_PATTERNED = 4000;
 Constants.GNG_GUESS_LOCKOUT = 1500;
 
 // Working Memory
-Constants.WM_SYMBOLS_PER_TEST = 12; // 42
-Constants.WM_DELAY_SHOW_SYMBOLS = 1000;
-Constants.WM_DELAY_BETWEEN_SYMBOLS = 200;
+Constants.WM_SYMBOLS_PER_TEST = 18; // 42
+Constants.WM_DELAY_SHOW_SYMBOLS = 1500;
+Constants.WM_DELAY_BETWEEN_SYMBOLS = 250;
 Constants.WM_GUESS_LOCKOUT = 1000;
 Constants.WM_FORCE_MATCH = 0.25; // Chance of forcing a match round
 

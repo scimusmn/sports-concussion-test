@@ -77,6 +77,7 @@ export default class Test extends React.Component {
       const demoVid = this.refs.demoVid;
       if (demoVid) {
         demoVid.currentTime = 0.0;
+        demoVid.load();
       }
     }
 
