@@ -167,14 +167,16 @@ export default class WorkingMemory extends React.Component {
 
     if (this.currentSymbolIndex >= Constants.WM_SYMBOLS_PER_TEST) {
 
-      console.log(':?:?::?::', this.currentSymbolIndex);
+      console.log(':?:?::?::|', this.currentSymbolIndex);
 
       // Test complete
       this.testCompleted();
 
     } else {
 
-      let delay = Constants.WM_DELAY_BETWEEN_SYMBOLS;
+      console.log(':?:|', this.currentSymbolIndex);
+
+      let delay = Constants.WM_DELAY_BETWEEN_SYMBOLS * 5;
 
       // Longer delay on first round
       // to allow user to get ready.
@@ -196,9 +198,7 @@ export default class WorkingMemory extends React.Component {
     const attemptCount = Session.get('attemptCount');
     Session.set('attemptCount', attemptCount + 1);
 
-    this.currentSymbolIndex++;
     const nextSymbol = this.symbolOrder[this.currentSymbolIndex];
-
     Session.set('currentSymbol', nextSymbol);
 
     // Is the current symbol a correct match?
@@ -220,6 +220,8 @@ export default class WorkingMemory extends React.Component {
     } else {
       Session.set('correctAnswer', false);
     }
+
+    this.currentSymbolIndex++;
 
     setTimeout(() => {
       if (this.testActive == false) return;

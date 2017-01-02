@@ -18,7 +18,7 @@ Constants.TEST_GONOGO = 'gono-go';
 Constants.TEST_WORKING_MEMORY = 'working-memory';
 
 // Stroop
-Constants.STROOP_TOTAL_ATTEMPTS = 6; // 20
+Constants.STROOP_TOTAL_ATTEMPTS = 20; // 20
 Constants.STROOP_DELAY_BETWEEN_WORDS = 500;
 Constants.STROOP_FORCE_NORMAL = 0.3; // Chance of forcing a 'normal' round
 
@@ -32,12 +32,12 @@ Constants.COLOR_COLORS = {red:'#d52229',
                           purple:'#493087',};
 
 // Go No Go
-Constants.GNG_SYMBOLS_PER_TEST = 4; // 12
+Constants.GNG_SYMBOLS_PER_TEST = 12; // 12
 Constants.GNG_DELAY_FOR_PATTERNED = 4000;
 Constants.GNG_GUESS_LOCKOUT = 1500;
 
 // Working Memory
-Constants.WM_SYMBOLS_PER_TEST = 18; // 42
+Constants.WM_SYMBOLS_PER_TEST = 42; // 42
 Constants.WM_DELAY_SHOW_SYMBOLS = 1500;
 Constants.WM_DELAY_BETWEEN_SYMBOLS = 250;
 Constants.WM_GUESS_LOCKOUT = 1000;
