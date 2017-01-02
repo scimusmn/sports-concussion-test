@@ -12,7 +12,8 @@ export default class ScoreTable extends React.Component {
     super(props);
 
     this.state = {
-
+      youLabelStyles: {},
+      prevLabelStyles: {},
     };
 
     console.log('constructor:ScoreTable');
@@ -20,12 +21,43 @@ export default class ScoreTable extends React.Component {
 
   }
 
+  componentDidUpdate() {
+
+    // Position row labels
+    // to align with first two
+    // rows, no matter the height
+    // of the columnn headers
+    if (this.refs.scoreRow0 && this.refs.scoreRow1) {
+
+      const youTop = this.refs.scoreRow0.offsetTop - 6;
+      const prevTop = this.refs.scoreRow1.offsetTop + 7;
+
+      if (this.state.youLabelStyles.top != youTop) {
+        this.setState({
+          youLabelStyles: {
+            top: youTop,
+          },
+        });
+      }
+
+      if (this.state.prevLabelStyles.top != prevTop) {
+        this.setState({
+          prevLabelStyles: {
+            top: prevTop,
+          },
+        });
+      }
+
+    }
+
+  }
+
   renderTable() {
     let jsx = '';
 
     jsx = <table className='table'>
-        <thead>
-          <tr>
+        <thead ref='scoreHead'>
+          <tr ref='scoreTitleRow'>
             { this.props.cTest.scoreCategories.map((category, index) => {
               return <th key={ index }>
                 {this.renderColumnHeader(category)}
@@ -33,18 +65,18 @@ export default class ScoreTable extends React.Component {
             })}
           </tr>
         </thead>
-        <tbody>
+        <tbody ref='scoreBody'>
 
             { this.props.scores.map((score, indexA) => {
 
-              return <tr key={ indexA } className={((indexA == 0) ? 'your-score' : '')}>
+              return <tr key={ indexA } ref={ 'scoreRow' + indexA } className={((indexA == 0) ? 'your-score' : '')}>
 
                       { this.props.cTest.scoreCategories.map((category, indexB) => {
-                          return <td key={ indexB }>
-                            {score[category]}
-                          </td>;
-                          })}
-                      </tr>;
+                        return <td key={ indexB }>
+                                                      {score[category]}
+                                                  </td>;
+                      })}
+                                        </tr>;
 
             })}
 
@@ -78,7 +110,7 @@ export default class ScoreTable extends React.Component {
 
     jsx = <div>
             {categoryString}
-            <p className='unit-label'>&nbsp;{unitLabel}&nbsp;</p>
+            <p className='unit-label'> {unitLabel} </p>
           </div>;
     return jsx;
   }
@@ -86,6 +118,8 @@ export default class ScoreTable extends React.Component {
   render() {
 
     return <div>
+            <h3 className='you' style={this.state.youLabelStyles}>{this.props.localization.yourScore}</h3>
+            <p className='prev-players' style={this.state.prevLabelStyles}>{this.props.localization.prevPlayers}</p>
             { this.renderTable() }
           </div>;
 

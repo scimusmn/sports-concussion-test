@@ -241,8 +241,8 @@ export default class Stroop extends React.Component {
 
     const testKey = this.props.cTest.slug;
 
-    const correctAnswers = Session.get('correctCount');
-    const percentCorrect = Math.floor((correctAnswers / Constants.STROOP_TOTAL_ATTEMPTS) * 100);
+    const correctPairs = Session.get('correctCount');
+    const percentCorrect = Math.floor((correctPairs / Constants.STROOP_TOTAL_ATTEMPTS) * 100);
 
     // Get average 'normal' time.
     let normalTime = this.getAverageTime(this.normalTimes);
@@ -268,7 +268,7 @@ export default class Stroop extends React.Component {
     // Stroop score categories
     // [ Percent correct | Normal time | Interference time | Difference ]
 
-    Meteor.apply('submitScore', [{
+    const scoreDoc = {
 
       testKey: testKey,
       timestamp: new Date().getTime(),
@@ -276,9 +276,13 @@ export default class Stroop extends React.Component {
       normalTime: normalTime.toString(),
       interferenceTime: interferenceTime.toString(),
       difference: difference.toString(),
-      correctAnswers: correctAnswers.toString(),
+      correctPairs: correctPairs.toString(),
 
-    },], {
+    };
+
+    console.dir(scoreDoc);
+
+    Meteor.apply('submitScore', [scoreDoc], {
 
       onResultReceived: (error, response) => {
 

@@ -371,7 +371,7 @@ table.table {
   border-collapse: collapse;
   width: 720px;
   border-color: rbga(255,255,255,0.0);
-  left: 180px;
+  left: 190px;
   top: 0px;
   position: absolute;
  }
@@ -436,8 +436,7 @@ table .your-score {
   font-size: 28px;
   font-weight: bolder;
   position: absolute;
-  top: 169px;
-  left: 60px;
+  left: 52px;
   color: $sports-yellow;
 }
 
@@ -445,8 +444,7 @@ table .your-score {
   font-size: 20px;
   position: absolute;
   width: 60px;
-  top: 240px;
-  left: 60px;
+  left: 52px;
 }
 
 .test-canvas {

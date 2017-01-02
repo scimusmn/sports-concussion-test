@@ -136,7 +136,6 @@ function controlPress(num) {
     // Switch app state
     switch (num) {
       case 1:
-
         // Navigate to main menu
         Session.set('appState', Constants.STATE_MAIN_MENU);
         browserHistory.push('/');
