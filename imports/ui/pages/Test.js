@@ -6,6 +6,7 @@ import Stroop from '../components/Stroop';
 import GoNoGo from '../components/GoNoGo';
 import WorkingMemory from '../components/WorkingMemory';
 import ScoreTable from '../components/ScoreTable';
+import { setNumPressCallback } from '../../startup/client/key-map';
 import Constants from '../../modules/constants';
 import { camelToTitleCase } from '../../modules/utils';
 
@@ -20,6 +21,9 @@ export default class Test extends React.Component {
     this.state = {
 
     };
+
+    // Set keyboard callbacks
+    this.onNumberPress = this.onNumberPress.bind(this);
 
   }
 
@@ -36,6 +40,9 @@ export default class Test extends React.Component {
         console.log('demoVid ended');
       };
     }
+
+    // Set keyboard callbacks
+    setNumPressCallback(this.onNumberPress);
 
   }
 
@@ -55,6 +62,22 @@ export default class Test extends React.Component {
     // DOM is about to become
     // inaccessible. Clean up
     // all timers ans tweens.
+
+    // Disconnent keyboard callbacks
+    setNumPressCallback(null);
+
+  }
+
+  onNumberPress(num) {
+
+    // Restart video if 2 is pressed during
+    // demonstration video.
+    if (this.props.appState == Constants.STATE_HOW_TO_PLAY && num == 2) {
+      const demoVid = this.refs.demoVid;
+      if (demoVid) {
+        demoVid.currentTime = 0.0;
+      }
+    }
 
   }
 

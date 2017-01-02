@@ -108,6 +108,11 @@ function controlPress(num) {
 
   const appState = Session.get('appState');
 
+  // Send message to any listeners
+  if (numPressCallback) {
+    numPressCallback(num);
+  }
+
   if (appState == Constants.STATE_MAIN_MENU) {
 
     // Begin test in 'how to play' state.
@@ -174,6 +179,14 @@ function colorPress(color) {
   }
 
 }
+
+var numPressCallback = function(num) {};
+
+export var setNumPressCallback = function(func) {
+
+  numPressCallback = func;
+
+};
 
 var colorPressCallback = function(color) {};
 

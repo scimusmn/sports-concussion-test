@@ -216,7 +216,7 @@ export default class WorkingMemory extends React.Component {
     setTimeout(() => {
       if (this.testActive == false) return;
       this.resetMemorySymbol();
-    }, Constants.WM_DELAY_BETWEEN_SYMBOLS);
+    }, Constants.WM_DELAY_SHOW_SYMBOLS);
 
   }
 
