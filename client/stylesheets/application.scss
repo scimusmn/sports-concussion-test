@@ -26,7 +26,7 @@ body {
 /* Top Navigation */
 .top-nav-container {
   position: absolute;
-  top: 47px;
+  top: 60px;
   left: 0px;
   height: 150px;
 }
@@ -230,7 +230,7 @@ body {
 
 .lower-body .main-menu .subhead {
   text-align: center;
-  padding-top: 14px;
+  padding-top: 17px;
   font-size: 26px;
 }
 
@@ -376,16 +376,16 @@ table.table {
   top: 0px;
   position: absolute;
  }
-.table thead tr th {
+table.table thead tr th {
   border: none;
   padding-bottom: 0px;
-  padding-top: 50px;
+  padding-top: 70px;
   border: none;
   text-align: center;
   font-size: 28px;
   border: none;
 }
-.table tbody tr td {
+table.table tbody tr td {
   border: none;
 }
 tr {
@@ -412,14 +412,16 @@ tr td:nth-child(2),
 tr td:nth-child(4),
 tr td:nth-child(6), {
   background-color: rgba(255,255,255,0.075);
-  /*border-left: solid 2px rgba(255,255,255,0.3);*/
 }
 
 tr th:nth-child(2),
 tr th:nth-child(4),
 tr th:nth-child(6), {
   background-color: rgba(255,255,255,0.075);
-  /*border-left: solid 2px rgba(255,255,255,0.3);*/
+}
+
+tr td.last-row {
+  padding-bottom: 200px !important;
 }
 
 table .your-score {
