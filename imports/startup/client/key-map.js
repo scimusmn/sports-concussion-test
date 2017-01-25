@@ -1,5 +1,6 @@
 import Constants from '../../modules/constants';
 import { reset } from '../../modules/screensaver';
+import logger from '../../modules/logger';
 import { browserHistory } from 'react-router';
 
 /**
@@ -118,6 +119,9 @@ function controlPress(num) {
     // Begin test in 'how to play' state.
     Session.set('appState', Constants.STATE_HOW_TO_PLAY);
 
+    // Log for analytics
+    logger.info({message:'test-selection', test:num});
+
     // Navigate to selected test
     switch (num) {
       case 1:
@@ -136,6 +140,7 @@ function controlPress(num) {
     // Switch app state
     switch (num) {
       case 1:
+
         // Navigate to main menu
         Session.set('appState', Constants.STATE_MAIN_MENU);
         browserHistory.push('/');
