@@ -1,5 +1,6 @@
 import Constants from './constants';
 import { browserHistory } from 'react-router';
+import logger from '../modules/logger';
 
 let ssTimeout = {};
 let ssShowing = false;
@@ -28,6 +29,9 @@ function showScreensaver() {
   if (ssShowing == false) {
     console.log('showScreensaver');
     ssShowing = true;
+
+    // Log for analytics
+    logger.info({message:'inactivity-timeout', test:Session.get('currentTest'), round:Session.get('attemptCount'), language:Session.get('languageKey')});
 
     // Navigate to main menu
     Session.set('appState', Constants.STATE_MAIN_MENU);

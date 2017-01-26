@@ -2,26 +2,31 @@
  *
  * logger.js
  *
- * Logging accessible from client and server.
- * Relies on Winston.js (https://github.com/winstonjs/winston)
+ * This singleton wrapper of Winston.js can be used to log to
+ * a local file, accessible from both client and server.
  *
- * Use this singleton instance of logger like so:
+ * If more customization is required,
+ * work directly with Winston.js
+ * (https://github.com/winstonjs/winston)
  *
- * // import logger from '../modules/logger';
- * // logger.info({message:'event-message', anyData:'My useful data', moreData:12345});
+ * Use this wrapper like so:
+ *
+ *   import logger from '../modules/logger';
+ *   logger.info({message:'event-message', anyDataKey:anyDataObject});
  *
  * Timestamps are appended by default.
  *
- * Log files can be found at:
- * <project-root>/.meteor/local/build/programs/server/logs/
+ * Your log files can be found at:
+ * <project-root>/.meteor/local/build/programs/server/logs/log-<date-created>.log
  *
  */
 
-let logDirectory = 'logs';
+const logDirectory = 'logs';
 let logger;
 
 if(Meteor.isServer) {
 
+  // Import server libraries
   import winston from 'winston';
   import fs from 'fs';
   import { check } from 'meteor/check';
@@ -34,6 +39,10 @@ if(Meteor.isServer) {
     fs.mkdirSync(logDirectory);
   }
 
+  /*
+   * Create logger instance
+   * with local file transport.
+   */
   logger = new(winston.Logger)({
     transports: [
       new winston.transports.File({
@@ -44,6 +53,10 @@ if(Meteor.isServer) {
     exitOnError: false, // Do not exit logger if error is encountered
   });
 
+  /*
+   * Add ability to call
+   * log methods from client.
+   */
   Meteor.methods({
 
     logDebug: function(data) {

@@ -19,6 +19,11 @@ export default class SelectTest extends React.Component {
 
   }
 
+  componentDidMount() {
+    console.log('SelectTest:componentDidMount');
+    Session.set('currentTest', '');
+  }
+
   getTestLink(slug) {
 
     return '/test/' + slug;

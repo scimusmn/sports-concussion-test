@@ -167,8 +167,6 @@ export default class GoNoGo extends React.Component {
 
     }
 
-    console.log('---===+++ resetMemorySymbol', this.currentSymbolIndex, Constants.GNG_SYMBOLS_PER_TEST);
-
     if (this.currentSymbolIndex >= Constants.GNG_SYMBOLS_PER_TEST) {
 
       // Test complete

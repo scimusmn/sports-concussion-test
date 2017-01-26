@@ -119,23 +119,34 @@ function controlPress(num) {
     // Begin test in 'how to play' state.
     Session.set('appState', Constants.STATE_HOW_TO_PLAY);
 
-    // Log for analytics
-    logger.info({message:'test-selection', test:num});
-
-    // Navigate to selected test
+    // Determine target slug
+    let slug = '';
     switch (num) {
       case 1:
-        browserHistory.push('/test/' + Constants.TEST_STROOP);
+        slug = Constants.TEST_STROOP;
         break;
       case 2:
-        browserHistory.push('/test/' + Constants.TEST_GONOGO);
+        slug = Constants.TEST_GONOGO;
         break;
       case 3:
-        browserHistory.push('/test/' + Constants.TEST_WORKING_MEMORY);
+        slug = Constants.TEST_WORKING_MEMORY;
         break;
     }
 
+    // Navigate to selected test
+    browserHistory.push('/test/' + slug);
+
+    // Log for analytics
+    Session.set('currentTest', slug);
+    logger.info({message:'test-selected', test:Session.get('currentTest'), language:Session.get('languageKey')});
+
   } else {
+
+    // Check for test exit
+    if (Session.get('appState') == 3 && num != 3) {
+      // Log for analytics
+      logger.info({message:'test-exit', test:Session.get('currentTest'), exitTo:num, round:Session.get('attemptCount'), language:Session.get('languageKey')});
+    }
 
     // Switch app state
     switch (num) {
@@ -150,6 +161,7 @@ function controlPress(num) {
         break;
       case 3:
         Session.set('appState', Constants.STATE_PLAY);
+        logger.info({message:'test-started', test:Session.get('currentTest'), language:Session.get('languageKey')});
         break;
     }
 

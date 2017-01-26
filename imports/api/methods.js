@@ -12,7 +12,7 @@ Meteor.methods({
 
     check(data, Scores.schema);
 
-    logger.info({message:'test-completed', scores:data});
+    logger.info({message:'test-completed', results:data});
 
     Scores.insert(data);
 
