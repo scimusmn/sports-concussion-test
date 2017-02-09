@@ -37,7 +37,7 @@ Constants.GNG_DELAY_FOR_PATTERNED = 4000;
 Constants.GNG_GUESS_LOCKOUT = 1500;
 
 // Working Memory
-Constants.WM_SYMBOLS_PER_TEST = 42; // 42
+Constants.WM_SYMBOLS_PER_TEST = 30; // 30
 Constants.WM_DELAY_SHOW_SYMBOLS = 1500;
 Constants.WM_DELAY_BETWEEN_SYMBOLS = 250;
 Constants.WM_GUESS_LOCKOUT = 1000;
