@@ -50,9 +50,9 @@ export default class GoNoGo extends BaseTest {
 
   }
 
+  // Respond to all presses
+  // of the triangle button
   onTrianglePress() {
-
-    console.log('GoNoGo::onTrianglePress()');
 
     // Waiting for round to start
     if (this.state.waitingForRoundStart == true) {
@@ -103,27 +103,10 @@ export default class GoNoGo extends BaseTest {
 
   }
 
-  componentDidMount() {
+  // Prep for and begin new test
+  beginTest() {
 
-    // DOM is rendered and
-    // ready for manipulation
-    // and animations.
-    this.beginMemoryTest();
-
-  }
-
-  componentWillUnmount() {
-
-    // DOM is about to become
-    // inaccessible. Clean up
-    // all timers ans tweens.
-    this.testActive = false;
-
-    Session.set('maxAttempts', 0);
-
-  }
-
-  beginMemoryTest() {
+    super.beginTest();
 
     clearTimeout(this.timer);
 
@@ -137,21 +120,12 @@ export default class GoNoGo extends BaseTest {
 
     }
 
-    // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('currentSymbol', '');
-    Session.set('correctAnswer', false);
-    Session.set('startTime', 0);
-
     Session.set('maxAttempts', Constants.GNG_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
     this.correctAnswerTimes = [];
 
     this.resetMemorySymbol();
-
-    this.testActive = true;
 
   }
 

@@ -30,13 +30,14 @@ export default class WorkingMemory extends BaseTest {
     this.symbolOrder = [];
     this.currentSymbol = '';
     this.currentSymbolIndex = 0;
-    this.testActive = false;
 
     // Set keyboard callbacks
     setTrianglePressCallback(this.onTrianglePress);
 
   }
 
+  // Respond to all presses
+  // of the triangle button
   onTrianglePress() {
 
     if (this.state.guessLockout == true) return;
@@ -53,51 +54,25 @@ export default class WorkingMemory extends BaseTest {
       // Incorrect
       this.setState({ showIncorrectFeedback: true });
 
-      const falsePairs = Session.get('wmFalsePairs');
-      Session.set('wmFalsePairs', falsePairs + 1);
+      const falsePairs = Session.get('falsePairs');
+      Session.set('falsePairs', falsePairs + 1);
 
     }
 
     this.setState({ guessLockout: true });
 
     // Increment possible correct pairs
-    const matchAttempts = Session.get('wmActiveAnswers');
-    Session.set('wmActiveAnswers', matchAttempts + 1);
+    const matchAttempts = Session.get('activeAnswers');
+    Session.set('activeAnswers', matchAttempts + 1);
 
   }
 
-  componentDidMount() {
+  // Prep for and begin new test
+  beginTest() {
 
-    // DOM is rendered and
-    // ready for manipulation
-    // and animations.
-
-    this.beginMemoryTest();
-
-  }
-
-  componentWillUnmount() {
-
-    // DOM is about to become
-    // inaccessible. Clean up
-    // all timers ans tweens.
-
-    this.testActive = false;
-    Session.set('maxAttempts', 0);
-
-  }
-
-  beginMemoryTest() {
+    super.beginTest();
 
     // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('currentSymbol', '');
-    Session.set('correctAnswer', false);
-    Session.set('wmPossibleMatches', 0);
-    Session.set('wmActiveAnswers', 0);
-    Session.set('wmMissedPairs', 0);
-    Session.set('wmFalsePairs', 0);
     Session.set('maxAttempts', Constants.WM_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
@@ -124,15 +99,16 @@ export default class WorkingMemory extends BaseTest {
     }
 
     // Onward...
-    this.testActive = true;
     this.resetMemorySymbol();
 
   }
 
   resetGuess() {
+
     this.setState({ showIncorrectFeedback: false });
     this.setState({ showCorrectFeedback: false });
     this.setState({ guessLockout: false});
+
   }
 
   resetMemorySymbol() {
@@ -155,8 +131,8 @@ export default class WorkingMemory extends BaseTest {
       // as a missed pair.
       if (Session.get('correctAnswer') == true) {
 
-        const missedPairs = Session.get('wmMissedPairs');
-        Session.set('wmMissedPairs', missedPairs + 1);
+        const missedPairs = Session.get('missedPairs');
+        Session.set('missedPairs', missedPairs + 1);
 
       }
 
@@ -207,8 +183,8 @@ export default class WorkingMemory extends BaseTest {
         Session.set('correctAnswer', true);
 
         // Increment possible correct pairs
-        const possibleMatches = Session.get('wmPossibleMatches');
-        Session.set('wmPossibleMatches', possibleMatches + 1);
+        const possibleMatches = Session.get('possibleMatches');
+        Session.set('possibleMatches', possibleMatches + 1);
 
       } else {
         Session.set('correctAnswer', false);
@@ -245,8 +221,8 @@ export default class WorkingMemory extends BaseTest {
 
     const correctPairs = Session.get('correctCount');
     const percentCorrect = Math.floor((correctPairs / Constants.WM_SYMBOLS_PER_TEST) * 100);
-    const missedPairs = Session.get('wmMissedPairs');
-    const falsePairs = Session.get('wmFalsePairs');
+    const missedPairs = Session.get('missedPairs');
+    const falsePairs = Session.get('falsePairs');
 
     const scoreDoc = {
       percentCorrect: percentCorrect + '%',

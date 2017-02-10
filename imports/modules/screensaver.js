@@ -27,7 +27,7 @@ function restartTimeout() {
 
 function showScreensaver() {
   if (ssShowing == false) {
-    console.log('showScreensaver');
+    console.log('showScreensaver()');
     ssShowing = true;
 
     // Log for analytics
@@ -48,7 +48,7 @@ function showScreensaver() {
 
 function hideScreensaver() {
   if (ssShowing == true) {
-    console.log('hideScreensaver');
+    console.log('hideScreensaver()');
     ssShowing = false;
   }
 }

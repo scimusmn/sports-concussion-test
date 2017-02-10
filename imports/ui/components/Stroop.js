@@ -23,12 +23,14 @@ export default class Stroop extends BaseTest {
     this.onColorPress = this.onColorPress.bind(this);
     setColorPressCallback(this.onColorPress);
 
-    this.testActive = false;
     this.normalTimes = [];
     this.interferenceTimes = [];
 
   }
 
+
+  // Respond to all presses
+  // of color buttons
   onColorPress(color) {
 
     const correctAnswer = Session.get('stroopColorKey');
@@ -42,8 +44,7 @@ export default class Stroop extends BaseTest {
     }
 
     // Visually indicate which
-    // color was pressed.
-
+    // color was pressed via css.
     const btn = this.refs[color];
     if (btn) {
       btn.className = 'rect-btn active';
@@ -53,24 +54,24 @@ export default class Stroop extends BaseTest {
       }, 1000);
     }
 
-    // Is answer correct?
+    // Does the color pressed
+    // match the current answer?
     if (color == correctAnswer) {
+
       // Correct
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
       this.setState({ showCorrectFeedback: true });
 
-      // How long did it take to guess?
+      // Calcuate time took to guess.
       const now = Date.now();
       let guessTime = now - Session.get('startTime');
 
       // Save time it took to guess
       if (Session.get('isNormalRound') == true) {
-        console.log('normalTime', guessTime);
         this.normalTimes.push(guessTime);
       } else {
         this.interferenceTimes.push(guessTime);
-        console.log('interferenceTime', guessTime);
       }
 
     } else {
@@ -78,6 +79,8 @@ export default class Stroop extends BaseTest {
       this.setState({ showIncorrectFeedback: true });
     }
 
+    // Reset for next round
+    // after short delay
     setTimeout(() => {
       if (this.testActive == false) return;
       this.resetStroopWord();
@@ -85,18 +88,13 @@ export default class Stroop extends BaseTest {
 
   }
 
+  // Prep for and begin new test
   beginTest() {
 
     super.beginTest();
 
-    // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('startTime', 0);
-
     Session.set('maxAttempts', Constants.STROOP_TOTAL_ATTEMPTS);
 
-    this.testActive = true;
     this.normalTimes = [];
     this.interferenceTimes = [];
 

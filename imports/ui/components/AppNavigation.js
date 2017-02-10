@@ -7,16 +7,9 @@ export default class AppNavigation extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('AppNavigation:constructor');
-
     this.state = {
 
     };
-
-  }
-
-  componentDidMount() {
-    console.log('AppNavigation:componentDidMount');
 
   }
 

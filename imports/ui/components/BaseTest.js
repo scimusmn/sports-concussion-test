@@ -29,14 +29,18 @@ export default class BaseTest extends React.Component {
 
   beginTest() {
 
-    console.log('BaseTest.beginTest()');
-
+    // Reset all scoring variables
     Session.set('attemptCount', 0);
     Session.set('correctCount', 0);
     Session.set('startTime', 0);
-
     Session.set('currentSymbol', '');
     Session.set('correctAnswer', false);
+    Session.set('possibleMatches', 0);
+    Session.set('activeAnswers', 0);
+    Session.set('missedPairs', 0);
+    Session.set('falsePairs', 0);
+
+    this.testActive = true;
 
   }
 
