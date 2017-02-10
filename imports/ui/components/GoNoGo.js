@@ -1,13 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import BaseTest from './BaseTest';
 import TweenMax from 'gsap';
 import Constants from '../../modules/constants';
 import { setTrianglePressCallback } from '../../startup/client/key-map';
 
-export default class GoNoGo extends React.Component {
+export default class GoNoGo extends BaseTest {
 
   constructor(props) {
+
     super(props);
 
     this.state = {
@@ -287,35 +289,21 @@ export default class GoNoGo extends React.Component {
 
   testCompleted() {
 
-    const testKey = this.props.cTest.slug;
-
     const correctAnswers = Session.get('correctCount');
     const percentCorrect = Math.floor((correctAnswers / Constants.GNG_SYMBOLS_PER_TEST) * 100);
 
     const bestTime = this.getFastestTime(this.correctAnswerTimes);
     const averageTime = this.getAverageTime(this.correctAnswerTimes);
 
-    Meteor.apply('submitScore', [{
+    const scoreDoc = {
 
-      testKey: testKey,
-      timestamp: new Date().getTime(),
       percentCorrect: percentCorrect + '%',
       bestTime: bestTime + '',
       averageTime: averageTime + '',
 
-    },], {
+    };
 
-      onResultReceived: (error, response) => {
-
-        if (error) console.warn(error.reason);
-        if (response) console.log('submitScore success:', response);
-
-        // Progress to score screen.
-        Session.set('appState', Constants.STATE_PLAY_SCORE);
-
-      },
-
-    });
+    super.submitResults(scoreDoc);
 
   }
 

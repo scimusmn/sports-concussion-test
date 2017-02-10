@@ -2,10 +2,11 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TweenMax from 'gsap';
+import BaseTest from './BaseTest';
 import Constants from '../../modules/constants';
 import { setTrianglePressCallback } from '../../startup/client/key-map';
 
-export default class WorkingMemory extends React.Component {
+export default class WorkingMemory extends BaseTest {
 
   constructor(props) {
     super(props);
@@ -242,35 +243,19 @@ export default class WorkingMemory extends React.Component {
 
   testCompleted() {
 
-    const testKey = this.props.cTest.slug;
-
     const correctPairs = Session.get('correctCount');
     const percentCorrect = Math.floor((correctPairs / Constants.WM_SYMBOLS_PER_TEST) * 100);
     const missedPairs = Session.get('wmMissedPairs');
     const falsePairs = Session.get('wmFalsePairs');
 
-    Meteor.apply('submitScore', [{
-
-      testKey: testKey,
-      timestamp: new Date().getTime(),
+    const scoreDoc = {
       percentCorrect: percentCorrect + '%',
       missedPairs: missedPairs + '',
       falsePairs: falsePairs + '',
       correctPairs: correctPairs + '',
+    };
 
-    },], {
-
-      onResultReceived: (error, response) => {
-
-        if (error) console.warn(error.reason);
-        if (response) console.log('submitScore success:', response);
-
-        // Progress to score screen.
-        Session.set('appState', Constants.STATE_PLAY_SCORE);
-
-      },
-
-    });
+    super.submitResults(scoreDoc);
 
   }
 
