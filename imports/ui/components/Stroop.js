@@ -2,14 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TweenMax from 'gsap';
+import BaseTest from './BaseTest';
 import StroopWord from './StroopWord';
 import Constants from '../../modules/constants';
 import { setColorPressCallback } from '../../startup/client/key-map';
 import s from 'underscore.string';
 
-export default class Stroop extends React.Component {
+export default class Stroop extends BaseTest {
 
   constructor(props) {
+
     super(props);
 
     this.state = {
@@ -17,49 +19,32 @@ export default class Stroop extends React.Component {
       showIncorrectFeedback: false,
     };
 
-    this.testCompleted = this.testCompleted.bind(this);
-    this.onColorPress = this.onColorPress.bind(this);
-
     // Set keyboard callbacks
+    this.onColorPress = this.onColorPress.bind(this);
     setColorPressCallback(this.onColorPress);
 
-    this.testActive = false;
     this.normalTimes = [];
     this.interferenceTimes = [];
 
   }
 
-  componentDidMount() {
 
-    // DOM is rendered and
-    // ready for manipulation
-    // and animations.
-
-    this.beginStroopTest();
-
-  }
-
-  componentWillUnmount() {
-
-    // DOM is about to become
-    // inaccessible. Clean up
-    // all timers ans tweens.
-
-    this.testActive = false;
-    Session.set('maxAttempts', 0);
-
-  }
-
+  // Respond to all presses
+  // of color buttons
   onColorPress(color) {
 
     const correctAnswer = Session.get('stroopColorKey');
 
     // Prevent double guessing.
-    if (!correctAnswer || correctAnswer == '' || this.state.showCorrectFeedback || this.state.showIncorrectFeedback) return;
+    if (!correctAnswer ||
+        correctAnswer == '' ||
+        this.state.showCorrectFeedback ||
+        this.state.showIncorrectFeedback) {
+      return;
+    }
 
     // Visually indicate which
-    // color was pressed.
-
+    // color was pressed via css.
     const btn = this.refs[color];
     if (btn) {
       btn.className = 'rect-btn active';
@@ -69,34 +54,33 @@ export default class Stroop extends React.Component {
       }, 1000);
     }
 
-    // Is answer correct?
+    // Does the color pressed
+    // match the current answer?
     if (color == correctAnswer) {
+
       // Correct
-      console.log('Stroop: Correct');
       const correctCount = Session.get('correctCount');
       Session.set('correctCount', correctCount + 1);
       this.setState({ showCorrectFeedback: true });
 
-      // How long did it take to guess?
+      // Calcuate time took to guess.
       const now = Date.now();
       let guessTime = now - Session.get('startTime');
 
       // Save time it took to guess
-      console.log('Correct guess, is normal?', Session.get('isNormalRound'));
       if (Session.get('isNormalRound') == true) {
-        console.log('normalTime', guessTime);
         this.normalTimes.push(guessTime);
       } else {
         this.interferenceTimes.push(guessTime);
-        console.log('interferenceTime', guessTime);
       }
 
     } else {
       // Incorrect
-      console.log('Stroop: Incorrect');
       this.setState({ showIncorrectFeedback: true });
     }
 
+    // Reset for next round
+    // after short delay
     setTimeout(() => {
       if (this.testActive == false) return;
       this.resetStroopWord();
@@ -104,16 +88,13 @@ export default class Stroop extends React.Component {
 
   }
 
-  beginStroopTest() {
+  // Prep for and begin new test
+  beginTest() {
 
-    // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('startTime', 0);
+    super.beginTest();
 
     Session.set('maxAttempts', Constants.STROOP_TOTAL_ATTEMPTS);
 
-    this.testActive = true;
     this.normalTimes = [];
     this.interferenceTimes = [];
 
@@ -133,14 +114,16 @@ export default class Stroop extends React.Component {
     if (Session.get('attemptCount') >= Constants.STROOP_TOTAL_ATTEMPTS) {
 
       // Test complete
-      console.log('Stroop test complete');
       this.testCompleted();
 
     } else {
 
       setTimeout(() => {
+
         if (this.testActive == false) return;
+
         this.nextStroopWord();
+
       }, Constants.STROOP_DELAY_BETWEEN_WORDS);
 
     }
@@ -239,8 +222,6 @@ export default class Stroop extends React.Component {
 
   testCompleted() {
 
-    const testKey = this.props.cTest.slug;
-
     const correctPairs = Session.get('correctCount');
     const percentCorrect = Math.floor((correctPairs / Constants.STROOP_TOTAL_ATTEMPTS) * 100);
 
@@ -265,13 +246,8 @@ export default class Stroop extends React.Component {
       difference = '--';
     }
 
-    // Stroop score categories
-    // [ Percent correct | Normal time | Interference time | Difference ]
-
     const scoreDoc = {
 
-      testKey: testKey,
-      timestamp: new Date().getTime(),
       percentCorrect: percentCorrect + '%',
       normalTime: normalTime.toString(),
       interferenceTime: interferenceTime.toString(),
@@ -280,21 +256,7 @@ export default class Stroop extends React.Component {
 
     };
 
-    console.dir(scoreDoc);
-
-    Meteor.apply('submitScore', [scoreDoc], {
-
-      onResultReceived: (error, response) => {
-
-        if (error) console.warn(error.reason);
-        if (response) console.log('submitScore success:', response);
-
-        // Progress to score screen.
-        Session.set('appState', Constants.STATE_PLAY_SCORE);
-
-      },
-
-    });
+    super.submitResults(scoreDoc);
 
   }
 

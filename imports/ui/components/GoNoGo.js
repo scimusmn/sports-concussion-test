@@ -1,13 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import BaseTest from './BaseTest';
 import TweenMax from 'gsap';
 import Constants from '../../modules/constants';
 import { setTrianglePressCallback } from '../../startup/client/key-map';
 
-export default class GoNoGo extends React.Component {
+export default class GoNoGo extends BaseTest {
 
   constructor(props) {
+
     super(props);
 
     this.state = {
@@ -48,9 +50,9 @@ export default class GoNoGo extends React.Component {
 
   }
 
+  // Respond to all presses
+  // of the triangle button
   onTrianglePress() {
-
-    console.log('GoNoGo::onTrianglePress()');
 
     // Waiting for round to start
     if (this.state.waitingForRoundStart == true) {
@@ -101,27 +103,10 @@ export default class GoNoGo extends React.Component {
 
   }
 
-  componentDidMount() {
+  // Prep for and begin new test
+  beginTest() {
 
-    // DOM is rendered and
-    // ready for manipulation
-    // and animations.
-    this.beginMemoryTest();
-
-  }
-
-  componentWillUnmount() {
-
-    // DOM is about to become
-    // inaccessible. Clean up
-    // all timers ans tweens.
-    this.testActive = false;
-
-    Session.set('maxAttempts', 0);
-
-  }
-
-  beginMemoryTest() {
+    super.beginTest();
 
     clearTimeout(this.timer);
 
@@ -135,21 +120,12 @@ export default class GoNoGo extends React.Component {
 
     }
 
-    // Ensure all scores are reset
-    Session.set('attemptCount', 0);
-    Session.set('correctCount', 0);
-    Session.set('currentSymbol', '');
-    Session.set('correctAnswer', false);
-    Session.set('startTime', 0);
-
     Session.set('maxAttempts', Constants.GNG_SYMBOLS_PER_TEST);
 
     this.currentSymbolIndex = 0;
     this.correctAnswerTimes = [];
 
     this.resetMemorySymbol();
-
-    this.testActive = true;
 
   }
 
@@ -287,35 +263,21 @@ export default class GoNoGo extends React.Component {
 
   testCompleted() {
 
-    const testKey = this.props.cTest.slug;
-
     const correctAnswers = Session.get('correctCount');
     const percentCorrect = Math.floor((correctAnswers / Constants.GNG_SYMBOLS_PER_TEST) * 100);
 
     const bestTime = this.getFastestTime(this.correctAnswerTimes);
     const averageTime = this.getAverageTime(this.correctAnswerTimes);
 
-    Meteor.apply('submitScore', [{
+    const scoreDoc = {
 
-      testKey: testKey,
-      timestamp: new Date().getTime(),
       percentCorrect: percentCorrect + '%',
       bestTime: bestTime + '',
       averageTime: averageTime + '',
 
-    },], {
+    };
 
-      onResultReceived: (error, response) => {
-
-        if (error) console.warn(error.reason);
-        if (response) console.log('submitScore success:', response);
-
-        // Progress to score screen.
-        Session.set('appState', Constants.STATE_PLAY_SCORE);
-
-      },
-
-    });
+    super.submitResults(scoreDoc);
 
   }
 

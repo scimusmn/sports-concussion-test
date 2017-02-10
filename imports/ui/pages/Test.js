@@ -15,9 +15,6 @@ export default class Test extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('Test:constructor');
-    console.dir(props);
-
     this.state = {
 
     };
@@ -32,14 +29,6 @@ export default class Test extends React.Component {
     // DOM is rendered and
     // ready for manipulation
     // and animations.
-
-    const demoVid = this.refs.demoVid;
-
-    if (demoVid) {
-      demoVid.onended = function() {
-        console.log('demoVid ended');
-      };
-    }
 
     // Set keyboard callbacks
     setNumPressCallback(this.onNumberPress);
@@ -126,8 +115,6 @@ export default class Test extends React.Component {
 
     const appState = this.props.appState;
     let jsx = '';
-
-    console.log('render vbody appState ', appState);
 
     if (appState == Constants.STATE_HOW_TO_PLAY) {
       jsx = <div className='divide-vertical'>

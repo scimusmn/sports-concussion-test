@@ -16,9 +16,6 @@ export default class ScoreTable extends React.Component {
       prevLabelStyles: {},
     };
 
-    console.log('constructor:ScoreTable');
-    console.dir(props);
-
   }
 
   componentDidUpdate() {

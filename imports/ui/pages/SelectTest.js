@@ -8,8 +8,6 @@ export default class SelectTest extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log('SelectTest:constructor');
-
     // Bind methods to 'this'
     this.getTestLink = this.getTestLink.bind(this);
 
@@ -20,7 +18,6 @@ export default class SelectTest extends React.Component {
   }
 
   componentDidMount() {
-    console.log('SelectTest:componentDidMount');
     Session.set('currentTest', '');
   }
 
