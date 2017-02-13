@@ -25,9 +25,7 @@
  *
  */
 
-// Default ghost logger.
-// Fails gracefully
-// when not replaced.
+// Default ghost logger, to be overwritten.
 let logger = {
 
   debug: function () {},
@@ -80,7 +78,7 @@ if(Meteor.isServer) {
 
   } catch (err) {
 
-    console.log('WARNING: Directory "' + rootLogDirectory + '" not accessible for file-logging. Check existance and permissions.');
+    console.log('WARNING: Directory "' + rootLogDirectory + '" not accessible for file-logging.');
     console.error(err);
 
   }
