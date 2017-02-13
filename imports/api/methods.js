@@ -4,7 +4,7 @@ import { check } from 'meteor/check';
 import Localizations from './localizations';
 import ConcussionTests from './concussion-tests';
 import { Scores } from './scores';
-import logger from '../modules/logger.js';
+import logger from '../modules/logger';
 
 Meteor.methods({
 
